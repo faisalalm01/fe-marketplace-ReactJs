@@ -1,0 +1,7 @@
+export const AUTH_TYPE = {
+    REGISTER_USER: 'REGISTER_USER'
+}
+
+export const PRODUCT_TYPE = {
+    GET_ALL_PRODUCT: 'GET_ALL_PRODUCT'
+}
