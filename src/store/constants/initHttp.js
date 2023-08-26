@@ -3,5 +3,6 @@ export const AUTH = {
 }
 
 export const PRODUCT = {
-    GET_ALL_PRODUCT: 'product/list'
+    GET_ALL_PRODUCT: 'product/list',
+    GET_DETAIL_PRODUCT: 'product/detail/'
 }

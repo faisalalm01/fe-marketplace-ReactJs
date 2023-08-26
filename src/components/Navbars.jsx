@@ -1,13 +1,14 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { FaUser } from 'react-icons/fa'
 
 const Navbars = () => {
+  const navigate = useNavigate()
   return (
     <>
       <nav className='bg-white border-b-1 shadow-xl py-5 '>
         <div className='mx-auto container flex flex-wrap justify-between'>
-          <div className='w-1/4'>
+          <div className='w-1/4' onClick={() => {navigate('/')}}>
             <img src="logo" alt="" className='w-40 h-10' />
           </div>
           <div className='mr-auto w-3/6'>

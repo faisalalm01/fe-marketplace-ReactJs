@@ -1,7 +1,8 @@
 import { PRODUCT_TYPE } from "../../constants/initType";
 
 const initialState = {
-    dataProduct: []
+    dataProduct: [],
+    dataDetailProduct: []
 }
 const Product = (state = initialState, { type, payload }) => {
     switch (type) {
@@ -9,7 +10,12 @@ const Product = (state = initialState, { type, payload }) => {
             return {
                 ...state,
                 dataProduct: payload
-            }
+            };
+        case PRODUCT_TYPE.GET_DETAIL_PRODUCT:
+            return {
+                ...state,
+                dataDetailProduct: payload
+            };
         default:
             return state;
     }

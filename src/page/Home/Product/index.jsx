@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getAllProduct } from '../../../store/action';
 import { useNavigate } from 'react-router-dom';
 import CardProduct from '../../../components/CardProduct/CardProduct';
+import { formatRupiah } from '../../../utils';
 
 const Product = () => {
   const dispatch = useDispatch();
@@ -36,20 +37,21 @@ const Product = () => {
     }));
   };
   return (
-    <div className='flex flex-wrap space-x-4 items-center justify-center'>
-      {products && products.map((item) => (
-        // <div key={item.id}>
-        <CardProduct
-          image={item.image}
-          key={item.id}
-          title={item.title}
-          price={item.price}
-          description={item.description}
-          onClick={() => {navigate(`/product/${item.id}`)}}
-        />
-        // </div>
-      ))}
-    </div>
+    <div className='flex container mx-auto flex-wrap items-center justify-center gap-5 md:gap-5 max-sm:gap-4'>
+        {products && products.map((item) => (
+          // <div key={item.id}>
+          <CardProduct
+            image={item.image}
+            key={item.id}
+            title={item.title}
+            price= {item.price === null || item.price === 0 ? 'Free' : `${formatRupiah(item.price)},-`}
+            description={item.description}
+            onClick={() => { navigate(`/product/${item.id}`) }}
+          />
+          // </div>
+        ))}
+      </div>
+    // </section>
   )
 }
 

@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-const ButtonTest = ({ name, classname, onClick }) => {
+const ButtonPrimary = ({ name, classname, onClick }) => {
     return (
         <button
             onClick={onClick}
@@ -13,10 +13,10 @@ const ButtonTest = ({ name, classname, onClick }) => {
     )
 }
 
-ButtonTest.propTypes = {
+ButtonPrimary.propTypes = {
     name: PropTypes.string,
     classname: PropTypes.string,
-    // onClick: PropTypes.func
+    onClick: PropTypes.func
 }
 
-export default ButtonTest
+export default ButtonPrimary
