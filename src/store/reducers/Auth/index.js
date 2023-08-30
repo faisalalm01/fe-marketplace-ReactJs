@@ -1,7 +1,8 @@
 import { AUTH_TYPE } from "../../constants/initType";
 
 const initialState = {
-    dataRegister: []
+    dataRegister: {},
+    dataLogin: false
 };
 const Auth = (state = initialState, {type, payload}) => {
     switch (type) {
@@ -9,6 +10,11 @@ const Auth = (state = initialState, {type, payload}) => {
             return {
                 ...state,
                 dataRegister: payload
+            };
+        case AUTH_TYPE.LOGIN_USER:
+            return {
+                ...state,
+                dataLogin: payload
             }
         default:
             return state;

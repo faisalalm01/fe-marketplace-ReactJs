@@ -5,19 +5,9 @@ import ButtonPriamry from '../Button/Primary'
 const CardProduct = ({ image, title, description, price, onClick }) => {
     return (
         <>
-            {/* <div class="flex flex-wrap -m-4 items-center justify-center">
-                <div class="xl:w-1/4 md:w-1/3 p-4">
-                    <div class="bg-gray-100 p-6 rounded-lg">
-                        <img class="h-40 rounded w-full object-cover object-center mb-6" src={image} alt="content" />
-                        <h3 class="tracking-widest text-indigo-500 text-xs font-medium title-font">SUBTITLE</h3>
-                        <h2 class="text-lg text-gray-900 font-medium title-font mb-4">Chichen Itza</h2>
-                        <p class="leading-relaxed text-base">Fingerstache flexitarian street art 8-bit waistcoat. Distillery hexagon disrupt edison bulbche.</p>
-                    </div>
-                </div>
-            </div> */}
-            <div className='w-56 xl:w-1/5 md:w-1/3 sm:w-1/3 shadow-2xl rounded-md bg-white mb-16'>
-                <div className='p-1.5'>
-                    <img className='w-full bg-gray-500 h-44 rounded-md' src={image} alt="" />
+            <div className='w-56 max-lg:w-1/4 xl:w-1/5 max-md:w-1/3 max-sm:w-1/3 shadow-2xl rounded-md bg-white'>
+                <div className='p-1.5 h-80'>
+                    <img className='w-full h-full bg-gray-500 rounded-md' src={image} alt="gambar-product" />
                 </div>
                 <div className='lg:px-5 sm:px-2'>
                     <h1 className='text-xl font-semibold'>{title}</h1>

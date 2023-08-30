@@ -96,4 +96,12 @@ const objectString = (data, convert) => {
     }).format(money);
   };
 
-export {getData, getUrlParsing, objectString, formatRupiah}
+ const storeData = async (key, value) => {
+    try {
+      localStorage.setItem(key, JSON.stringify(value));
+    } catch (e) {
+      console.log('error store localStorage: ', e);
+    }
+  };
+
+export {getData, getUrlParsing, objectString, formatRupiah, storeData}

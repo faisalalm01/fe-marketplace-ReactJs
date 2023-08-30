@@ -22,7 +22,6 @@ const Product = () => {
     getDataProduct();
   }, []);
 
-
   useEffect(() => {
     if (Product.dataProduct.length >= 0) {
       setProducts(Product.dataProduct)
@@ -31,13 +30,13 @@ const Product = () => {
     }
   }, [Product.dataProduct]);
 
-  const handleButtonClick = () => {
-    console.log('Button clicked', Product.dataProduct.map((e, i) => {
-      return {}
-    }));
-  };
+  // const handleButtonClick = () => {
+  //   console.log('Button clicked', Product.dataProduct.map((e, i) => {
+  //     return {}
+  //   }));
+  // };
   return (
-    <div className='flex container mx-auto flex-wrap items-center justify-center gap-5 md:gap-5 max-sm:gap-4'>
+    <div className='py-20 flex 2xl:container mx-auto flex-wrap justify-center gap-5 md:gap-5 max-sm:gap-4'>
         {products && products.map((item) => (
           // <div key={item.id}>
           <CardProduct
