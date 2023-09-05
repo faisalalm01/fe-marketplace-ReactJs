@@ -41,7 +41,7 @@ const Product = () => {
           // <div key={item.id}>
           <CardProduct
             image={item.image}
-            key={item.id}
+            id={item.id}
             title={item.title}
             price= {item.price === null || item.price === 0 ? 'Free' : `${formatRupiah(item.price)},-`}
             description={item.description}

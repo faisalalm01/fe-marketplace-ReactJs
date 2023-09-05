@@ -30,9 +30,9 @@ const Register = () => {``
     };
     dispatch(registerUser(dataSubmit));
   };
-  console.log(data);
+  console.log(Auth?.dataRegister);
   useEffect(() => {
-    if (Auth?.dataRegister?.status === 200) {
+    if (Auth?.dataRegister) {
       navigate('/')
     } else {
       // setData(false)

@@ -2,10 +2,10 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import ButtonPriamry from '../Button/Primary'
 
-const CardProduct = ({ image, title, description, price, onClick }) => {
+const CardProduct = ({ id, image, title, description, price, onClick }) => {
     return (
         <>
-            <div className='w-56 max-lg:w-1/4 xl:w-1/5 max-md:w-1/3 max-sm:w-1/3 shadow-2xl rounded-md bg-white'>
+            <div className='w-56 max-lg:w-1/4 xl:w-1/5 max-md:w-1/3 max-sm:w-1/3 shadow-2xl rounded-md bg-white' key={id}>
                 <div className='p-1.5 h-80'>
                     <img className='w-full h-full bg-gray-500 rounded-md' src={image} alt="gambar-product" />
                 </div>
@@ -23,6 +23,7 @@ const CardProduct = ({ image, title, description, price, onClick }) => {
 }
 
 CardProduct.propTypes = {
+    id: PropTypes.string,
     image: PropTypes.string,
     title: PropTypes.string,
     description: PropTypes.string,
