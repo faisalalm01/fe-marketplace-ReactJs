@@ -14,8 +14,8 @@ req.interceptors.request.use(
       }
     });
 
-    config.headers['Content-Type'] = 'application/x-www-form-urlencoded';
-    config.headers['Accept'] = 'application/json';
+    config.headers['Content-Type'] = 'application/json';
+    // config.headers['Accept'] = 'application/json';
 
     return config;
   },
