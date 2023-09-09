@@ -40,6 +40,7 @@ const Product = () => {
         {products && products.map((item) => (
           // <div key={item.id}>
           <CardProduct
+            key={item.id}
             image={item.image}
             id={item.id}
             title={item.title}

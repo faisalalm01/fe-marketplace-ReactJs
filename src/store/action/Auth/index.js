@@ -22,7 +22,7 @@ export const loginUser = (body) => {
             let res = await requestPost(AUTH.LOGIN_USER, body);
             dispatch({ type: AUTH_TYPE.LOGIN_USER, payload: res})
             console.log(res);
-            await storeData('access_token', res.data.token);
+            // await storeData('access_token', res.data.token);
         } catch (error) {
             dispatch({ type: AUTH_TYPE.LOGIN_USER, payload: error });
             console.log('loginUser', JSON.stringify(error));

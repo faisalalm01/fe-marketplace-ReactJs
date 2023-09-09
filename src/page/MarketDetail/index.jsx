@@ -25,7 +25,7 @@ const MarketDetail = () => {
             setData({})
         }
     }, [Market.dataDetailMarket])
-    return (
+    return ( 
         <>
             <div className='bg-white mt-16 mx-auto container rounded-lg shadow-xl'>
                 <img src={data?.product?.[1].image} className='w-full h-52 object-cover' alt="" />
