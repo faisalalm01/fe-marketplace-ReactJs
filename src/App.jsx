@@ -1,6 +1,6 @@
 import React, { useLayoutEffect } from 'react'
 import { useLocation, Route, Routes } from 'react-router-dom'
-import { Login, Main, MarketDetail } from './page';
+import { Login, Main, MarketDetail, UserProfile } from './page';
 import { Register } from './page';
 import Navbars from './components/Navbars';
 import { ProductDetail } from './page';
@@ -22,7 +22,7 @@ const App = () => {
         <Route path='/register' element={<Register/>} />
         <Route path='/product/:id' element={<ProductDetail/>} />
         <Route path='/market/:id' element={<MarketDetail/>} />
-        {/* <Route path='/user/:token' element={<User/>} /> */}
+        <Route path='/user/profile' element={<UserProfile/>} />
         <Route path='*' element={<NotFound/>}/>
       </Routes>
     </div>

@@ -4,6 +4,7 @@ import { FaUser } from 'react-icons/fa'
 
 const Navbars = () => {
   const navigate = useNavigate()
+  const token = localStorage.getItem('token');
   return (
     <>
       <nav className='bg-white border-b-1 shadow-xl py-5 '>
@@ -18,6 +19,13 @@ const Navbars = () => {
               </form>
             </div>
           </div>
+          {token ? (
+            <>
+              <div>
+                <Link to={'/user/profile'}>Profile</Link>
+              </div>
+            </>
+          ): (
           <div className='w-1/5 flex flex-row-reverse mt-4 text-lg font-semibold'>
             <Link className='ml-5' to={'/register'}>
               Register
@@ -29,6 +37,7 @@ const Navbars = () => {
             {/* <img src="logo" alt="" className='w-40 h-10' />
             <img src="logo" alt="" className='ml-auto w-16 h-16 rounded-full border' /> */}
           </div>
+          )}
         </div>
       </nav>
     </>
