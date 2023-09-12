@@ -5,12 +5,13 @@ import { getData, objectString } from '../../utils/index';
 const req = axios.create({
   baseURL: import.meta.env.VITE_BASE_URL,
 });
+const getToken = localStorage.getItem('token');
 
 req.interceptors.request.use(
   async (config) => {
     await getData('access_token').then((res) => {
       if (res && config.url !== '') {
-        return (config.headers['access_token'] = 'Bearer ' + res.replace(/\"|\\/g, ''));
+        return (config.headers['access_token'] = 'Bearer ' + getToken); //res.replace(/\"|\\/g, ''));
       }
     });
 

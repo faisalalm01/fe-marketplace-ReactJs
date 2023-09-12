@@ -5,162 +5,132 @@ import { registerUser } from '../../store/action'
 import { FiEye, FiEyeOff } from 'react-icons/fi';
 import axios from 'axios';
 
-const Register = () => {``
-  const [data, setData] = useState({
-    password: '',
+const Register = () => {
+  const navigate = useNavigate();
+  const [formData, setFormData] = useState({
     firstname: '',
     lastname: '',
     email: '',
-  })
-  const { Auth } = useSelector((state) => state)
-  const navigate = useNavigate();
-  // const handleClickShowPassword = () => {
-  //     setData({ ...data, showPassword: !data.showPassword })
-  // }
-  const handleChange = (prop) => (event) => {
-    setData({ ...data, [prop]: event.target.value });
+    password: '',
+  });
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
   };
-  const dispatch = useDispatch();
-  const handleSubmit = () => {
-    const dataSubmit = {
-      firstname: data.firstname,
-      lastname: data.lastname,
-      email: data.email,
-      password: data.password,
-    };
-    dispatch(registerUser(dataSubmit));
-  };
-  console.log(Auth?.dataRegister);
-  useEffect(() => {
-    if (Auth?.dataRegister) {
-      navigate('/')
-    } else {
-      // setData(false)
-      console.log('error register user');
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const response = await axios.post('http://localhost:2024/api/auth/register', formData);
+      console.log(response.data);
+      if (response.data.status === 200) {
+        console.log(response.data.msg);
+        navigate('/login')
+      } else if (response.data.status === 401) {
+        console.log(response.data.error);
+      } else {
+        console.log(response.data.error);
+        console.error('Gagal melakukan registrasi.');
+      }
+    } catch (error) {
+      console.error('Terjadi kesalahan:', error);
     }
-  }, [Auth.dataRegister])
+  };
 
   return (
-    <div>
-      <div className="flex flex-col items-center min-h-screen pt-6 sm:justify-center sm:pt-0 bg-gray-50">
-        <div>
-          <a href="/">
-            <h3 className="text-4xl font-bold text-purple-600">
-              Logo
-            </h3>
-          </a>
-        </div>
-        <div className="w-full px-6 py-4 mt-6 overflow-hidden bg-white shadow-md sm:max-w-md sm:rounded-lg">
-          <form>
-            <div>
-              <label
-                htmlFor="name"
-                className="block text-sm font-medium text-gray-700 undefined"
-              >
-                firstname
-              </label>
-              <div className="flex flex-col items-start">
-                <input
-                  type='text'
-                  id='firstname'
-                  name='firstname'
-                  placeholder='Masukan nama depan anda'
-                  className='w-full bg-form-primary rounded-lg border border-gray-700 outline-2 outline-form-secondry text-background-primary text-lg normal-case py-1 px-3 leading-8'
-                  onChange={handleChange('firstname')}
-                  value={data.firstname}
-                // type="text"
-                // name="name"
-                // className="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
-                />
-              </div>
-            </div>
-            <div className="mt-4">
-              <label
-                htmlFor="password_confirmation"
-                className="block text-sm font-medium text-gray-700 undefined"
-              >
-                lastname
-              </label>
-              <div className="flex flex-col items-start">
-                <input
-                  type='text'
-                  id='lastname'
-                  name='lastname'
-                  placeholder='Masukan nama belakang anda'
-                  className='w-full bg-form-primary rounded-lg border border-gray-700 outline-2 outline-form-secondry text-background-primary text-lg normal-case py-1 px-3 leading-8'
-                  onChange={handleChange('lastname')}
-                  value={data.lastname}
-                // type="password"
-                // name="password_confirmation"
-                // className="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
-                />
-              </div>
-            </div>
-            <div className="mt-4">
-              <label
-                htmlFor="email"
-                className="block text-sm font-medium text-gray-700 undefined"
-              >
-                Email
-              </label>
-              <div className="flex flex-col items-start">
-                <input
-                  type='email'
-                  id='email'
-                  name='email'
-                  placeholder='Masukan email anda'
-                  className='w-full bg-form-primary rounded-lg border border-gray-700 outline-2 outline-form-secondry text-background-primary text-lg normal-case py-1 px-3 leading-8'
-                  onChange={handleChange('email')}
-                  value={data.email}
-                // type="email"
-                // name="email"
-                // className="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
-                />
-              </div>
-            </div>
-            <div className="mt-4">
-              <label
-                htmlFor="password"
-                className="block text-sm font-medium text-gray-700 undefined"
-              >
-                Password
-              </label>
-              <div className="flex flex-col items-start">
-                <input
-                  type='password'
-                  id='sandi'
-                  name='password'
-                  placeholder='Masukan sandi anda'
-                  className='w-full bg-form-primary border-none text-background-primary text-lg normal-case py-1 px-3 leading-8 outline-form-secondry'
-                  onChange={handleChange('password')}
-                  value={data.password}
-                // type="password"
-                // name="password"
-                // className="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
-                />
-              </div>
-            </div>
+    <>
+    <div className="relative flex flex-col justify-center min-h-screen overflow-hidden">
+     <div className="w-full p-6 m-auto bg-white rounded-md shadow-md lg:max-w-xl">
+         <h1 className="text-3xl font-semibold text-center text-purple-700 underline">
+           Sign up
+         </h1>
+         <form className="mt-6" onSubmit={handleSubmit}>
+           <div className="mb-2">
+             <label
+              htmlFor="firstname"
+              className="block text-sm font-semibold text-gray-800"
+            >
+              firstname
+            </label>
+            <input
+              value={formData.firstname}
+              onChange={handleInputChange}
+              name='firstname'
+              type="firstname"
+              className="block w-full px-4 py-2 mt-2 text-purple-700 bg-white border rounded-md focus:border-purple-400 focus:ring-purple-300 focus:outline-none focus:ring focus:ring-opacity-40"
+            />
+          </div>
+          <div className="mb-2">
+            <label
+              htmlFor="lastname"
+              className="block text-sm font-semibold text-gray-800"
+            >
+              lastname
+            </label>
+            <input
+              value={formData.lastname}
+              name='lastname'
+              onChange={handleInputChange}
+              type="lastname"
+              className="block w-full px-4 py-2 mt-2 text-purple-700 bg-white border rounded-md focus:border-purple-400 focus:ring-purple-300 focus:outline-none focus:ring focus:ring-opacity-40"
+            />
+          </div>
+          <div className="mb-2">
+            <label
+              htmlFor="email"
+              className="block text-sm font-semibold text-gray-800"
+            >
+              email
+            </label>
+            <input
+              value={formData.email}
+              name='email'
+              onChange={handleInputChange}
+              type="email"
+              className="block w-full px-4 py-2 mt-2 text-purple-700 bg-white border rounded-md focus:border-purple-400 focus:ring-purple-300 focus:outline-none focus:ring focus:ring-opacity-40"
+            />
+          </div>
+          <div className="mb-2">
+            <label
+              htmlFor="password"
+              className="block text-sm font-semibold text-gray-800"
+            >
+              Password
+            </label>
+            <input
+              value={formData.password}
+              name='password'
+              onChange={handleInputChange}
+              type="password"
+              className="block w-full px-4 py-2 mt-2 text-purple-700 bg-white border rounded-md focus:border-purple-400 focus:ring-purple-300 focus:outline-none focus:ring focus:ring-opacity-40"
+            />
+          </div>
+          <div className="mt-6">
+            <button className="w-full px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-purple-700 rounded-md hover:bg-purple-600 focus:outline-none focus:bg-purple-600">
+              Register
+            </button>
+          </div>
+        </form>
 
-            <div className="flex items-center justify-end mt-4">
-              <a
-                onClick={() => navigate('/login')}
-                className="text-sm text-gray-600 underline hover:text-gray-900"
-                href="#"
-              >
-                Already registered?
-              </a>
-              <button
-                onClick={handleSubmit}
-                type="submit"
-                className="inline-flex items-center px-4 py-2 ml-4 text-xs font-semibold tracking-widest text-white uppercase transition duration-150 ease-in-out bg-gray-900 border border-transparent rounded-md active:bg-gray-900 false"
-              >
-                Register
-              </button>
-            </div>
-          </form>
-        </div>
+        <p className="mt-8 text-xs font-light text-center text-gray-700">
+          {" "}
+          already have an account?{" "}
+          <a
+            onClick={() => navigate('/login')}
+            href="#"
+            className="font-medium text-purple-600 hover:underline"
+          >
+            Sign in
+          </a>
+        </p>
       </div>
     </div>
+    </>
   )
 }
 

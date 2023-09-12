@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import CardProduct from '../../../components/CardProduct/CardProduct'
 import { getAllMarket } from '../../../store/action';
 import { useNavigate } from 'react-router-dom';
@@ -22,6 +22,7 @@ const Market = () => {
     getDataMarket();
   }, []);
 
+  console.log(Market.dataMarket);
   useEffect(() => {
     if (Market.dataMarket.length >= 0) {
       setMarkets(Market.dataMarket)
@@ -33,11 +34,12 @@ const Market = () => {
     <div className='flex flex-wrap gap-10 py-10'>
         {markets && markets.map((item) => (
         <CardMarket
+            key={item.id}
             id={item.id}
             logo={item.logo}
-            name={item.name}
-            total={item.product.length}
-            onClick={() => { navigate(`/market/detal/${item.id}`) }}
+            name={item.nama}
+            total={item.product}
+            onClick={() => { navigate(`/market/detail/${item.id}`) }}
         />
         ))}
     </div>

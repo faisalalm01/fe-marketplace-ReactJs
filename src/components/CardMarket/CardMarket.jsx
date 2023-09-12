@@ -5,15 +5,15 @@ import ButtonSecondary from '../Button/Secondary'
 const CardMarket = ({id, logo, name, total, onClick}) => {
   return (
     <>
-        <div className='my-auto mx-auto flex flex-wrap' key={id}>
+        <div className='my-auto mx-auto flex flex-wrap bg-white shadow-xl rounded-lg py-2' key={id}>
             <div>
-                <img className='' src={logo} alt="" />
+                <img className='w-24 h-24 border-r-2' src={logo} alt="" />
             </div>
-            <div className=''>
-                <h1>{name}</h1>
-                <p>Total Produk : {total}</p>
+            <div className='my-auto px-5'>
+                <h1 className='font-semibold'>{name}</h1>
+                {/* <p>Total Produk : {total}</p> */}
             </div>
-            <ButtonSecondary classname={'text-white bg-purple-900'} name={">"} onClick={onClick}/>
+            <ButtonSecondary classname={'text-white bg-purple-900 px-2 mx-2'} name={">"} onClick={onClick}/>
         </div>
     </>
   )

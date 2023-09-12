@@ -1,6 +1,7 @@
 import React from 'react'
 import Banner from '../../../components/Banner'
 import Product from '../Product';
+import Market from '../Market/Market';
 
 const Main = () => {
   return (
@@ -13,6 +14,7 @@ const Main = () => {
         </div>
       </header>
       <main className=''>
+        <Market/>
         <Product/>
       </main>
     </div>

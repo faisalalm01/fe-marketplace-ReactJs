@@ -21,11 +21,11 @@ const Navbars = () => {
           </div>
           {token ? (
             <>
-              <div>
+              <div className='w-1/5 flex flex-row-reverse mt-4 text-lg font-semibold'>
                 <Link to={'/user/profile'}>Profile</Link>
               </div>
             </>
-          ): (
+          ) : (
           <div className='w-1/5 flex flex-row-reverse mt-4 text-lg font-semibold'>
             <Link className='ml-5' to={'/register'}>
               Register

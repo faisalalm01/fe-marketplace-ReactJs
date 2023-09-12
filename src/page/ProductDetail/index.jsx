@@ -101,7 +101,7 @@ const ProductDetail = () => {
                                 <ButtonSecondary
                                     name={"Kunjungi Toko"}
                                     classname={"text-purple-800 px-6 text-sm py-2 hover:text-white hover:bg-purple-800"}
-                                    onClick={() => navigate(`/market/${data?.market?.id}`)}
+                                    onClick={() => navigate(`/market/detail/${data?.market?.id}`)}
                                 />
                             </div>
                         </div>
