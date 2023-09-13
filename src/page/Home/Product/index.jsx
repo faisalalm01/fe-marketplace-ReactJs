@@ -46,7 +46,7 @@ const Product = () => {
             title={item.title}
             price= {item.price === null || item.price === 0 ? 'Free' : `${formatRupiah(item.price)},-`}
             description={item.description}
-            onClick={() => { navigate(`/product/${item.id}`) }}
+            onClick={() => { navigate(`/product/detail/${item.id}`) }}
           />
           // </div>
         ))}

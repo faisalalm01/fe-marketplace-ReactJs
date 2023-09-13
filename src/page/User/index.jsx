@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
+const ImageProfileDefault = '../src/assets/profile.jpg'
 
 const UserProfile = () => {
   const navigate = useNavigate()
@@ -17,7 +18,7 @@ const UserProfile = () => {
         },
       };
 
-      axios.get('http://localhost:2024/api/user/detail', config) // Ganti dengan URL API yang sesuai
+      axios.get(import.meta.env.VITE_BASE_URL+'/user/detail', config) // Ganti dengan URL API yang sesuai
         .then((response) => {
           setUser(response.data.data);
         })
@@ -31,7 +32,7 @@ const UserProfile = () => {
     setIsEditing(true);
   };
   const handleSaveClick = () => {
-    axios.put('/api/profile', user, {
+    axios.put(import.meta.env.VITE_BASE_URL+'/user/update', user, {
       headers: {
         'access_token': `Bearer ${token}`,
       },
@@ -53,7 +54,6 @@ const UserProfile = () => {
     });
   };
 
-  console.log(user);
   function Logout() {
     localStorage.removeItem('token');
 
@@ -69,7 +69,7 @@ const UserProfile = () => {
           <div className=''>
             <div className='flex flex-wrap mx-56 px-12 py-10 bg-white rounded-lg shadow-xl'>
               <div className='w-2/6 mt-10 '>
-                <img className='ml-20 border border-green-500 w-32 rounded-full h-32' src="" alt="user-profile" />
+                <img className='ml-20 border border-gray-400 w-36 rounded-full h-36' src={ImageProfileDefault} alt="user-profile" />
               </div>
               <div className='w-3/5 px-2'>
                 {isEditing ? (

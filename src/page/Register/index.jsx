@@ -26,7 +26,7 @@ const Register = () => {
     e.preventDefault();
 
     try {
-      const response = await axios.post('http://localhost:2024/api/auth/register', formData);
+      const response = await axios.post(import.meta.env.VITE_BASE_URL+'/auth/register', formData);
       console.log(response.data);
       if (response.data.status === 200) {
         console.log(response.data.msg);

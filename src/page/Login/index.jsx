@@ -22,7 +22,7 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch('http://localhost:2024/api/auth/login', {
+      const response = await fetch(import.meta.env.VITE_BASE_URL+'/auth/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded',
@@ -34,9 +34,9 @@ const Login = () => {
         const data = await response.json();
         const token = data.data.token;
         // Simpan token ke localStorage
-        console.log(data.data);
         localStorage.setItem('token', token);
         navigate('/')
+        window.location.href = window.location.href;
         // Redirect ke halaman setelah login
       } else {
         navigate('/login')

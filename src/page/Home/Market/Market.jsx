@@ -22,7 +22,6 @@ const Market = () => {
     getDataMarket();
   }, []);
 
-  console.log(Market.dataMarket);
   useEffect(() => {
     if (Market.dataMarket.length >= 0) {
       setMarkets(Market.dataMarket)
@@ -41,7 +40,7 @@ const Market = () => {
             total={item.product}
             onClick={() => { navigate(`/market/detail/${item.id}`) }}
         />
-        ))}
+        )).slice(0,3)}
     </div>
   )
 }

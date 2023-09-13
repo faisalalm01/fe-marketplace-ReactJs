@@ -5,6 +5,7 @@ import NotFound from "./NotFound";
 import MarketDetail from "./MarketDetail";
 import Login from "./Login";
 import UserProfile from "./User";
+import CartList from "./CartList";
 import { Dashboard, AddMarket, AddProduct } from "./AdminSeller";
 
 export {
@@ -17,5 +18,6 @@ export {
     UserProfile,
     Dashboard,
     AddMarket,
-    AddProduct
+    AddProduct,
+    CartList
 }

@@ -6,6 +6,7 @@ import ButtonSecondary from '../../components/Button/Secondary';
 import { formatRupiah } from '../../utils';
 import ButtonPrimary from '../../components/Button/Primary';
 import { FiAlertCircle } from 'react-icons/fi';
+import axios from 'axios';
 // import ButtonTest from '../../components/Button';
 
 const ProductDetail = () => {
@@ -15,12 +16,33 @@ const ProductDetail = () => {
     const location = useLocation();
     const { Product } = useSelector((state) => state)
     const [data, setData] = useState({})
+    const [cartItems, setCartItems] = useState([]);
+    const [user, setUser] = useState(null);
+    const token = localStorage.getItem('token');
 
     useEffect(() => {
         dispatch(getDetailProduct(id))
     }, [id])
 
-    console.log(Product.dataDetailProduct);
+    useEffect(() => {
+        if (token) {
+          // Jika token ada, lakukan permintaan ke API untuk mengambil detail pengguna
+          const config = {
+            headers: {
+              'access_token': `Bearer ${token}`,
+            },
+          };
+    
+          axios.get(import.meta.env.VITE_BASE_URL+'/user/detail', config) // Ganti dengan URL API yang sesuai
+            .then((response) => {
+              setUser(response.data.data);
+            })
+            .catch((error) => {
+              console.error('Error:', error);
+            });
+        }
+      }, [token]);
+
     useEffect(() => {
         if (Product.dataDetailProduct) {
             setData(Product.dataDetailProduct)
@@ -29,6 +51,34 @@ const ProductDetail = () => {
             // setKategori({})
         }
     }, [Product.dataDetailProduct])
+    
+    
+    const handleAddToCart = () => {
+            
+        const headers = {
+          'access_token': `Bearer ${token}`,
+        };
+
+        const productData = {
+            // userId: user.id,
+            productId: Product.dataDetailProduct.id,
+          };
+
+        axios.post(import.meta.env.VITE_BASE_URL+'user/cart', productData, { headers })
+          .then((response) => {
+            if (response.status === 200) {
+                setCartItems(response.data.data);
+                window.location.href = window.location.href;
+            } else if(response.status === 401 || user.id === null) {
+                navigate('/login')
+            } else {
+                window.location.href = window.location.href;
+            }
+          })
+          .catch((error) => {
+            console.error('Gagal menambahkan produk ke keranjang:', error);
+          });
+      };
 
     return (
         <div>
@@ -58,7 +108,7 @@ const ProductDetail = () => {
                                     disable={data.stock === null || data.stock === 0 ? true : false}
                                     name={"Masukkan Keranjang"}
                                     classname={"w-7/12 bg-purple-800 px-10 py-2 text-white font-semibold hover:text-purple-800 hover:bg-white"}
-                                    onClick={() => { navigate('/') }}
+                                    onClick={handleAddToCart}
                                 />
                                 <ButtonPrimary
                                     disabled={data.stock === null || data.stock === 0 ? true : false}

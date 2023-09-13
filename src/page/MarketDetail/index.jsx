@@ -17,7 +17,7 @@ const MarketDetail = () => {
         dispatch(getDetailMarket(id))
     }, [id])
 
-    console.log(Market.dataDetailMarket);
+    // console.log(Market.dataDetailMarket);
     useEffect(() => {
         if (Market.dataDetailMarket) {
             setData(Market.dataDetailMarket)
@@ -55,7 +55,7 @@ const MarketDetail = () => {
                         title={item.title}
                         description={item.description.slice(0,70)}
                         price= {item.price === null || item.price === 0 ? 'Free' : `${formatRupiah(item.price)},-`}
-                        onClick={() => {navigate(`/product/${item.id}`)}}
+                        onClick={() => {navigate(`/product/detail/${item.id}`)}}
                         />
                 ))}
             </div>

@@ -104,4 +104,11 @@ const objectString = (data, convert) => {
     }
   };
 
-export {getData, getUrlParsing, objectString, formatRupiah, storeData}
+const isUserAuthenticated = () => {
+    const token = localStorage.getItem('token'); // Anda dapat menyesuaikan ini dengan penyimpanan yang Anda gunakan
+  
+    // Periksa apakah token ada dan valid sesuai dengan aturan aplikasi Anda
+    return token !== null// Anda perlu mengimplementasikan fungsi isValidToken sesuai kebutuhan
+  }
+
+export {getData, getUrlParsing, objectString, formatRupiah, storeData ,isUserAuthenticated}
