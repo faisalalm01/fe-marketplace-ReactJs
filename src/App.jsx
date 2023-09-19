@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useEffect, useLayoutEffect } from 'react'
 import { useLocation, Route, Routes, useNavigate } from 'react-router-dom'
 import { AddMarket, AddProduct, CartList, Dashboard, Login, Main, MarketDetail, UserProfile } from './page';
