@@ -6,6 +6,7 @@ import Navbars from './components/Navbars';
 import { ProductDetail } from './page';
 import { NotFound } from './page';
 import { isUserAuthenticated } from './utils';
+import TestPayment from './page/TesPayment';
 // import Test from './components/Test';
 
 const App = () => {
@@ -31,7 +32,9 @@ const App = () => {
           <Route path='/admin/create-product' element={<AddProduct />} />
           <Route path='/admin/create-markt' element={<AddMarket />} />
           {/* // not found */}
-          <Route path='*' element={<NotFound />} />
+        <Route path='*' element={<NotFound />} />
+        {/* {test payment} */}
+         <Route path='/testpayment' element={<TestPayment />} />
       </Routes>
     </div>
   )
