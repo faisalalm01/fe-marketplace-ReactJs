@@ -30,7 +30,7 @@ const Market = () => {
     }
   }, [Market.dataMarket]);
   return (
-    <div className='flex flex-wrap gap-10 py-10'>
+    <div className='flex py-10'>
         {markets && markets.map((item) => (
         <CardMarket
             key={item.id}

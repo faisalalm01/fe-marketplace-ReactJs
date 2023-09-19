@@ -1,24 +1,39 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { useLocation, useNavigate, useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import { getDetailProduct } from '../../store/action';
 import ButtonSecondary from '../../components/Button/Secondary';
 import { formatRupiah } from '../../utils';
 import ButtonPrimary from '../../components/Button/Primary';
 import { FiAlertCircle } from 'react-icons/fi';
 import axios from 'axios';
+import OrderCreate from '../../components/Order';
 // import ButtonTest from '../../components/Button';
 
 const ProductDetail = () => {
-    const { id } = useParams();
+    const {id} = useParams();
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const location = useLocation();
-    const { Product } = useSelector((state) => state)
     const [data, setData] = useState({})
+    const { Product } = useSelector((state) => state)
     const [cartItems, setCartItems] = useState([]);
     const [user, setUser] = useState(null);
     const token = localStorage.getItem('token');
+    const [isModalOpen, setModalOpen] = useState(false);
+     const [amount, setAmount] = useState('');
+  const [paymentResponse, setPaymentResponse] = useState(null);
+    const [orderData, setOrderData] = useState({
+        productId: Product.dataDetailProduct.id,
+        totalProduct: 1
+    });
+
+    const openModal = () => {
+        setModalOpen(true);
+    };
+
+    const closeModal = () => {
+        setModalOpen(false);
+    };
 
     useEffect(() => {
         dispatch(getDetailProduct(id))
@@ -26,22 +41,22 @@ const ProductDetail = () => {
 
     useEffect(() => {
         if (token) {
-          // Jika token ada, lakukan permintaan ke API untuk mengambil detail pengguna
-          const config = {
-            headers: {
-              'access_token': `Bearer ${token}`,
-            },
-          };
-    
-          axios.get(import.meta.env.VITE_BASE_URL+'/user/detail', config) // Ganti dengan URL API yang sesuai
-            .then((response) => {
-              setUser(response.data.data);
-            })
-            .catch((error) => {
-              console.error('Error:', error);
-            });
+            // Jika token ada, lakukan permintaan ke API untuk mengambil detail pengguna
+            const config = {
+                headers: {
+                    'access_token': `Bearer ${token}`,
+                },
+            };
+
+            axios.get(import.meta.env.VITE_BASE_URL + '/user/detail', config) // Ganti dengan URL API yang sesuai
+                .then((response) => {
+                    setUser(response.data.data);
+                })
+                .catch((error) => {
+                    console.error('Error:', error);
+                });
         }
-      }, [token]);
+    }, [token]);
 
     useEffect(() => {
         if (Product.dataDetailProduct) {
@@ -51,50 +66,84 @@ const ProductDetail = () => {
             // setKategori({})
         }
     }, [Product.dataDetailProduct])
-    
-    
+
+
     const handleAddToCart = () => {
-            
+
         const headers = {
-          'access_token': `Bearer ${token}`,
+            'access_token': `Bearer ${token}`,
         };
 
         const productData = {
-            // userId: user.id,
+            userId: user.id,
             productId: Product.dataDetailProduct.id,
-          };
+        };
 
-        axios.post(import.meta.env.VITE_BASE_URL+'user/cart', productData, { headers })
-          .then((response) => {
-            if (response.status === 200) {
-                setCartItems(response.data.data);
-                window.location.href = window.location.href;
-            } else if(response.status === 401 || user.id === null) {
-                navigate('/login')
-            } else {
-                window.location.href = window.location.href;
-            }
-          })
-          .catch((error) => {
-            console.error('Gagal menambahkan produk ke keranjang:', error);
-          });
-      };
+        axios.post(import.meta.env.VITE_BASE_URL + 'user/cart', productData, { headers })
+            .then((response) => {
+                if (response.status === 200) {
+                    setCartItems(response.data.data);
+                    window.location.href = window.location.href;
+                } else if (response.status === 401 || user.id === null) {
+                    navigate('/login')
+                } else {
+                    window.location.href = window.location.href;
+                }
+            })
+            .catch((error) => {
+                console.error('Gagal menambahkan produk ke keranjang:', error);
+            });
+    };
+
+    const handleAddToOrder = () => {
+        const headers = {
+            'access_token': `Bearer ${token}`,
+        };
+
+        const productData = {
+            userId: user.id,
+            productId: Product.dataDetailProduct.id,
+            totalProduct: orderData.totalProduct
+        };
+
+        axios.post(import.meta.env.VITE_BASE_URL + 'user/order', productData, { headers })
+            .then((response) => {
+                if (response.status === 200) {
+                    setOrderData(response.data.data);
+                    window.location.href = window.location.href;
+                } else if (response.status === 401 || user.id === null) {
+                    navigate('/login')
+                } else {
+                    window.location.href = window.location.href;
+                }
+            })
+            .catch((error) => {
+                console.error('Gagal menambahkan produk ke order:', error);
+            });
+    };
+
+    const handleCheckout = async () => {
+    try {
+      const response = await axios.post(import.meta.env.VITE_BASE_URL +'user/transaction', { amount });
+      setPaymentResponse(response.data);
+    } catch (error) {
+      console.error('Error initiating payment:', error);
+    }
+  };
 
     return (
         <div>
             <div className='w-full container mx-auto'>
                 <div className='px-5 py-9 mx-32 bg-white mt-16 rounded-md shadow-xl'>
                     {data.stock === null || data.stock === 0 ? (
-                        <>
-                            <div className='flex flex-wrap rounded-md w-full bg-red-600 text-white justify-center item-center text-center font-bold text-xl py-3 gap-3'>
-                                <div className='my-auto'>
-                                    <FiAlertCircle />
-                                </div>
-                                <p>
-                                    produk tidak tersedia
-                                </p>
+                        <div className='flex flex-wrap rounded-md w-full bg-red-600 text-white justify-center item-center text-center font-bold text-xl py-3 gap-3'>
+                            <div className='my-auto'>
+                                <FiAlertCircle />
                             </div>
-                        </>
+                            <p>
+                                produk tidak tersedia
+                            </p>
+                        </div>
                     ) : (
                         <div>
                         </div>
@@ -114,7 +163,7 @@ const ProductDetail = () => {
                                     disabled={data.stock === null || data.stock === 0 ? true : false}
                                     name={"Order"}
                                     classname={"px-10 py-2 w-5/12"}
-                                    onClick={() => { navigate('/') }}
+                                    onClick={openModal}
                                 />
                             </div>
                         </div>
@@ -125,12 +174,12 @@ const ProductDetail = () => {
                             </div>
                             <div className='space-y-4 text-lg mt-5'>
                                 <p><b>Kategori : </b>{data?.kategoris?.nama}</p>
-                                <p className='flex font-semibold gap-2'>
+                                <div className='flex font-semibold gap-2'>
                                     Harga :
                                     <p className='text-red-600'>
                                         {data.price === null || data.price === 0 ? 'Free' : `${formatRupiah(`${data.price}`)},-`}
                                     </p>
-                                </p>
+                                </div>
                                 <div className='space-y-3'>
                                     <b>Description :</b>
                                     <p>{data.description}</p>
@@ -167,7 +216,49 @@ const ProductDetail = () => {
                     {/* </div> */}
                 </div>
 
+                <OrderCreate isOpen={isModalOpen} onClose={closeModal}>
+                    <h2 className="text-xl font-semibold">Order Product</h2>
+                        <img src={data.image} alt="product" />
+                        <div>
+                            <div className='flex flex-wrap'>
+                                <p className='w-9/12 text-2xl font-bold py-2'>{data.title}</p>
+                                <p className='w-3/12 mt-3'><i className='font-semibold'>Tersisa : </i>{data.stock}</p>
+                            </div>
+                            <p>Harga : <b className='text-red-600'>{data.price === null || data.price === 0 ? 'Free' : `${formatRupiah(`${data.price}`)},-`}</b></p>
+                            <p className='py-2 font-normal'>{data.description}</p>
+                        </div>
+                    <form onSubmit={handleAddToOrder}>
+                        <label htmlFor="">Jumlah : </label>
+                        <input className='border border-gray-500 rounded-lg px-2 w-1/5 mx-a' type="number" placeholder={Product.dataDetailProduct.title}
+                            value={orderData.totalProduct}
+                            onChange={(e) => setOrderData({ ...orderData, totalProduct: e.target.value })}
+                        />
+                        <div className='flex flex-wrap gap-5 justify-center'>
+                            <ButtonSecondary type='submit' name={'Bayar Nanti'} onClick={handleAddToOrder} classname={'w-2/5 mt-5 hover:bg-blue-800 hover:text-white font-semibold'} />
+                            <ButtonPrimary classname={'p-4 w-2/5 mt-5'} onClick={handleAddToOrder} name={"Lanjut Pemabayaran"} type='submit'></ButtonPrimary>
+                        </div>
+                    </form>
+                </OrderCreate>
             </div>
+            <div className="App">
+      <h1>Pembayaran dengan Midtrans</h1>
+      <div>
+        <label>Jumlah Pembayaran:</label>
+        <input
+          type="number"
+          value={amount}
+          onChange={(e) => setAmount(e.target.value)}
+        />
+      </div>
+      <button onClick={handleCheckout}>Bayar</button>
+
+      {paymentResponse && (
+        <div>
+          <h2>Respon Pembayaran Midtrans:</h2>
+          <pre>{JSON.stringify(paymentResponse, null, 2)}</pre>
+        </div>
+      )}
+    </div>
         </div>
     )
 }

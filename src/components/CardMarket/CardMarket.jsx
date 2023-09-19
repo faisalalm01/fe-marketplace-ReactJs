@@ -5,7 +5,7 @@ import ButtonSecondary from '../Button/Secondary'
 const CardMarket = ({id, logo, name, total, onClick}) => {
   return (
     <>
-        <div className='my-auto mx-auto flex flex-wrap bg-white shadow-xl rounded-lg py-2' key={id}>
+        <div className='my-auto mx-auto flex bg-white shadow-xl rounded-lg py-2' key={id}>
             <div>
                 <img className='w-24 h-24 border-r-2' src={logo} alt="" />
             </div>

@@ -6,7 +6,7 @@
 @layer base {
   :root {
     color: black;
-    background-color: #EDEDED;
+    /* background-color: #EDEDED; */
     font-family: 'Poppins', sans-serif;
   }
 }

@@ -1,6 +1,8 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
+import { formatRupiah } from '../../utils';
+import ButtonPrimary from '../../components/Button/Primary';
 const ImageProfileDefault = '../src/assets/profile.jpg'
 
 const UserProfile = () => {
@@ -8,6 +10,23 @@ const UserProfile = () => {
   const [user, setUser] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
   const token = localStorage.getItem('token');
+
+  const [orderItem, setOrderItem] = useState([]);
+
+  useEffect(() => {
+    // Setel header dengan token bearer
+    const headers = {
+      'access_token': `Bearer ${token}`,
+    };
+    axios.get(import.meta.env.VITE_BASE_URL + '/user/order', { headers })
+      .then((response) => {
+        setOrderItem(response.data.data);
+      })
+      .catch((error) => {
+        console.error('Gagal mengambil data order:', error);
+      });
+  }, []);
+  console.log(orderItem);
 
   useEffect(() => {
     if (token) {
@@ -18,7 +37,7 @@ const UserProfile = () => {
         },
       };
 
-      axios.get(import.meta.env.VITE_BASE_URL+'/user/detail', config) // Ganti dengan URL API yang sesuai
+      axios.get(import.meta.env.VITE_BASE_URL + '/user/detail', config) // Ganti dengan URL API yang sesuai
         .then((response) => {
           setUser(response.data.data);
         })
@@ -32,7 +51,7 @@ const UserProfile = () => {
     setIsEditing(true);
   };
   const handleSaveClick = () => {
-    axios.put(import.meta.env.VITE_BASE_URL+'/user/update', user, {
+    axios.put(import.meta.env.VITE_BASE_URL + '/user/update', user, {
       headers: {
         'access_token': `Bearer ${token}`,
       },
@@ -90,7 +109,7 @@ const UserProfile = () => {
                         value={user.lastname}
                         onChange={handleInputChange}
                       />
-                       <input
+                      <input
                         type="text"
                         name="nohp"
                         placeholder='No.Telp'
@@ -133,14 +152,6 @@ const UserProfile = () => {
             <div className=' container flex flex-wrap justify-center gap-3 my-5'>
               {user.dataMarket.length !== 0 ? (
                 <>
-                  {/* card product */}
-                  <div className='w-4/12 h-20 border border-red-500 rounded-lg bg-red-500 hover:bg-red-300' onClick={() => navigate('/admin/dashboard')}>
-                    <div>
-
-                    </div>
-                  </div>
-
-                  {/* card market */}
                   <div className='w-4/12 h-20 border border-purple-800 rounded-lg bg-purple-800 hover:bg-purple-500' onClick={() => navigate('/admin/dashboard')}>
                     <div>
 
@@ -154,6 +165,26 @@ const UserProfile = () => {
               )}
             </div>
 
+            <div className='mx-auto flex flex-wrap gap-5 justify-center'>
+            {orderItem.map((item) => (
+              <>
+                  <div className='flex shadow-lg rounded-md w-2/5'>
+                    <div className='w-2/5 p-2'>
+                      <img src={item?.product?.image} className='rounded-md' alt="" />
+                    </div>
+                    <div className='w-3/5 ml-4 px-1'>
+                      <p className='text-2xl font-semibold'>{item?.product?.title}</p>
+                      <div className='text-sm'>
+                      <p><b>Harga Product:</b> {item?.product?.price === null || item?.product?.price === 0 ? 'Free' : `${formatRupiah(`${item?.product?.price}`)},-`}</p>
+                      <p>Total Product yang diambil: {item.totalProduct}</p>
+                      <p>Total Harga: {item.totalPrice === null || item.totalPrice === 0 ? 'Free' : `${formatRupiah(`${item.totalPrice}`)},-`}</p>
+                      </div>
+                      <ButtonPrimary name={'Lanjut Bayar'} classname={'p-2 my-4'} />
+                    </div>
+                  </div>
+              </>
+            ))}
+            </div>
           </div>
         ) : (
           <p>Tidak ada data pengguna.</p>
