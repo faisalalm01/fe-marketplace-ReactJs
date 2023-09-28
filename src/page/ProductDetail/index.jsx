@@ -11,7 +11,7 @@ import OrderCreate from '../../components/Order';
 // import ButtonTest from '../../components/Button';
 
 const ProductDetail = () => {
-    const {id} = useParams();
+    const { id } = useParams();
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const [data, setData] = useState({})
@@ -20,8 +20,8 @@ const ProductDetail = () => {
     const [user, setUser] = useState(null);
     const token = localStorage.getItem('token');
     const [isModalOpen, setModalOpen] = useState(false);
-     const [amount, setAmount] = useState('');
-  const [paymentResponse, setPaymentResponse] = useState(null);
+    const [amount, setAmount] = useState('');
+    const [paymentResponse, setPaymentResponse] = useState(null);
     const [orderData, setOrderData] = useState({
         productId: Product.dataDetailProduct.id,
         totalProduct: 1
@@ -110,7 +110,8 @@ const ProductDetail = () => {
             .then((response) => {
                 if (response.status === 200) {
                     setOrderData(response.data.data);
-                    window.location.href = window.location.href;
+                    navigate('/user/profile')
+                    // window.location.href = window.location.href;
                 } else if (response.status === 401 || user.id === null) {
                     navigate('/login')
                 } else {
@@ -122,14 +123,63 @@ const ProductDetail = () => {
             });
     };
 
-    const handleCheckout = async () => {
-    try {
-      const response = await axios.post(import.meta.env.VITE_BASE_URL +'user/transaction', { amount });
-      setPaymentResponse(response.data);
-    } catch (error) {
-      console.error('Error initiating payment:', error);
+
+    const [name, setName] = useState("")
+    const [order_id, setOrder_id] = useState("8923723")
+    const [total, setTotal] = useState(45899)
+    const [tokenTransaction, setTokenTransaction] = useState("")
+
+    const process = async () => {
+        const data = {
+            name: user.username,
+            order_id: order_id,
+            total: total
+        }
+        const configg = {
+            headers: {
+                "Content-Type": "application/json",
+            },
+        };
+        const response = await axios.post(import.meta.env.VITE_BASE_URL + '/user/transaction', data, configg)
+        setTokenTransaction(response.data.token);
     }
-  };
+    useEffect(() => {
+        if (tokenTransaction) {
+            window.snap.pay(tokenTransaction, {
+                onSuccess: (result) => {
+                    localStorage.setItem('transaction', JSON.stringify(result))
+                    setTokenTransaction("")
+                    window.location.href = window.location.href;
+                },
+                onPending: (result) => {
+                    localStorage.setItem('transaction', JSON.stringify(result))
+                    setTokenTransaction("")
+                    window.location.href = window.location.href;
+                },
+                onError: (error) => {
+                    console.log(error);
+                    setTokenTransaction("")
+                },
+                onClose: () => {
+                    console.log('Anda Belum Menyelesaikan Pembayaran');
+                    setTokenTransaction("")
+                    window.location.href = window.location.href;
+                }
+            })
+            setName("")
+            setOrder_id("")
+            setTotal(0)
+        }
+    }, [tokenTransaction])
+
+    const handleCheckout = async () => {
+        try {
+            const response = await axios.post(import.meta.env.VITE_BASE_URL + 'user/transaction', { amount });
+            setPaymentResponse(response.data);
+        } catch (error) {
+            console.error('Error initiating payment:', error);
+        }
+    };
 
     return (
         <div>
@@ -211,54 +261,55 @@ const ProductDetail = () => {
                         </div>
                     </div>
                     <div className='w-6/12 h-full ml-auto'>
-                        <img className='w-full h-full' src={data.image} alt="" />
+                        <img className='object-cover h-full w-full' src={data.image} alt="" />
                     </div>
                     {/* </div> */}
                 </div>
 
                 <OrderCreate isOpen={isModalOpen} onClose={closeModal}>
                     <h2 className="text-xl font-semibold">Order Product</h2>
-                        <img src={data.image} alt="product" />
-                        <div>
-                            <div className='flex flex-wrap'>
-                                <p className='w-9/12 text-2xl font-bold py-2'>{data.title}</p>
-                                <p className='w-3/12 mt-3'><i className='font-semibold'>Tersisa : </i>{data.stock}</p>
-                            </div>
-                            <p>Harga : <b className='text-red-600'>{data.price === null || data.price === 0 ? 'Free' : `${formatRupiah(`${data.price}`)},-`}</b></p>
-                            <p className='py-2 font-normal'>{data.description}</p>
+                    <img src={data.image} alt="product" />
+                    <div>
+                        <div className='flex flex-wrap'>
+                            <p className='w-9/12 text-2xl font-bold py-2'>{data.title}</p>
+                            <p className='w-3/12 mt-3'><i className='font-semibold'>Tersisa : </i>{data.stock}</p>
                         </div>
+                        <p>Harga : <b className='text-red-600'>{data.price === null || data.price === 0 ? 'Free' : `${formatRupiah(`${data.price}`)},-`}</b></p>
+                        <p className='py-2 font-normal'>{data.description}</p>
+                    </div>
                     <form onSubmit={handleAddToOrder}>
                         <label htmlFor="">Jumlah : </label>
-                        <input className='border border-gray-500 rounded-lg px-2 w-1/5 mx-a' type="number" placeholder={Product.dataDetailProduct.title}
+                        <input className='border border-gray-500 rounded-lg px-2 w-1/5 mx-a' type="number"
                             value={orderData.totalProduct}
                             onChange={(e) => setOrderData({ ...orderData, totalProduct: e.target.value })}
                         />
+                        {/* <input type="text" name="" placeholder={orderData.totalProduct} id="" /> */}
                         <div className='flex flex-wrap gap-5 justify-center'>
                             <ButtonSecondary type='submit' name={'Bayar Nanti'} onClick={handleAddToOrder} classname={'w-2/5 mt-5 hover:bg-blue-800 hover:text-white font-semibold'} />
-                            <ButtonPrimary classname={'p-4 w-2/5 mt-5'} onClick={handleAddToOrder} name={"Lanjut Pemabayaran"} type='submit'></ButtonPrimary>
+                            <ButtonPrimary classname={'p-4 w-2/5 mt-5'} onClick={process} name={"Lanjut Pemabayaran"} type='submit'></ButtonPrimary>
                         </div>
                     </form>
                 </OrderCreate>
             </div>
-            <div className="App">
-      <h1>Pembayaran dengan Midtrans</h1>
-      <div>
-        <label>Jumlah Pembayaran:</label>
-        <input
-          type="number"
-          value={amount}
-          onChange={(e) => setAmount(e.target.value)}
-        />
-      </div>
-      <button onClick={handleCheckout}>Bayar</button>
+            {/* <div className="App">
+                <h1>Pembayaran dengan Midtrans</h1>
+                <div>
+                    <label>Jumlah Pembayaran:</label>
+                    <input
+                        type="number"
+                        value={amount}
+                        onChange={(e) => setAmount(e.target.value)}
+                    />
+                </div>
+                <button onClick={handleCheckout}>Bayar</button>
 
-      {paymentResponse && (
-        <div>
-          <h2>Respon Pembayaran Midtrans:</h2>
-          <pre>{JSON.stringify(paymentResponse, null, 2)}</pre>
-        </div>
-      )}
-    </div>
+                {paymentResponse && (
+                    <div>
+                        <h2>Respon Pembayaran Midtrans:</h2>
+                        <pre>{JSON.stringify(paymentResponse, null, 2)}</pre>
+                    </div>
+                )}
+            </div> */}
         </div>
     )
 }

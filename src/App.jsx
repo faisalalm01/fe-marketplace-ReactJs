@@ -19,24 +19,26 @@ const App = () => {
   return (
     <div>
       <Navbars />
+      <div className='pt-20'>
       <Routes>
+          <Route path='/login' element={<Login />} />
+          <Route path='/register' element={<Register />} />
           <Route exact path='/' element={<Main />} />
           <Route path='/product/detail/:id' element={<ProductDetail />} />
           <Route path='/market/detail/:id' element={<MarketDetail />} />
-          <Route path='/login' element={<Login />} />
-          <Route path='/register' element={<Register />} />
 
           <Route path='/user/profile' element={<UserProfile />} />
           <Route path='/user/carts' element={<CartList />} />
           {/* // admin */}
           <Route path='/admin/dashboard' element={<Dashboard />} />
-          <Route path='/admin/create-product' element={<AddProduct />} />
-          <Route path='/admin/create-markt' element={<AddMarket />} />
+          <Route path='/admin/product' element={<AddProduct />} />
+          <Route path='/admin/market' element={<AddMarket />} />
           {/* // not found */}
         <Route path='*' element={<NotFound />} />
         {/* {test payment} */}
          <Route path='/testpayment' element={<TestPayment />} />
       </Routes>
+      </div>
     </div>
   )
 }

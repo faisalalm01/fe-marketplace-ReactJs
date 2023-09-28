@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import { formatRupiah } from '../../utils';
 import ButtonPrimary from '../../components/Button/Primary';
+import { data } from 'autoprefixer';
 const ImageProfileDefault = '../src/assets/profile.jpg'
 
 const UserProfile = () => {
@@ -26,7 +27,6 @@ const UserProfile = () => {
         console.error('Gagal mengambil data order:', error);
       });
   }, []);
-  console.log(orderItem);
 
   useEffect(() => {
     if (token) {
@@ -73,6 +73,67 @@ const UserProfile = () => {
     });
   };
 
+  // const [name, setName] = useState("")
+  // const [order_id, setOrder_id] = useState(`209327323723`)
+  // const [total, setTotal] = useState(1)
+  const [tokenTransaction,setTokenTransaction] = useState("")
+  const [selectedProduct, setSelectedProduct] = useState(null);
+
+  const process = async(id) => {
+    const order = orderItem.find((p) => p.id === id)
+    setSelectedProduct(order);
+        const data = {
+          name: user.username,
+          order_id: order.id,
+          total: order.totalPrice
+        }
+    const configg = {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
+    const response = await axios.post(import.meta.env.VITE_BASE_URL + '/user/transaction', data, configg)
+    setTokenTransaction(response.data.token);
+  }
+  useEffect(() => {
+    if (tokenTransaction) {
+      window.snap.pay(tokenTransaction, {
+        onSuccess: (result) => {
+          localStorage.setItem('transaction', JSON.stringify(result))
+          setTokenTransaction("")
+        },
+        onPending: (result) => {
+          localStorage.setItem('transaction', JSON.stringify(result))
+          setTokenTransaction("")
+        },
+        onError: (error) => {
+          console.log(error);
+          setTokenTransaction("")
+        },
+        onClose: () => {
+          console.log('Anda Belum Menyelesaikan Pembayaran');
+          setTokenTransaction("")
+        }
+      })
+      // data.name(h  
+    }
+  },[tokenTransaction])
+
+  useEffect(() => {
+    // production use : 'https://app.midtrans.com/snap/snap.js'
+    const midtransUrl = 'https://app.sandbox.midtrans.com/snap/snap.js'
+      
+    let scriptTag = document.createElement("script")
+    scriptTag.src = midtransUrl
+
+    const midtransClientKey = import.meta.env.CLIENT_KEY_MIDTRANS
+    scriptTag.setAttribute("data-client-key", midtransClientKey)
+    document.body.appendChild(scriptTag)
+    return () => {
+      document.body.removeChild(scriptTag)
+    }
+  })
+
   function Logout() {
     localStorage.removeItem('token');
 
@@ -86,7 +147,7 @@ const UserProfile = () => {
       <div className='container mx-auto my-20 '>
         {user ? (
           <div className=''>
-            <div className='flex flex-wrap mx-56 px-12 py-10 bg-white rounded-lg shadow-xl'>
+            <div className='flex flex-wrap mx-32 px-12 py-10 bg-white rounded-lg shadow-xl'>
               <div className='w-2/6 mt-10 '>
                 <img className='ml-20 border border-gray-400 w-36 rounded-full h-36' src={ImageProfileDefault} alt="user-profile" />
               </div>
@@ -127,7 +188,15 @@ const UserProfile = () => {
                   </>
                 ) : (
                   <>
+                  <div className='flex justify-between'>
                     <h2 className='font-semibold text-2xl py-2'>Profile Saya</h2>
+                    {user.dataMarket.length !== 0 ? (
+                      <button onClick={() => navigate('/admin/dashboard')}>halaman dashboard</button>
+                    ):(
+                      <>
+                      </>
+                    )}
+                  </div>
                     <div className='border-t-2 py-5 font-medium text-lg'>
                       <p>Firstname: {user.firstname}</p>
                       <p>Lastname: {user.lastname}</p>
@@ -149,41 +218,33 @@ const UserProfile = () => {
               </div>
             </div>
 
-            <div className=' container flex flex-wrap justify-center gap-3 my-5'>
-              {user.dataMarket.length !== 0 ? (
-                <>
-                  <div className='w-4/12 h-20 border border-purple-800 rounded-lg bg-purple-800 hover:bg-purple-500' onClick={() => navigate('/admin/dashboard')}>
-                    <div>
-
-                    </div>
-                  </div>
-                </>
-              ) : (
-                <div>
-
-                </div>
-              )}
-            </div>
-
-            <div className='mx-auto flex flex-wrap gap-5 justify-center'>
+            <div className='mx-auto flex flex-wrap gap-5 justify-center my-5'>
             {orderItem.map((item) => (
-              <>
-                  <div className='flex shadow-lg rounded-md w-2/5'>
+              // <div key={item.id}>
+                  <div className='flex shadow-lg rounded-md w-2/5 pt-4 border' key={item.id}>
                     <div className='w-2/5 p-2'>
                       <img src={item?.product?.image} className='rounded-md' alt="" />
                     </div>
-                    <div className='w-3/5 ml-4 px-1'>
+                    <div className='w-3/5 ml-4 px-1 space-y-2'>
                       <p className='text-2xl font-semibold'>{item?.product?.title}</p>
-                      <div className='text-sm'>
+                      <div className='text-sm space-y-1'>
                       <p><b>Harga Product:</b> {item?.product?.price === null || item?.product?.price === 0 ? 'Free' : `${formatRupiah(`${item?.product?.price}`)},-`}</p>
                       <p>Total Product yang diambil: {item.totalProduct}</p>
                       <p>Total Harga: {item.totalPrice === null || item.totalPrice === 0 ? 'Free' : `${formatRupiah(`${item.totalPrice}`)},-`}</p>
                       </div>
-                      <ButtonPrimary name={'Lanjut Bayar'} classname={'p-2 my-4'} />
+                      {/* <p>{item.id}</p> */}
+                      <ButtonPrimary name={'Lanjut Bayar'} onClick={() => process(item.id)} classname={'p-2 my-4'} />
                     </div>
                   </div>
-              </>
+              // </div>
             ))}
+            {/* {selectedProduct && (
+              <>
+                <p>{selectedProduct.id}</p>
+                <p>{selectedProduct.totalPrice}</p>
+                <p>{selectedProduct.totalProduct}</p>
+              </>
+            )} */}
             </div>
           </div>
         ) : (

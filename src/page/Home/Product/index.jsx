@@ -36,7 +36,7 @@ const Product = () => {
   //   }));
   // };
   return (
-    <div className='py-20 flex 2xl:container mx-auto flex-wrap justify-center gap-5 md:gap-5 max-sm:gap-4'>
+    <div className='py-10 flex 2xl:container mx-auto flex-wrap justify-center gap-5 md:gap-5 max-sm:gap-4'>
         {products && products.map((item) => (
           // <div key={item.id}>
           <CardProduct

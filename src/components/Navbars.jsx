@@ -11,7 +11,7 @@ const Navbars = () => {
 
   const location = useLocation();
   const shouldShowNavbar = () => {
-    return location.pathname !== '/login' && location.pathname !== '/register';
+    return location.pathname !== '/login' && location.pathname !== '/register' && location.pathname !== '/admin/*';
   };
 
   const ShowNavbarDashboard = () => {
@@ -45,7 +45,7 @@ const Navbars = () => {
     <>
       {shouldShowNavbar() && (
 
-        <nav className='bg-white shadow-md py-3 w-full my-0'>
+        <nav className='bg-white shadow-md py-3 w-full my-0 fixed top-0'>
           <div className='mx-auto container flex flex-wrap justify-between'>
             <div className='w-1/4' onClick={() => { navigate('/') }}>
               <img src="logo" alt="" className='w-40 h-10' />
