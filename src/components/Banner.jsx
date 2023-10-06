@@ -15,7 +15,7 @@ const Banner = () => {
         </p>
         <p className='text-gray-600'>Menyusuri Warisan Budaya dan Petualangan Aromatik di Jalan Rempah-Rempah</p>
         <div className=''>
-          <a href="https://app.tegaltourism.com/rempahtour/">
+          <a href="https://jejakrempah.com/">
             <button className='w-52 bg-orange-700 text-white font-sans p-3 rounded-full hover:bg-orange-600'>Eksplore Jalur Rempah</button>
           </a>
         </div>
