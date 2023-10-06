@@ -71,8 +71,6 @@ const AddMarket = () => {
       });
   }, []);
 
-  console.log(simpul);
-
 
   return (
       <>

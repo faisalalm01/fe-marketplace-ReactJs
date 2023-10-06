@@ -6,8 +6,9 @@ import MarketDetail from "./MarketDetail";
 import Login from "./Login";
 import UserProfile from "./User";
 import CartList from "./CartList";
-import TesPayment from "./TesPayment"
+// import TesPayment from "./TesPayment"
 import { Dashboard, AddMarket, AddProduct } from "./AdminSeller";
+import SimpulDetail from "./SimpulDetail";
 
 export {
     Login,
@@ -21,5 +22,6 @@ export {
     AddMarket,
     AddProduct,
     CartList,
-    TesPayment
+    SimpulDetail,
+    // TesPayment,
 }

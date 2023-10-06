@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import React, { useEffect, useLayoutEffect } from 'react'
 import { useLocation, Route, Routes, useNavigate } from 'react-router-dom'
-import { AddMarket, AddProduct, CartList, Dashboard, Login, Main, MarketDetail, UserProfile } from './page';
+import { AddMarket, AddProduct, CartList, Dashboard, Login, Main, MarketDetail, SimpulDetail, UserProfile } from './page';
 import { Register } from './page';
 import Navbars from './components/Navbars';
 import { ProductDetail } from './page';
@@ -29,6 +29,7 @@ const App = () => {
 
           <Route path='/user/profile' element={<UserProfile />} />
           <Route path='/user/carts' element={<CartList />} />
+          <Route path='/simpulrempah/detail/:id' element={<SimpulDetail/>} />
           {/* // admin */}
           <Route path='/admin/dashboard' element={<Dashboard />} />
           <Route path='/admin/product' element={<AddProduct />} />
