@@ -53,7 +53,10 @@ const Main = () => {
         <hr className='border-1 rounded-xl my-4' />
         <div class="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
           {simpul && simpul.map((item) => (
-            <Link onClick={() => navigate(`/simpulrempah/detail/${item.id}`)} class="bg-white shadow-lg bg-inherit border-gray-300 rounded-md dark:border-gray-600 flex flex-wrap overflow-hidden hover:shadow-2xl">
+            <Link 
+            to={`simpulrempah/detail/${item.id}`}
+            // onClick={() => navigate(`/simpulrempah/detail/${item.id}`)}
+             class="bg-white shadow-lg bg-inherit border-gray-300 rounded-md dark:border-gray-600 flex flex-wrap overflow-hidden hover:shadow-2xl">
               <div className='w-2/5'>
                 <img src={item.logo} alt="" className='h-full' />
               </div>
