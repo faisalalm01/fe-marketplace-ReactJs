@@ -72,42 +72,86 @@ const Dashboard = () => {
   const username = user?.firstname;
 
   return (
-    <div>
-      <div className='mx-auto container my-20'>
-        <div className='rounded-md border bg-white shadow-sm mx-28 p-2 px-20'>
-          <p className='text-2xl font-semibold'>Welcome {username}</p>
-        </div>
-        <div className='flex flex-wrap gap-2 justify-center'>
-          <div className='bg-white w-3/12 border rounded-lg my-4 shadow-lg p-3'>
-            <p></p>
+    <div className='bg-gray-200'>
+      <div>
+        <Sidebar />
+        <main class="p-4 md:ml-64 h-auto pt-20">
+          <div
+            class="border-2 rounded-lg bg-white h-96 mb-4"
+          >
+            <p className='lg:p-9 text-2xl font-semibold sm:text-xl lg:text-3xl font-mono'>Welcome {username}</p>
+
           </div>
-          <div className='bg-white w-2/12 border rounded-lg my-4 shadow-lg p-3'>
-            <p></p>
+          <div class="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
+            <div
+              class="bg-white border-gray-300 rounded-lg dark:border-gray-600 h-32 md:h-64"
+            ></div>
+            <div
+              class="bg-white rounded-lg border-gray-300 dark:border-gray-600 h-32 md:h-64"
+            ></div>
+            <div
+              class="bg-white rounded-lg border-gray-300 dark:border-gray-600 h-32 md:h-64"
+            ></div>
+            <div
+              class="bg-white rounded-lg border-gray-300 dark:border-gray-600 h-32 md:h-64"
+            ></div>
           </div>
-          <div className='bg-white w-3/12 border rounded-lg my-4 shadow-lg p-3'>
-            <p></p>
-          </div>
-          <div className='bg-white w-2/12 border rounded-lg my-4 shadow-lg p-3'>
-            <p></p>
-          </div>
-        </div>
-        <div className='flex flex-wrap gap-6 justify-center'>
-          <div className='border bg-white w-5/12 p-2 shadow-md rounded-sm'>
-            <div className=''>
-              <div className='flex flex-wrap justify-between p-4'>
-                <p className='text-xl font-bold'>Produk</p>
-                <button className='border px-4 rounded-md bg-gray-200' onClick={() => navigate('/admin/product')}>View All</button>
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-4 mb-4">
+            <div
+              class="rounded-lg bg-white shadow-md"
+            >
+              <div className='p-5  rounded-md'>
+                <div className='flex flex-wrap justify-between mb-4'>
+                  <p className='text-xl font-bold'>Toko</p>
+                  <button className='px-4 rounded-md bg-gray-200' onClick={() => navigate('/admin/market')}>View All</button>
+                </div>
+                <hr />
+                <div className='mt-4'>
+                  {market && market.dataMarket.length === 0 ? (
+                    <div className='text-center'>
+                      data kosong
+                    </div>
+                  ) : (
+                    <>
+                      <div className='p-2 m-1 rounded-md'>
+                        {market && market.dataMarket.map((item) => (
+                          <div className='flex bg-white rounded-lg p-2 w-fully-2 py-0' key={item.id}>
+                            <div className='p-2'>
+                              <img src={item.logo} className='border w-14 h-14 rounded-full' alt="logo-market" />
+                            </div>
+                            <div className='flex flex-wrap justify-between ml-3 py-2'>
+                              <div className=''>
+                                <p className='font-semibold text-lg'>{item.nama}</p>
+                                <p className='font-serif'>{item.address}</p>
+                              </div>
+                            </div>
+                          </div>
+                        )).slice(0, 3)}
+                      </div>
+                    </>
+                  )}
+                </div>
               </div>
-              <hr />
-              <div className='mt-4'>
-                {product && product.dataProduct.length === 0 ? (
-                  <div className='text-center'>
-                    data kosong
-                  </div>
-                ) : (
-                  <>
-                      <div className='bg-gray-100 p-2 m-1 rounded-md'>
-                    {product && product.dataProduct.map((item) => (
+            </div>
+
+            <div
+              class="rounded-lg shadow-md bg-white"
+            >
+              <div className='p-5  rounded-md'>
+                <div className='flex flex-wrap justify-between mb-4'>
+                  <p className='text-xl font-bold'>Produk</p>
+                  <button className='px-4 rounded-md bg-gray-200' onClick={() => navigate('/admin/produk')}>View All</button>
+                </div>
+                <hr />
+                <div className='mt-4'>
+                  {market && market.dataMarket.length === 0 ? (
+                    <div className='text-center'>
+                      data kosong
+                    </div>
+                  ) : (
+                    <>
+                    <div className=' p-2 m-1 rounded-md'>
+                      {product && product.dataProduct.map((item) => (
                         <div className='flex bg-white rounded-lg p-2 w-full shadow-md my-2' key={item.id}>
                           <div className='border rounded-lg'>
                             <img src={item.image} className='w-32 h-full rounded-lg' alt="test" />
@@ -120,55 +164,22 @@ const Dashboard = () => {
                               <p className='font-serif'><i>stock : {item.stock}</i></p>
                             </div>
                             <div className='w-4/12 my-2'>
-                              <div>
-                                <ButtonPrimary classname={'p-2 w-full'} name={'detail'} onClick={() => navigate(`/product/detail/${item.id}`)} />
-                                <ButtonPrimary classname={'p-2 mt-2 w-full'} name={'delete'} onClick={() => navigate(`/product/detail/${item.id}`)} />
-                              </div>
+                           
                             </div>
                           </div>
                         </div>
-                    )).slice(0, 5)}
+                      )).slice(0, 5)}
                     </div>
                   </>
-                )}
+                  )}
+                </div>
               </div>
             </div>
+           
           </div>
-          <div className='border w-5/12 p-5 shadow-md rounded-sm'>
-            <div className='flex flex-wrap justify-between mb-4'>
-              <p className='text-xl font-bold'>Market</p>
-              <button className='px-4 rounded-md bg-gray-200' onClick={() => navigate('/admin/market')}>View All</button>
-            </div>
-            <hr />
-            <div className='mt-4'>
-              {market && market.dataMarket.length === 0 ? (
-                <div className='text-center'>
-                  data kosong
-                </div>
-              ) : (
-                <>
-                    <div className='bg-gray-100 p-2 m-1 rounded-md'>
-                  {market && market.dataMarket.map((item) => (
-                      <div className='flex bg-white rounded-lg p-2 w-full shadow-md my-2 py-0' key={item.id}>
-                        <div className='p-2'>
-                          <img src={item.logo} className='border w-14 h-14 rounded-full' alt="logo-market" />
-                        </div>
-                        <div className='flex flex-wrap justify-between ml-3 py-2'>
-                          <div className=''>
-                            <p className='font-semibold text-lg'>{item.nama}</p>
-                            <p className='font-serif'>{item.address}</p>
-                            {/* <p>{item.price}</p> */}
-                          </div>
-                        </div>
-                      </div>
-                  )).slice(0, 3)}
-                  </div>
-                </>
-              )}
-            </div>
-          </div>
-        </div>
+        </main>
       </div>
+
     </div>
   )
 }
