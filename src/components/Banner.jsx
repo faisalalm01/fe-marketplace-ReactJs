@@ -2,7 +2,7 @@ import React from 'react'
 
 const Banner = () => {
   return (
-    <div className='rounded-lg w-full shadow-2xl flex flex-wrap py-5 px-20 justify-between'>
+    <div className='rounded-lg w-full shadow-xl flex flex-wrap py-5 px-20 justify-between'>
       <div className='w-5/12 my-auto space-y-5'>
         <p className='font-semibold font-sans text-6xl text-gray-600'>
           Virtual Tour

@@ -152,12 +152,12 @@ const AddProduct = () => {
                                 name="price"
                                 value={productData.price}
                                 onChange={handleInputChange}
-                                className="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6" placeholder="stok produk mu" />
+                                className="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6" placeholder="Harga produk mu" />
                             </div>
                           </div>
                         </div>
 
-                        <div className="sm:col-span-4">
+                        {/* <div className="sm:col-span-4">
                           <label for="username" className="block text-sm font-medium leading-6 text-gray-900">Kategori produk</label>
                           <div className="mt-2">
                             <div className="px-2 flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 sm:max-w-md bg-white">
@@ -166,19 +166,19 @@ const AddProduct = () => {
                                 name="kategori"
                                 value={productData.kategori}
                                 onChange={handleInputChange}
-                                className="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6" placeholder="stok produk mu" />
+                                className="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6" placeholder="Harga produk mu" />
                             </div>
                           </div>
-                        </div>
+                        </div> */}
 
                         <div className="sm:col-span-3">
-                          <label for="country" className="block text-sm font-medium leading-6 text-gray-900">Pilih Pasar produk</label>
+                          <label for="country" className="block text-sm font-medium leading-6 text-gray-900">Pilih Toko produk</label>
                           <div className="mt-2">
                             <select
                               name="marketId"
                               value={productData.marketId}
-                              onChange={handleInputChange} className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6">
-                              <option value="" disabled>Pilih Market</option>
+                              onChange={handleInputChange} className="block w-full rounded-md border-0 py-1.5 bg-white px-3 text-gray-400 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6">
+                              <option value="" disabled>Pilih Toko</option>
                               {markets && markets.map((market) => (
                                 <option key={market.id} value={market.id}>
                                   {market.nama}

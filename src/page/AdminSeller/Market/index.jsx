@@ -1,15 +1,17 @@
 import axios from 'axios';
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 const AddMarket = () => {
   const [marketData, setMarketData] = useState({
     nama: '',
     deskripsi: '',
     logo: null,
-    address: ''
+    address: '',
+    simpulrempahId: ''
   });
   const token = localStorage.getItem('token');
   const [isAdd, setIsAdd] = useState(false);
+  const [simpul, setSimpul] = useState({})
 
   const handleClickToAdd = () => {
     setIsAdd(true);
@@ -52,6 +54,25 @@ const AddMarket = () => {
     }
   };
 
+  useEffect(() => {
+
+    // Setel header dengan token bearer
+    // const headers = {
+    //   'access_token': `Bearer ${token}`,
+    // };
+
+    // Buat permintaan GET ke endpoint keranjang
+    axios.get(import.meta.env.VITE_BASE_URL + 'simpulrempah/list')
+      .then((response) => {
+        setSimpul(response.data.data);
+      })
+      .catch((error) => {
+        console.error('Gagal mengambil data titik simpul:', error);
+      });
+  }, []);
+
+  console.log(simpul);
+
 
   return (
       <>
@@ -62,10 +83,10 @@ const AddMarket = () => {
                 <form onSubmit={handleSubmit}>
                   <div class="space-y-12">
                     <div class="border-b border-gray-900/10 pb-12">
-                      <h2 class="text-base font-semibold leading-7 text-gray-900">Product</h2>
+                      <h2 class="text-base font-semibold leading-7 text-gray-900">Daftar Toko Mu</h2>
                       <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                         <div class="sm:col-span-4">
-                          <label for="username" class="block text-sm font-medium leading-6 text-gray-900">Nama Pasar</label>
+                          <label for="username" class="block text-sm font-medium leading-6 text-gray-900">Nama Toko</label>
                           <div class="mt-2">
                             <div class="px-2 flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 sm:max-w-md bg-white">
                               <input
@@ -77,8 +98,26 @@ const AddMarket = () => {
                             </div>
                           </div>
                         </div>
+
+                        <div className="sm:col-span-3">
+                          <label for="country" className="block text-sm font-medium leading-6 text-gray-900">Pilih simpul rempah terdekat mu :</label>
+                          <div className="mt-2">
+                            <select
+                              name="simpulrempahId"
+                              value={marketData.simpulrempahId}
+                              onChange={handleInputChange} className="block w-full rounded-md border-0 py-1.5 bg-white px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6">
+                              <option value="" disabled>Pilih Sipul Rempah</option>
+                              {simpul && simpul.map((item) => (
+                                <option key={item.id} value={item.id}>
+                                  {item.nama}
+                                </option>
+                              ))}
+                            </select>
+                          </div>
+                        </div>
+
                         <div class="col-span-full">
-                          <label for="about" class="block text-sm font-medium leading-6 text-gray-900">alamat Pasar</label>
+                          <label for="about" class="block text-sm font-medium leading-6 text-gray-900">alamat Toko</label>
                           <div class="mt-2">
                             <textarea
                                type="text"
@@ -88,7 +127,7 @@ const AddMarket = () => {
                           </div>
                         </div>
                         <div class="col-span-full">
-                          <label for="about" class="block text-sm font-medium leading-6 text-gray-900">Deskripsi Pasar</label>
+                          <label for="about" class="block text-sm font-medium leading-6 text-gray-900">Deskripsi Toko</label>
                           <div class="mt-2">
                             <textarea
                               name="deskripsi"
@@ -98,7 +137,7 @@ const AddMarket = () => {
                         </div>
 
                         <div class="col-span-full">
-                          <label for="cover-photo" class="block text-sm font-medium leading-6 text-gray-900">Logo market</label>
+                          <label for="cover-photo" class="block text-sm font-medium leading-6 text-gray-900">Logo Toko</label>
                           <div class="mt-2 flex justify-center rounded-lg border border-dashed border-gray-900/25 px-6 py-10">
                             <div class="text-center">
                               <svg class="mx-auto h-12 w-12 text-gray-300" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">

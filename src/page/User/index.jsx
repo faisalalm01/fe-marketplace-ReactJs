@@ -194,6 +194,7 @@ const UserProfile = () => {
                       <button onClick={() => navigate('/admin/dashboard')}>halaman dashboard</button>
                     ):(
                       <>
+                      <button className='px-3 rounded-lg hover:bg-orange-600 hover:text-white my-2' onClick={() => navigate('/admin/dashboard')}>registrasi toko</button>
                       </>
                     )}
                   </div>
@@ -202,7 +203,7 @@ const UserProfile = () => {
                       <p>Lastname: {user.lastname}</p>
                       <p>Username: {user.username}</p>
                       <p>Email: {user.email}</p>
-                      <p>Address: {user.address}</p>
+                      <p>Delivery Address: {user.address}</p>
                       <p>No.Telp: {user.nohp}</p>
                     </div>
                     <div className='flex flex-wrap gap-2'>
