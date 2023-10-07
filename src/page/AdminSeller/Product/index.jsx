@@ -17,7 +17,7 @@ const AddProduct = () => {
   const token = localStorage.getItem('token');
   const [markets, setMarkets] = useState([]);
   const [isAdd, setIsAdd] = useState(false);
-  const [product, setProduct] = useState(null)
+  const [ product, setProduct] = useState(null)
 
   const handleClickToAdd = () => {
     setIsAdd(true);
@@ -101,10 +101,12 @@ const AddProduct = () => {
       });
   }, []);
 
-  console.log(product);
+  console.log(product?.dataProduct);
 
   return (
     <>
+      <Sidebar />
+      <main class="p-4 md:ml-64 h-auto pt-20">
       <div>
         {
           isAdd ? (
@@ -234,35 +236,44 @@ const AddProduct = () => {
             </div>
           ) : (
             <>
-              <div className='container mx-auto p-20 '>
-                <p className='mb-5 text-2xl font-bold'>Produk Ku</p>
-                <hr className='border-2' />
-              </div>
-              <div className='flex flex-wrap gap-8 container mx-auto justify-center'>
-                {product && product.dataProduct.map((item) => (
-                  <>
-                    <CardProduct
-                      key={item.id}
-                      image={item.image}
-                      id={item.id}
-                      title={item.title}
-                      price={item.price === null || item.price === 0 ? 'Free' : `${formatRupiah(item.price)},-`}
-                      description={item.description.slice(0, 80)}
-                      onClick={() => { navigate(`/product/detail/${item.id}`) }}
-                    />
-                  </>
-                ))}
-                <div className='w-52 mt-6'>
-                  <button onClick={handleClickToAdd} className='w-full bg-red-400 shadow-lg rounded-md text-center opacity-60 p-2 hover:opacity-90'>
-                    <div className='text-white font-mono text-6xl'>
-                      +
-                    </div>
-                  </button>
+              <section class="text-gray-600 body-font">
+                <div class="container px-2 py-24 mx-auto">
+              
+                  <div class="lg:w-2/3 w-full mx-auto overflow-auto bg-white">
+                    {product && product.dataProduct.length === 0 ? (
+                      <div className='text-center font-bold text-2xl p-20 bg-white border rounded-lg shadow-xl '>
+                        <div>Data Produk belum tersedia</div>
+                      </div>
+                    ) : (
+                      <>
+                        <table class="table-auto w-full text-left whitespace-no-wrap">
+                          <thead>
+                            <tr>
+                              <th class="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100 rounded-tl rounded-bl">image</th>
+                              <th class="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100">Nama Produk</th>
+                              <th class="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100">Harga Produk</th>
+                              <th class="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100">Stok</th>
+                              <th class="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100">Deskripsi Produk</th>
+                              <th class="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100">CreatedAt</th>
+                              <th class="w-10 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100 rounded-tr rounded-br"></th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr></tr>
+                          </tbody>
+                        </table>
+                      </>
+                    )}
+                  </div>
+                  <div class="flex pl-4 mt-4 lg:w-2/3 w-full mx-auto">
+                    <button onClick={handleClickToAdd} class="flex ml-auto text-white bg-orange-700 border-0 py-2 px-6 focus:outline-none hover:bg-orange-600 rounded">Add</button>
+                  </div>
                 </div>
-              </div>
+              </section>
             </>
           )}
       </div>
+      </main>
     </>
   );
 }
