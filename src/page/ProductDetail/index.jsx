@@ -110,7 +110,7 @@ const ProductDetail = () => {
             .then((response) => {
                 if (response.status === 200) {
                     setOrderData(response.data.data);
-                    navigate('/user/profile')
+                    // navigate('/user/profile')
                     // window.location.href = window.location.href;
                 } else if (response.status === 401 || user.id === null) {
                     navigate('/login')
@@ -203,16 +203,16 @@ const ProductDetail = () => {
                         <div className='w-5/12'>
                             <img className='w-full rounded-md shadow-xl' src={data.image} alt={`gambar-product-${data.title}`} />
                             <div className='mt-6 flex gap-2 w-full border'>
-                                <ButtonSecondary
+                                {/* <ButtonSecondary
                                     disable={data.stock === null || data.stock === 0 ? true : false}
                                     name={"Masukkan Keranjang"}
                                     classname={"w-7/12 bg-purple-800 px-10 py-2 text-white font-semibold hover:text-purple-800 hover:bg-white"}
                                     onClick={handleAddToCart}
-                                />
+                                /> */}
                                 <ButtonPrimary
                                     disabled={data.stock === null || data.stock === 0 ? true : false}
-                                    name={"Order"}
-                                    classname={"px-10 py-2 w-5/12"}
+                                    name={"Buy"}
+                                    classname={"px-10 py-2 w-full"}
                                     onClick={openModal}
                                 />
                             </div>

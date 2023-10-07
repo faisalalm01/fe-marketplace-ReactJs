@@ -72,7 +72,7 @@ const Dashboard = () => {
   const username = user?.firstname;
 
   return (
-    <div className='bg-gray-200'>
+    <div className='bg-gray-200 max-h-0'>
       <div>
         <Sidebar />
         <main class="p-4 md:ml-64 h-auto pt-20">
@@ -82,7 +82,7 @@ const Dashboard = () => {
             <p className='lg:p-9 text-2xl font-semibold sm:text-xl lg:text-3xl font-mono'>Welcome {username}</p>
 
           </div>
-          <div class="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
+          {/* <div class="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
             <div
               class="bg-white border-gray-300 rounded-lg dark:border-gray-600 h-32 md:h-64"
             ></div>
@@ -95,7 +95,7 @@ const Dashboard = () => {
             <div
               class="bg-red-500 rounded-lg border-gray-300 dark:border-gray-600 h-32 md:h-64"
             ></div>
-          </div>
+          </div> */}
           <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-4 mb-4">
             <div
               class="rounded-lg bg-white shadow-md"
@@ -140,7 +140,7 @@ const Dashboard = () => {
               <div className='p-5  rounded-md'>
                 <div className='flex flex-wrap justify-between mb-4'>
                   <p className='text-xl font-bold'>Produk</p>
-                  <button className='px-4 rounded-md bg-gray-200' onClick={() => navigate('/admin/produk')}>View All</button>
+                  <button className='px-4 rounded-md bg-gray-200' onClick={() => navigate('/admin/product')}>View All</button>
                 </div>
                 <hr />
                 <div className='mt-4'>

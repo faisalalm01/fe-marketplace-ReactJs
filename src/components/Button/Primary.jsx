@@ -7,7 +7,7 @@ const ButtonPrimary = ({ name, classname, onClick, disabled }) => {
             disabled={disabled}
             onClick={onClick}
             type='button'
-            className={`bg-blue-800 text-white rounded-md font-semibold hover:bg-white hover:text-black border-2 border-blue-800 ${classname}`}
+            className={`bg-green-600 text-white rounded-md font-semibold hover:bg-green-500 border-2 ${classname}`}
         >
             {name}
         </button>

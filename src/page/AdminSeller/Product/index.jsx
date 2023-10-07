@@ -259,7 +259,18 @@ const AddProduct = () => {
                             </tr>
                           </thead>
                           <tbody>
-                            <tr></tr>
+                            {product && product.dataProduct.map((item) => (
+                            <>
+                            <tr className='text-center'>
+                              <td><img src={item.image} alt="" className='w-20' /></td>
+                              <td>{item.title}</td>
+                              <td>{item.price}</td>
+                              <td>{item.description}</td>
+                              <td>{item.stock }</td>
+                              <td>{item.createdAt}</td>
+                            </tr>
+                            </>
+                            ))}
                           </tbody>
                         </table>
                       </>

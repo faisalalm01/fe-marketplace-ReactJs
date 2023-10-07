@@ -63,7 +63,7 @@ const Main = () => {
                 <img src={item.logo} alt="" className='object-cover h-full' />
               </div>
               <div className='w-3/5 p-3'>
-                {/* <p className='text-sm font-bold mb-2'>{item.nama}</p> */}
+                <p className='text-sm font-bold mb-2'>{item.nama}</p>
                 <p className='text-sm'>{item.alamat.slice(0, 60)}</p>
               </div>
             </Link>
@@ -71,12 +71,12 @@ const Main = () => {
 
         </div>
 
-        <div className='mt-16'>
+        {/* <div className='mt-16'>
           <p className='font-semibold text-2xl'>Toko</p>
           <hr className='border-1 mx-44 rounded-xl mt-4' />
           <Market />
-        </div>
-        <div className='mt-5'>
+        </div> */}
+        <div className='mt-16'>
           <p className=' font-semibold text-2xl'>Produk</p>
           <hr className='border-1 mx-44 rounded-xl mt-4' />
           <Product />

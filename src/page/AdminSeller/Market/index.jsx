@@ -49,8 +49,8 @@ const AddMarket = () => {
       });
 
       // Proses respons dari server jika diperlukan
-      console.log('Response:', response.data);
-      window.location.href = window.location.href;
+      console.log('Response :', response.data);
+      window.location.href= window.location.href;
     } catch (error) {
       console.error('Error:', error);
     }
@@ -256,8 +256,16 @@ const AddMarket = () => {
                             </tr>
                           </thead>
                           <tbody>
-
-                            <tr></tr>
+                            {markets && markets.dataMarket.map((item) => (
+                            <>
+                            <tr>
+                              <td><img src={item.logo} alt="" className='p-5'/></td>
+                              <td>{item.nama}</td>
+                              <td>{item.deskripsi}</td>
+                              <td>{item.createdAt}</td>
+                            </tr>
+                            </>
+                            ))}
                           </tbody>
                         </table>
                       </>

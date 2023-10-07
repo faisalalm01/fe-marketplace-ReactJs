@@ -4,6 +4,7 @@ import { useDispatch } from 'react-redux';
 import { Link, useLocation, useNavigate, useParams } from 'react-router-dom';
 import {IoLocationOutline} from 'react-icons/io5'
 import ButtonPrimary from '../../components/Button/Primary';
+import CardMarket from '../../components/CardMarket/CardMarket';
 
 const SimpulDetail = () => {
     const { id } = useParams();
@@ -32,13 +33,13 @@ const SimpulDetail = () => {
                 <div className='flex flex-wrap py-6 mx-20'>
                     <div className='pr-5 border-r-2 border-gray-400 flex flex-wrap'>
                         <img className='rounded-full w-20 h-20 border border-gray-600 mr-7' src={data.logo} alt="" />
-                        <div className='my-auto space-y-2'>
+                        <div className='my-auto space-y-2 w-4/6'>
                             <h1 className='text-xl font-semibold'>{data.nama}</h1>
                             <p className='text-lg text-gray-500 font-serif'>Total Toko : {data?.market?.length}</p>
                         </div>
                     </div>
                         {/* <IoLocationOutline/> */}
-                    <div className='w-6/12 mt-3 px-20'>
+                    <div className='w-5/12 mt-3 px-20'>
                         <p>{data.alamat}</p>
                     </div>
                     <div className='my-auto bg-orange-700 px-3 py-3 mx-auto hover:bg-orange-600 font-semibold rounded-lg text-white'>
@@ -53,18 +54,21 @@ const SimpulDetail = () => {
                 <h1 className='text-2xl font-semibold'>Semua Toko</h1>
             </div>
 
-            {/* <div className='flex mb-32 container mx-auto flex-wrap justify-center gap-5 md:gap-5 max-sm:gap-4'>
-                {data?.product?.map((item, i) => (
-                    <CardProduct
+            <div className='flex mb-32 container mx-auto flex-wrap justify-center gap-5 md:gap-5 max-sm:gap-4'>
+                {data?.market?.map((item, i) => (
+                    <CardMarket
                         key={i}
-                        image={item.image}
-                        title={item.title}
-                        description={item.description.slice(0,70)}
-                        price= {item.price === null || item.price === 0 ? 'Free' : `${formatRupiah(item.price)},-`}
-                        onClick={() => {navigate(`/product/detail/${item.id}`)}}
+                        logo={item.logo}
+                        name={item.nama}
+                        id={item.id}
+                        // image={item.image}
+                        // title={item.title}
+                        // description={item.description.slice(0,70)}
+                        // price= {item.price === null || item.price === 0 ? 'Free' : `${formatRupiah(item.price)},-`}
+                        onClick={() => {navigate(`/market/detail/${item.id}`)}}
                         />
                 ))}
-            </div> */}
+            </div>
         </>
     )
 }
