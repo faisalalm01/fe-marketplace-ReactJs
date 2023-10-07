@@ -27,6 +27,7 @@ const Main = () => {
   const navigate = useNavigate();
   console.log(simpul);
   return (
+    <>
     <div className='mx-auto mt-16'>
       <header className='container mx-auto'>
         <Banner />
@@ -40,8 +41,8 @@ const Main = () => {
         <div className='mt-20 mb-5'>
           <p className='font-semibold text-2xl text-center'>Tentang JRM (Jejak Rempah Marketplace)</p>
           <div className='flex flex-wrap mx-auto py-9'>
-            <div className='w-4/6 px-20 text-gray-500 text-lg text-right'>
-              <p>JRM (Jejak Rempah Marketplace) merupakan platform jual beli yang dapat digunakan UMKM di sekitar titik simpul jalur empah untuk memasarkan produknya. Jejak rempah sendiri tidak hanya melahirkan warisan-warisan berkaitan komoditas saja, tapi juga berkaitan dengan akulturasi budaya yang menciptakan kekhasan kerajinan tangan, kuliner, dan produk lainnya. Oleh karena itu, JRM ini memfasilitasi UMKM dan masyarakat umum dalam melakukan jual beli produk-produk barang yang berkaitan erat dengan titik-titik simpul jalur rempah.</p>
+            <div className='w-4/6 px-20 text-gray-500 text-lg text-left'>
+              <p><b>JRM (Jejak Rempah Marketplace)</b> merupakan platform jual beli yang dapat digunakan UMKM di sekitar titik simpul jalur empah untuk memasarkan produknya. Jejak rempah sendiri tidak hanya melahirkan warisan-warisan berkaitan komoditas saja, tapi juga berkaitan dengan akulturasi budaya yang menciptakan kekhasan kerajinan tangan, kuliner, dan produk lainnya. Oleh karena itu, JRM ini memfasilitasi UMKM dan masyarakat umum dalam melakukan jual beli produk-produk barang yang berkaitan erat dengan titik-titik simpul jalur rempah.</p>
             </div>
             <div className='w-2/6'>
               <img className='rounded-2xl h-64 object-cover w-full' src="https://jejakrempah.com/static/img/landingpage/aboutimg.jpg" alt="" />
@@ -51,17 +52,18 @@ const Main = () => {
 
         <p className='font-semibold text-2xl'>Titik Simpul Rempah</p>
         <hr className='border-1 rounded-xl my-4' />
-        <div class="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
+        <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
           {simpul && simpul.map((item) => (
             <Link 
+            key={item.id}
             to={`simpulrempah/detail/${item.id}`}
             // onClick={() => navigate(`/simpulrempah/detail/${item.id}`)}
-             class="bg-white shadow-lg bg-inherit border-gray-300 rounded-md dark:border-gray-600 flex flex-wrap overflow-hidden hover:shadow-2xl">
-              <div className='w-2/5'>
-                <img src={item.logo} alt="" className='h-full' />
+             className="bg-white shadow-lg bg-inherit border-gray-300 rounded-md dark:border-gray-600 flex flex-wrap overflow-hidden hover:shadow-2xl">
+              <div className='w-2/5' key={item.id}>
+                <img src={item.logo} alt="" className='object-cover h-full' />
               </div>
               <div className='w-3/5 p-3'>
-                <p className='text-sm font-bold mb-2'>{item.nama}</p>
+                {/* <p className='text-sm font-bold mb-2'>{item.nama}</p> */}
                 <p className='text-sm'>{item.alamat.slice(0, 60)}</p>
               </div>
             </Link>
@@ -81,6 +83,7 @@ const Main = () => {
         </div>
       </main>
     </div>
+    </>
   )
 }
 

@@ -16,7 +16,7 @@ const Navbars = () => {
 
   const location = useLocation();
   const shouldShowNavbar = () => {
-    return location.pathname !== '/login' && location.pathname !== '/register' && location.pathname !== '/admin/*';
+    return location.pathname !== '/login' && location.pathname !== '/register';
   };
 
   const ShowNavbarDashboard = () => {
@@ -46,63 +46,61 @@ const Navbars = () => {
 
     window.location.href = '/';
   }
-
-  console.log(token);
   return (
     <>
       {shouldShowNavbar() && (
-        <nav class="bg-white border-b border-gray-200 px-4 py-5 fixed left-0 right-0 top-0 z-50 w-full shadow-lg">
-          <div class="flex flex-wrap justify-between items-center container mx-auto">
-            <div class="flex justify-start items-center">
+        <nav className="bg-white border-b border-gray-200 px-4 py-5 fixed left-0 right-0 top-0 z-50 w-full shadow-lg">
+          <div className="flex flex-wrap justify-between items-center container mx-auto">
+            <div className="flex justify-start items-center">
               <button
                 data-drawer-target="drawer-navigation"
                 data-drawer-toggle="drawer-navigation"
                 aria-controls="drawer-navigation"
-                class="p-2 mr-2 text-gray-600 rounded-lg cursor-pointer md:hidden hover:text-gray-900 hover:bg-gray-100 focus:bg-gray-100 dark:focus:bg-gray-700 focus:ring-2 focus:ring-gray-100 dark:focus:ring-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+                className="p-2 mr-2 text-gray-600 rounded-lg cursor-pointer md:hidden hover:text-gray-900 hover:bg-gray-100 focus:bg-gray-100 dark:focus:bg-gray-700 focus:ring-2 focus:ring-gray-100 dark:focus:ring-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
               >
                 <svg
                   aria-hidden="true"
-                  class="w-6 h-6"
+                  className="w-6 h-6"
                   fill="currentColor"
                   viewBox="0 0 20 20"
                   xmlns="http://www.w3.org/2000/svg"
                 >
                   <path
-                    fill-rule="evenodd"
+                    fillRule="evenodd"
                     d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h6a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
-                    clip-rule="evenodd"
+                    clipRule="evenodd"
                   ></path>
                 </svg>
                 <svg
                   aria-hidden="true"
-                  class="hidden w-6 h-6"
+                  className="hidden w-6 h-6"
                   fill="currentColor"
                   viewBox="0 0 20 20"
                   xmlns="http://www.w3.org/2000/svg"
                 >
                   <path
-                    fill-rule="evenodd"
+                    fillRule="evenodd"
                     d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                    clip-rule="evenodd"
+                    clipRule="evenodd"
                   ></path>
                 </svg>
               </button>
-              <a href="/" class="flex items-center justify-between mr-4">
-                <span class="self-center text-2xl font-semibold whitespace-nowrap text-black">Market Place</span>
+              <a href="/" className="flex items-center justify-between mr-4">
+                <span className="self-center text-2xl font-semibold whitespace-nowrap text-black">Market Place</span>
               </a>
             </div>
-            <div class="flex items-center lg:order-2">
+            <div className="flex items-center lg:order-2">
               {token ? (
                 <>
                   <button
                     type="button"
                     data-dropdown-toggle="notification-dropdown"
-                    class="p-2 mr-1 text-gray-400 rounded-lg hover:text-white hover:bg-orange-700"
+                    className="p-2 mr-1 text-gray-400 rounded-lg hover:text-white hover:bg-orange-700"
                   >
-                    <span class="sr-only">View notifications</span>
+                    <span className="sr-only">View notifications</span>
                     <svg
                       aria-hidden="true"
-                      class="w-6 h-6"
+                      className="w-6 h-6"
                       fill="currentColor"
                       viewBox="0 0 20 20"
                       xmlns="http://www.w3.org/2000/svg"
@@ -119,7 +117,7 @@ const Navbars = () => {
                     to={'/user/carts'}
                       type="button"
                       data-dropdown-toggle="notification-dropdown"
-                      class="p-2 mr-1 text-gray-400 rounded-lg hover:text-white hover:bg-orange-700 "
+                      className="p-2 mr-1 text-gray-400 rounded-lg hover:text-white hover:bg-orange-700 "
                     >
                       {cartItems.map((item) => (
                             <div key={item.id}>
@@ -140,23 +138,23 @@ const Navbars = () => {
                     // onClick={toggleDropdown}
                     // onTouchMove={toggleDropdown}
                     type="button"
-                    class="justify-center gap-3 px-5 flex mx-3 text-sm bg-orange-700 text-white rounded-full md:mr-0 hover:bg-orange-600 py-2.5"
+                    className="justify-center gap-3 px-5 flex mx-3 text-sm bg-orange-700 text-white rounded-full md:mr-0 hover:bg-orange-600 py-2.5"
                     id="user-menu-button"
                     aria-expanded="false"
                     data-dropdown-toggle="dropdown"
                   >
                     <p className='my-auto font-bold text-lg'>Profile</p>
                     <img
-                      class="w-8 h-8 rounded-full border-white border-2"
-                      src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/michael-gough.png"
-                      alt="user photo"
+                      className="w-8 h-8 rounded-full border-white border-2 bg-white"
+                      // src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/michael-gough.png"
+                      // alt="user photo"
                     />
                   </Link>
                   <button
                     onClick={Logout}
                     type="button"
                     data-dropdown-toggle="notification-dropdown"
-                    class="p-2.5 ml-2 bg-orange-700 text-white rounded-lg hover:text-white hover:bg-orange-600"
+                    className="p-2.5 ml-2 bg-orange-700 text-white rounded-lg hover:text-white hover:bg-orange-600"
                   >
                     <BiLogOut className='w-6 h-6'/>
                   </button>

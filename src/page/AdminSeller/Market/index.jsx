@@ -97,7 +97,7 @@ const AddMarket = () => {
                           </div>
                         </div>
 
-                        <div className="sm:col-span-3">
+                        {/* <div className="sm:col-span-3">
                           <label for="country" className="block text-sm font-medium leading-6 text-gray-900">Pilih simpul rempah terdekat mu :</label>
                           <div className="mt-2">
                             <select
@@ -112,7 +112,7 @@ const AddMarket = () => {
                               ))}
                             </select>
                           </div>
-                        </div>
+                        </div> */}
 
                         <div class="col-span-full">
                           <label for="about" class="block text-sm font-medium leading-6 text-gray-900">alamat Toko</label>
