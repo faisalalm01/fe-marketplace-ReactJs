@@ -185,7 +185,7 @@ const UserProfile = () => {
                       <i className="fas fa-map-marker-alt mr-2 text-lg text-blueGray-400"></i>
                       {user.firstname}, {user.lastname}
                     </div>
-                    <div className="mb-2 text-blueGray-600 mt-10">
+                    <div className="mb-2 text-blueGray-600 mt-0">
                       <i className="fas fa-briefcase mr-2 text-lg text-blueGray-400"></i>
                       {user.email}
                     </div>
@@ -221,8 +221,9 @@ const UserProfile = () => {
                   <div className="mt-10 py-10 border-t border-blueGray-200 text-center">
                     <div className="flex flex-wrap justify-center">
                       <div className="w-full lg:w-9/12 px-4">
-                        <p className="mb-4 text-lg leading-relaxed text-blueGray-700">
-                          {user.address}
+                        <div className='font-semibold text-xl'>Alamat Pengiriman :</div>
+                        <p className="mb-4 text-xl leading-relaxed text-blueGray-700">
+                          {user.provinsi}, {user.kota}, {user.kecamatan}, {user.address}, {user.kode_pos}
                         </p>
                       </div>
                     </div>

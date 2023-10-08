@@ -110,8 +110,8 @@ const ProductDetail = () => {
             .then((response) => {
                 if (response.status === 200) {
                     setOrderData(response.data.data);
-                    // navigate('/user/profile')
-                    // window.location.href = window.location.href;
+                    // navigate(`/product/detail/ + ${productId}`)
+                    window.location.href = window.location.href;
                 } else if (response.status === 401 || user.id === null) {
                     navigate('/login')
                 } else {
@@ -123,25 +123,35 @@ const ProductDetail = () => {
             });
     };
 
+    const handleCheckout = async () => {
+        try {
+            const response = await axios.post(import.meta.env.VITE_BASE_URL + 'user/transaction', { amount });
+            setPaymentResponse(response.data);
+        } catch (error) {
+            console.error('Error initiating payment:', error);
+        }
+    };
 
     const [name, setName] = useState("")
-    const [order_id, setOrder_id] = useState("8923723")
+    const [order_id, setOrder_id] = useState("2183191327213")
     const [total, setTotal] = useState(45899)
     const [tokenTransaction, setTokenTransaction] = useState("")
 
     const process = async () => {
-        const data = {
-            name: user.username,
-            order_id: order_id,
-            total: total
-        }
-        const configg = {
-            headers: {
-                "Content-Type": "application/json",
-            },
+        // handleAddToOrder()
+        const headers = {
+            'access_token': `Bearer ${token}`,
         };
-        const response = await axios.post(import.meta.env.VITE_BASE_URL + '/user/transaction', data, configg)
-        setTokenTransaction(response.data.token);
+
+        const data = {
+            userId: user.id,
+            productId: Product.dataDetailProduct.id,
+            totalProduct: orderData.totalProduct
+        };
+      
+        const response = await axios.post(import.meta.env.VITE_BASE_URL + '/user/order', data, {headers})
+        // console.log(response.data.data.token_transaction);
+        setTokenTransaction(response.data.data.token_transaction);
     }
     useEffect(() => {
         if (tokenTransaction) {
@@ -149,7 +159,7 @@ const ProductDetail = () => {
                 onSuccess: (result) => {
                     localStorage.setItem('transaction', JSON.stringify(result))
                     setTokenTransaction("")
-                    window.location.href = window.location.href;
+                    localStorage.removeItem('transaction');
                 },
                 onPending: (result) => {
                     localStorage.setItem('transaction', JSON.stringify(result))
@@ -163,7 +173,6 @@ const ProductDetail = () => {
                 onClose: () => {
                     console.log('Anda Belum Menyelesaikan Pembayaran');
                     setTokenTransaction("")
-                    window.location.href = window.location.href;
                 }
             })
             setName("")
@@ -171,21 +180,26 @@ const ProductDetail = () => {
             setTotal(0)
         }
     }, [tokenTransaction])
-
-    const handleCheckout = async () => {
-        try {
-            const response = await axios.post(import.meta.env.VITE_BASE_URL + 'user/transaction', { amount });
-            setPaymentResponse(response.data);
-        } catch (error) {
-            console.error('Error initiating payment:', error);
+    useEffect(() => {
+        // production use : 'https://app.midtrans.com/snap/snap.js'
+        const midtransUrl = 'https://app.sandbox.midtrans.com/snap/snap.js'
+        let scriptTag = document.createElement("script")
+        scriptTag.src = midtransUrl
+    
+        const midtransClientKey = import.meta.env.CLIENT_KEY_MIDTRANS
+        scriptTag.setAttribute("data-client-key", midtransClientKey)
+        document.body.appendChild(scriptTag)
+        return () => {
+          document.body.removeChild(scriptTag)
         }
-    };
+      })
 
+      console.log(user);
     return (
         <div>
             <div className='w-full container mx-auto'>
                 <div className='px-5 py-9 mx-32 bg-white mt-16 rounded-md shadow-xl'>
-                    {data.stock === null || data.stock === 0 ? (
+                    {data.stock === null || data.stock <= 0 ? (
                         <div className='flex flex-wrap rounded-md w-full bg-red-600 text-white justify-center item-center text-center font-bold text-xl py-3 gap-3'>
                             <div className='my-auto'>
                                 <FiAlertCircle />
@@ -203,18 +217,28 @@ const ProductDetail = () => {
                         <div className='w-5/12'>
                             <img className='w-full rounded-md shadow-xl' src={data.image} alt={`gambar-product-${data.title}`} />
                             <div className='mt-6 flex gap-2 w-full border'>
-                                {/* <ButtonSecondary
-                                    disable={data.stock === null || data.stock === 0 ? true : false}
-                                    name={"Masukkan Keranjang"}
-                                    classname={"w-7/12 bg-purple-800 px-10 py-2 text-white font-semibold hover:text-purple-800 hover:bg-white"}
-                                    onClick={handleAddToCart}
-                                /> */}
-                                <ButtonPrimary
-                                    disabled={data.stock === null || data.stock === 0 ? true : false}
-                                    name={"Buy"}
-                                    classname={"px-10 py-2 w-full"}
-                                    onClick={openModal}
-                                />
+                                {Product.dataDetailProduct.userId === user?.id ? (
+                                    <>
+                                        <div>
+
+                                        </div>
+                                    </>
+                                ) : (
+                                    <>
+                                        <ButtonSecondary
+                                            disable={data.stock === null || data.stock === 0 ? true : false}
+                                            name={"Masukkan Keranjang"}
+                                            classname={"w-7/12 bg-purple-800 px-10 py-2 text-white font-semibold hover:text-purple-800 hover:bg-white"}
+                                            onClick={handleAddToCart}
+                                        />
+                                        <ButtonPrimary
+                                            disabled={data.stock === null || data.stock === 0 ? true : false}
+                                            name={"Buy"}
+                                            classname={"px-10 py-2 w-full"}
+                                            onClick={openModal}
+                                        />
+                                    </>
+                                )}
                             </div>
                         </div>
                         <div className='w-6/12'>
@@ -285,8 +309,11 @@ const ProductDetail = () => {
                         />
                         {/* <input type="text" name="" placeholder={orderData.totalProduct} id="" /> */}
                         <div className='flex flex-wrap gap-5 justify-center'>
-                            <ButtonSecondary type='submit' name={'Bayar Nanti'} onClick={handleAddToOrder} classname={'w-2/5 mt-5 hover:bg-blue-800 hover:text-white font-semibold'} />
-                            <ButtonPrimary classname={'p-4 w-2/5 mt-5'} onClick={process} name={"Lanjut Pemabayaran"} type='submit'></ButtonPrimary>
+
+                            <>
+                                <ButtonSecondary type='submit' name={'Bayar Nanti'} onClick={handleAddToOrder} classname={'w-2/5 mt-5 hover:bg-blue-800 hover:text-white font-semibold'} />
+                                <ButtonPrimary classname={'p-4 w-2/5 mt-5'} onClick={process} name={"Lanjut Pemabayaran"} type='submit'></ButtonPrimary>
+                            </>
                         </div>
                     </form>
                 </OrderCreate>

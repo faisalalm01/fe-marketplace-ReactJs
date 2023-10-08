@@ -88,7 +88,7 @@ const Navbars = () => {
               </button>
               <a href="/" className="flex items-center justify-between mr-4">
                 <img src={ImageLogo} alt="logo" className='w-10 mr-2' />
-                <span className="self-center text-2xl font-semibold whitespace-nowrap text-orange-700">Market Place</span>
+                <span className="self-center text-2xl font-semibold whitespace-nowrap text-orange-700">JRM</span>
               </a>
             </div>
             <div className="flex items-center lg:order-2">

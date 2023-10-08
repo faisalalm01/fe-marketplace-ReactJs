@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react'
 import { formatRupiah } from '../../utils';
 import ButtonPrimary from '../../components/Button/Primary';
 import { useNavigate } from 'react-router-dom';
+import OrderCreate from '../../components/Order';
 
 const CartList = () => {
   const [cartItems, setCartItems] = useState([]);
@@ -14,6 +15,10 @@ const CartList = () => {
   const [user, setUser] = useState(null);
   const token = localStorage.getItem('token');
   const [isModalOpen, setModalOpen] = useState(false);
+  const [orderData, setOrderData] = useState({
+    productId: cartItems.productId,
+    totalProduct: 1
+  });
 
   useEffect(() => {
     if (token) {
@@ -74,22 +79,22 @@ const CartList = () => {
     }
   }, [tokenTransaction])
 
-  // useEffect(() => {
+  useEffect(() => {
 
-  //   // Setel header dengan token bearer
-  //   const headers = {
-  //     'access_token': `Bearer ${token}`,
-  //   };
+    // Setel header dengan token bearer
+    const headers = {
+      'access_token': `Bearer ${token}`,
+    };
 
-  //   // Buat permintaan GET ke endpoint keranjang
-  //   axios.get(import.meta.env.VITE_BASE_URL + '/user/cart', { headers })
-  //     .then((response) => {
-  //       setCartItems(response.data.data);
-  //     })
-  //     .catch((error) => {
-  //       console.error('Gagal mengambil data keranjang:', error);
-  //     });
-  // }, []);
+    // Buat permintaan GET ke endpoint keranjang
+    axios.get(import.meta.env.VITE_BASE_URL + '/user/cart', { headers })
+      .then((response) => {
+        setCartItems(response.data.data);
+      })
+      .catch((error) => {
+        console.error('Gagal mengambil data keranjang:', error);
+      });
+  }, []);
 
   useEffect(() => {
     // Setel header dengan token bearer
@@ -120,6 +125,34 @@ const CartList = () => {
     }
   })
 
+  const handleAddToOrder = () => {
+    const headers = {
+      'access_token': `Bearer ${token}`,
+    };
+
+    const productData = {
+      userId: user.id,
+      productId: Product.dataDetailProduct.id,
+      totalProduct: orderData.totalProduct
+    };
+
+    axios.post(import.meta.env.VITE_BASE_URL + 'user/order', productData, { headers })
+      .then((response) => {
+        if (response.status === 200) {
+          setOrderData(response.data.data);
+          navigate('/product/detail/' + productId)
+          // window.location.href = window.location.href;
+        } else if (response.status === 401 || user.id === null) {
+          navigate('/login')
+        } else {
+          window.location.href = window.location.href;
+        }
+      })
+      .catch((error) => {
+        console.error('Gagal menambahkan produk ke order:', error);
+      });
+  };
+
   const openModal = () => {
     setModalOpen(true);
   };
@@ -127,29 +160,67 @@ const CartList = () => {
   const closeModal = () => {
     setModalOpen(false);
   };
-  console.log(orderItem.length);
+  console.log(cartItems);
   return (
     <div className='mx-auto container mt-20'>
       {/* <p>{orderItem.length}</p> */}
-      {orderItem?.length === 2 ? (
+      {cartItems?.length === 0 ? (
         <div className=' bg-white justify-center text-center rounded-lg shadow-xl py-6 font-bold text-2xl'>
           <div>keranjangmu Kosong</div>
         </div>
       ) : (
         <>
-          {orderItem && orderItem.map((item) => (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-4 mb-4 mx-auto container my-16">
-            <div
-              key={item.id}
-              className="rounded-lg bg-white shadow-xl p-5 h-20"
-            >
-              <button onClick={openModal}
-                className='p-3 bg-orange-700 hover:bg-orange-600 text-white'>Bayar Sekarang</button>
-            </div>
-            </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-4 mb-4 mx-auto container my-16">
+            {cartItems && cartItems.map((item) => (
+              <>
+                <div
+                  key={item.id}
+                  className="rounded-lg bg-white shadow-xl p-3"
+                >
+                  <div>
+                    <div className='flex flex-wrap mb-2 space-x-3'>
+                      <div>
+                        <img src={item?.products?.image} alt="" className='w-32 rounded-lg' />
+                      </div>
+                      <div className='space-y-1'>
+                        <p className='text-lg font-semibold'>{item?.products?.title}</p>
+                        <p>Harga : <b className='text-red-600'>{item?.products?.price === null || item?.products?.price === 0 ? 'Free' : `${formatRupiah(`${item?.products?.price}`)},-`}</b></p>
+                        <p>{item?.products?.title}</p>
+                      </div>
+                    </div>
+                    <ButtonPrimary name={'Bayar Sekarang'} onClick={openModal} classname={'px-3 p-2 rounded-xl'}
+                    />
+                  </div>
+                </div>
+                <OrderCreate isOpen={isModalOpen} onClose={closeModal}>
+                  <h2 className="text-xl font-semibold">Order Product</h2>
+                  <img src={item?.products?.image} alt="product" />
+                  <div>
+                    <div className='flex flex-wrap'>
+                      <p className='w-9/12 text-2xl font-bold py-2'>{item?.products?.title}</p>
+                      <p className='w-3/12 mt-3'><i className='font-semibold'>Tersisa : </i>{item?.products?.stock}</p>
+                    </div>
+                    <p>Harga : <b className='text-red-600'>{item?.products?.price === null || item?.products?.price === 0 ? 'Free' : `${formatRupiah(`${item?.products?.price}`)},-`}</b></p>
+                    <p className='py-2 font-normal'>{item?.products?.description}</p>
+                  </div>
+                  <form onSubmit={handleAddToOrder}>
+                    <label htmlFor="">Jumlah : </label>
+                    <input className='border border-gray-500 rounded-lg px-2 w-1/5 mx-a' type="number"
+                      value={orderData.totalProduct}
+                      onChange={(e) => setOrderData({ ...orderData, totalProduct: e.target.value })}
+                    />
+                    <div className='flex flex-wrap gap-5 justify-center'>
+                      {/* <ButtonSecondary type='submit' name={'Bayar Nanti'} onClick={handleAddToOrder} classname={'w-2/5 mt-5 hover:bg-blue-800 hover:text-white font-semibold'} /> */}
+                      <ButtonPrimary classname={'p-4 w-2/5 mt-5'} onClick={process} name={"Lanjut Pemabayaran"} type='submit'></ButtonPrimary>
+                    </div>
+                  </form>
+                </OrderCreate>
+              </>
             ))}
-            </>
+          </div>
+        </>
       )}
+
       {/* <OrderCreate isOpen={isModalOpen} onClose={closeModal}>
         <h2 className="text-xl font-semibold">Order Product</h2>
         <img src={data.image} alt="product" />
