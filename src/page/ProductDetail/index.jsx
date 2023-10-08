@@ -165,16 +165,31 @@ const ProductDetail = () => {
     // console.log(response.data.data.token_transaction);
     let tokentrans = response.data.data.token_transaction;
     window.snap.pay(tokentrans, {
-      onSuccess: (result) => {
+      onSuccess: async (result) => {
+        // localStorage.setItem("datatransakski", JSON.stringify(result));
+        // localStorage.setItem("datatransaction", JSON.stringify(result));
+        const headers = {
+          access_token: `Bearer ${token}`,
+        };
+        const data = {
+          userId: user.id,
+          status_bayar: "Sudah Dibayar",
+          status_kirim: "Belum Dikirim",
+          token_transaction: null,
+        };
+        await axios.put(
+          import.meta.env.VITE_BASE_URL + `/user/order/${result.order_id}`,
+          data,
+          { headers }
+        );
         window.location.href = "/";
         // alert("success Pembayaran");
         // localStorage.setItem("transaction", JSON.stringify(result));
         // // setTokenTransaction("");
         // localStorage.removeItem("transaction");
       },
-      onPending: (result) => {
+      onPending: async (result) => {
         window.location.href = "/";
-        // alert("Pembayaran Pending");
         // localStorage.setItem("transaction", JSON.stringify(result));
         // // setTokenTransaction("");
         // window.location.href = window.location.href;
