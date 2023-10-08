@@ -175,6 +175,9 @@ const UserProfile = () => {
                       <button className='bg-red-600 text-white font-serif px-4 py-2 rounded-lg' onClick={Logout}>
                         Logout
                       </button>
+                      <button className='bg-yellow-600 text-white font-serif px-4 py-2 rounded-lg' onClick={() => navigate('/user/order')}>
+                        Order
+                      </button>
                     </div>
                   </div>
                   <div className="text-center mt-7">
@@ -193,25 +196,29 @@ const UserProfile = () => {
                       <i className="fas fa-university mr-2 text-lg text-blueGray-400"></i>
                       {user.nohp}
                     </div>
+                    <div className='my-2'>
+                      <div className='font-semibold'>Jalur Simpul Rempah :</div>
+                      <div>{user?.simpulRempah?.nama}</div>
+                    </div>
                     {/* <div className="mb-2 text-blueGray-600">
                   <i className="fas fa-university mr-2 text-lg text-blueGray-400"></i>
                   {user.simpulrempahId}
                 </div> */}
+                    <div className='bg-green-500 text-white w-fit px-3 py-1 rounded-lg mx-auto'>Pembeli</div>
+
                     {user.dataMarket.length !== 0 ? (
                       <>
-                        <div className='bg-orange-700 text-white w-fit px-3 py-1 rounded-lg mx-auto'>Penjual</div>
                         <button className='px-3 py-2 rounded-lg bg-yellow-500 text-white hover:bg-yellow-700 hover:text-white my-2' onClick={() => navigate('/admin/dashboard')}>Sebagai Penjual</button>
                       </>
                     ) : (
                       <>
                         {user.simpulrempahId === null ? (
                           <div className='text-center'>
-                            <div className='bg-green-500 text-white w-fit px-3 py-1 rounded-lg mx-auto'>Pembeli</div>
                             <button className='px-3 py-2 rounded-lg bg-orange-700 text-white hover:bg-orange-600 hover:text-white my-2' onClick={openModal}>registrasi Sebagai Penjual</button>
                           </div>
                         ) : (
                           <>
-                            <div className='bg-orange-700 text-white w-fit px-3 py-1 rounded-lg mx-auto'>Penjual</div>
+                            {/* <div className='bg-orange-700 text-white w-fit px-3 py-1 rounded-lg mx-auto'>Penjual</div> */}
                             <button className='px-3 py-2 rounded-lg bg-yellow-500 text-white hover:bg-yellow-700 hover:text-white my-2' onClick={() => navigate('/admin/dashboard')}>Sebagai Penjual</button>
                           </>
                         )}
@@ -245,7 +252,7 @@ const UserProfile = () => {
                       value={user.simpulrempahId}
                       onChange={handleInputChange} className="block w-full rounded-md border-0 py-1.5 bg-white px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6">
                       <option value="" disabled>Pilih Sipul Rempah</option>
-                      {simpul && simpul?.map((item) => (
+                      {simpul && simpul.map((item) => (
                         <option key={item.id} value={item.id}>
                           {item.nama}
                         </option>

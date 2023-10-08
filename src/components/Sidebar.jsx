@@ -128,7 +128,8 @@ const Sidebar = () => {
               </ul>
             </li>
             <li>
-              <a
+              <button
+              onClick={() => navigate('/admin/order')}
                 href="#"
                 class="flex items-center p-2 text-base font-medium text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
               >
@@ -146,13 +147,9 @@ const Sidebar = () => {
                     d="M3 5a2 2 0 012-2h1a1 1 0 010 2H5v7h2l1 2h4l1-2h2V5h-1a1 1 0 110-2h1a2 2 0 012 2v10a2 2 0 01-2 2H5a2 2 0 01-2-2V5z"
                   ></path>
                 </svg>
-                <span class="flex-1 ml-3 whitespace-nowrap">Notification</span>
-                <span
-                  class="inline-flex justify-center items-center w-5 h-5 text-xs font-semibold rounded-full text-primary-800 bg-primary-100 dark:bg-primary-200 dark:text-primary-800"
-                >
-                  4
-                </span>
-              </a>
+                <span class="flex-1 ml-3 whitespace-nowrap">Orderan</span>
+              
+              </button>
             </li>
             <li>
 
