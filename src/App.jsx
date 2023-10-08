@@ -8,6 +8,7 @@ import { ProductDetail } from './page';
 import { NotFound } from './page';
 import { isUserAuthenticated } from './utils';
 import TestPayment from './page/TesPayment';
+import Pesanan from './page/Pesanan/Pesanan';
 // import Test from './components/Test';
 
 const App = () => {
@@ -28,6 +29,7 @@ const App = () => {
           <Route path='/market/detail/:id' element={<MarketDetail />} />
 
           <Route path='/user/profile' element={<UserProfile />} />
+          <Route path='/user/pesanan' element={<Pesanan />} />
           <Route path='/user/carts' element={<CartList />} />
           <Route path='/simpulrempah/detail/:id' element={<SimpulDetail/>} />
           {/* // admin */}
