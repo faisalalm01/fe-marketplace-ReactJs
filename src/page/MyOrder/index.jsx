@@ -200,17 +200,17 @@ const MyOrder = () => {
                           <div className='flex justify-between'>
                           <p className='text-lg font-semibold'>{item?.product?.title}</p>
                           {item.status_bayar === 'Belum Bayar' ? (
-                            <p className='py-1 text-red-600 rounded-md px-2 text-sm bg-red-300'>{item.status_bayar}</p>
+                            <p className='py-1 text-xs text-red-600 rounded-md px-2 bg-red-300'>{item.status_bayar}</p>
                             ):(
                               <div className='flex flex-row gap-2'>
                                 {item.status_kirim === 'belum Dikirim' ? (
                                   <p className='py-1 text-red-600 rounded-md px-2 bg-red-300'>{item.status_kirim}</p>
                                   ): (
                                     <>
-                                    <p className='py-1 text-green-600 rounded-md px-2 bg-green-300'>{item.status_kirim}</p>           
+                                    <p className='py-1 text-xs text-green-600 rounded-md px-2 bg-green-300'>{item.status_kirim}</p>           
                                     </>
                                   )}
-                              <p className='py-1 text-green-600 rounded-md px-2 bg-green-300'>{item.status_bayar}</p>
+                              <p className='py-1 text-xs text-green-600 rounded-md px-2 bg-green-300'>{item.status_bayar}</p>
                               </div>
                             )}
                           </div>
@@ -220,7 +220,7 @@ const MyOrder = () => {
                           <p><b>Alamat Pengiriman:</b> {item.alamat_pengiriman} </p>
                         </div>
                       </div>
-                      {item.status_bayar === 'Sudah Dibayar' ? (
+                      {item.status_bayar === 'Sudah Bayar' ? (
                         <>
                         
                         </>

@@ -47,10 +47,13 @@ const UserProfile = () => {
     setModalOpen(false);
   };
 
-
   const handleEditClick = () => {
     setIsEditing(true);
   };
+  const handleEditClose = () => {
+    setIsEditing(false)
+  }
+
   const handleSaveClick = () => {
     axios.put(import.meta.env.VITE_BASE_URL + '/user/update', user, {
       headers: {
@@ -102,12 +105,12 @@ const UserProfile = () => {
   console.log(user);
   return (
     <>
-    <div className="container">
+    {/* <div className="container">
         <div className="row">
           <div className="col-6 ml-6">
       <SidebarUser></SidebarUser>
           </div>
-          <div className="col-6">
+          <div className="col-6"> */}
 
       {user ? (
         <div className="container px-32 lg:w-full mx-auto">
@@ -162,7 +165,11 @@ const UserProfile = () => {
                       <label htmlFor="floating_company" class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Company (Ex. Google)</label>
                     </div>
                   </div>
+                  <div className='space-x-2'>
                   <button onClick={handleSaveClick} type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Submit</button>
+                  <button onClick={handleEditClose} type="submit" class="text-white bg-gray-400 hover:bg-gray-600 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center ">Close</button>
+                  </div>
+
                 </form>
               </div>
             </>
@@ -278,9 +285,9 @@ const UserProfile = () => {
           Tidak ada pengguna
         </div>
       )}
-          </div>
+          {/* </div>
         </div>
-        </div>
+        </div> */}
     </>
 
   )

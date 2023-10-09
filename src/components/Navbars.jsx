@@ -165,11 +165,11 @@ const Navbars = () => {
               ) : (
                 <>
                   <div className='w-full flex flex-row-reverse mt-4 text-lg font-normal'>
-                    <Link className='ml-5 hover:bg-orange-700' to={'/register'}>
+                    <Link className='ml-2 hover:bg-orange-700 hover:text-white font-semibold px-2 rounded-lg' to={'/register'}>
                       Register
                     </Link>
                     |
-                    <Link className='mr-5' to={'/login'}>
+                    <Link className='mr-2 hover:bg-orange-700 hover:text-white font-semibold px-2 rounded-lg' to={'/login'}>
                       Login
                     </Link>
                   </div>
