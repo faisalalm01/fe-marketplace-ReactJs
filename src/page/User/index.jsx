@@ -6,7 +6,7 @@ import ButtonPrimary from "../../components/Button/Primary";
 import { data } from "autoprefixer";
 import OrderCreate from "../../components/Order";
 import SidebarUser from "../../components/sidebar/SidebarUser";
-const ImageProfileDefault = "../src/assets/profile.jpg";
+const ImageProfileDefault = "/profile.jpg";
 
 const UserProfile = () => {
   const navigate = useNavigate();

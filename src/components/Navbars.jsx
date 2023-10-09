@@ -1,13 +1,13 @@
-import React, { useEffect, useState } from 'react'
-import { Link, useLocation, useNavigate } from 'react-router-dom'
-import { FaUser, FaShoppingCart } from 'react-icons/fa';
-import { BiLogOut } from 'react-icons/bi'
-const ImageLogo = '../src/assets/logo.png'
-import axios from 'axios';
+import React, { useEffect, useState } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { FaUser, FaShoppingCart } from "react-icons/fa";
+import { BiLogOut } from "react-icons/bi";
+const ImageLogo = "/logo.png";
+import axios from "axios";
 
 const Navbars = () => {
   const [cartItems, setCartItems] = useState([]);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const [open, setOpen] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
 
@@ -17,35 +17,35 @@ const Navbars = () => {
 
   const location = useLocation();
   const shouldShowNavbar = () => {
-    return location.pathname !== '/login' && location.pathname !== '/register';
+    return location.pathname !== "/login" && location.pathname !== "/register";
   };
 
   const ShowNavbarDashboard = () => {
-    return location.pathname !== '/dasboard/*';
+    return location.pathname !== "/dasboard/*";
   };
 
-  const token = localStorage.getItem('token'); // Gantilah sesuai dengan cara Anda menyimpan token
+  const token = localStorage.getItem("token"); // Gantilah sesuai dengan cara Anda menyimpan token
 
   useEffect(() => {
-
     // Setel header dengan token bearer
     const headers = {
-      'access_token': `Bearer ${token}`,
+      access_token: `Bearer ${token}`,
     };
 
     // Buat permintaan GET ke endpoint keranjang
-    axios.get(import.meta.env.VITE_BASE_URL + '/user/order', { headers })
+    axios
+      .get(import.meta.env.VITE_BASE_URL + "/user/order", { headers })
       .then((response) => {
         setCartItems(response.data.data);
       })
       .catch((error) => {
-        console.error('Gagal mengambil data order:', error);
+        console.error("Gagal mengambil data order:", error);
       });
   }, []);
   function Logout() {
-    localStorage.removeItem('token');
+    localStorage.removeItem("token");
 
-    window.location.href = '/';
+    window.location.href = "/";
   }
   return (
     <>
@@ -87,8 +87,10 @@ const Navbars = () => {
                 </svg>
               </button>
               <a href="/" className="flex items-center justify-between mr-4">
-                <img src={ImageLogo} alt="logo" className='w-10 mr-2' />
-                <span className="self-center text-2xl font-semibold whitespace-nowrap text-orange-700">JRM</span>
+                <img src={ImageLogo} alt="logo" className="w-10 mr-2" />
+                <span className="self-center text-2xl font-semibold whitespace-nowrap text-orange-700">
+                  JRM
+                </span>
               </a>
             </div>
             <div className="flex items-center lg:order-2">
@@ -107,36 +109,31 @@ const Navbars = () => {
                       viewBox="0 0 20 20"
                       xmlns="http://www.w3.org/2000/svg"
                     >
-                      <path
-                        d="M10 2a6 6 0 00-6 6v3.586l-.707.707A1 1 0 004 14h12a1 1 0 00.707-1.707L16 11.586V8a6 6 0 00-6-6zM10 18a3 3 0 01-3-3h6a3 3 0 01-3 3z"
-                      ></path>
+                      <path d="M10 2a6 6 0 00-6 6v3.586l-.707.707A1 1 0 004 14h12a1 1 0 00.707-1.707L16 11.586V8a6 6 0 00-6-6zM10 18a3 3 0 01-3-3h6a3 3 0 01-3 3z"></path>
                     </svg>
                   </button>
 
-                  {cartItems && cartItems.length >=  0 ? (
-
+                  {cartItems && cartItems.length >= 0 ? (
                     <Link
-                    to={'/user/carts'}
+                      to={"/user/carts"}
                       type="button"
                       data-dropdown-toggle="notification-dropdown"
                       className="p-2 mr-1 text-gray-400 rounded-lg hover:text-white hover:bg-orange-700 "
                     >
                       {cartItems.map((item) => (
-                            <div key={item.id}>
-                              <div className='font-thin text-center my-auto bg-red-600 w-2.5 h-2.5 text-white absolute rounded-full text-[11px]'>
-                                <p className='text-black text-9xl'>{item.length}</p>
-                              </div>
-                            </div>
-                          ))
-
-                          }
-                      <FaShoppingCart className='w-6 h-5' />
+                        <div key={item.id}>
+                          <div className="font-thin text-center my-auto bg-red-600 w-2.5 h-2.5 text-white absolute rounded-full text-[11px]">
+                            <p className="text-black text-9xl">{item.length}</p>
+                          </div>
+                        </div>
+                      ))}
+                      <FaShoppingCart className="w-6 h-5" />
                     </Link>
                   ) : (
                     <></>
                   )}
                   <Link
-                    to={'/user/profile'}
+                    to={"/user/profile"}
                     // onClick={toggleDropdown}
                     // onTouchMove={toggleDropdown}
                     type="button"
@@ -145,7 +142,7 @@ const Navbars = () => {
                     aria-expanded="false"
                     data-dropdown-toggle="dropdown"
                   >
-                    <p className='my-auto font-bold text-lg'>Profile</p>
+                    <p className="my-auto font-bold text-lg">Profile</p>
                     <img
                       className="w-8 h-8 rounded-full border-white border-2 bg-white"
                       // src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/michael-gough.png"
@@ -158,18 +155,23 @@ const Navbars = () => {
                     data-dropdown-toggle="notification-dropdown"
                     className="p-2.5 ml-2 bg-orange-700 text-white rounded-lg hover:text-white hover:bg-orange-600"
                   >
-                    <BiLogOut className='w-6 h-6'/>
+                    <BiLogOut className="w-6 h-6" />
                   </button>
-                
                 </>
               ) : (
                 <>
-                  <div className='w-full flex flex-row-reverse mt-4 text-lg font-normal'>
-                    <Link className='ml-2 hover:bg-orange-700 hover:text-white font-semibold px-2 rounded-lg' to={'/register'}>
+                  <div className="w-full flex flex-row-reverse mt-4 text-lg font-normal">
+                    <Link
+                      className="ml-2 hover:bg-orange-700 hover:text-white font-semibold px-2 rounded-lg"
+                      to={"/register"}
+                    >
                       Register
                     </Link>
                     |
-                    <Link className='mr-2 hover:bg-orange-700 hover:text-white font-semibold px-2 rounded-lg' to={'/login'}>
+                    <Link
+                      className="mr-2 hover:bg-orange-700 hover:text-white font-semibold px-2 rounded-lg"
+                      to={"/login"}
+                    >
                       Login
                     </Link>
                   </div>
@@ -179,10 +181,8 @@ const Navbars = () => {
           </div>
         </nav>
       )}
-
-     
     </>
-  )
-}
+  );
+};
 
-export default Navbars
+export default Navbars;
