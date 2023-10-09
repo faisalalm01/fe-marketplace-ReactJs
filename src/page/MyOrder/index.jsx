@@ -128,7 +128,7 @@ const MyOrder = () => {
       };
       axios.get(import.meta.env.VITE_BASE_URL + '/user/order', { headers })
         .then((response) => {
-          setOrderItem(response.data.data);
+          setOrderItem(response.data);
         })
         .catch((error) => {
           console.error('Gagal mengambil data order:', error);
@@ -136,33 +136,33 @@ const MyOrder = () => {
     }, []);
   
   
-    const handleAddToOrder = () => {
-      const headers = {
-        'access_token': `Bearer ${token}`,
-      };
+    // const handleAddToOrder = () => {
+    //   const headers = {
+    //     'access_token': `Bearer ${token}`,
+    //   };
   
-      const productData = {
-        userId: user.id,
-        productId: Product.dataDetailProduct.id,
-        totalProduct: orderData.totalProduct
-      };
+    //   const productData = {
+    //     userId: user.id,
+    //     productId: Product.dataDetailProduct.id,
+    //     totalProduct: orderData.totalProduct
+    //   };
   
-      axios.post(import.meta.env.VITE_BASE_URL + 'user/order', productData, { headers })
-        .then((response) => {
-          if (response.status === 200) {
-            setOrderData(response.data.data);
-            navigate('/product/detail/' + productId)
-            // window.location.href = window.location.href;
-          } else if (response.status === 401 || user.id === null) {
-            navigate('/login')
-          } else {
-            window.location.href = window.location.href;
-          }
-        })
-        .catch((error) => {
-          console.error('Gagal menambahkan produk ke order:', error);
-        });
-    };
+    //   axios.post(import.meta.env.VITE_BASE_URL + 'user/order', productData, { headers })
+    //     .then((response) => {
+    //       if (response.status === 200) {
+    //         setOrderData(response.data.data);
+    //         navigate('/product/detail/' + productId)
+    //         // window.location.href = window.location.href;
+    //       } else if (response.status === 401 || user.id === null) {
+    //         navigate('/login')
+    //       } else {
+    //         window.location.href = window.location.href;
+    //       }
+    //     })
+    //     .catch((error) => {
+    //       console.error('Gagal menambahkan produk ke order:', error);
+    //     });
+    // };
   
     const openModal = () => {
       setModalOpen(true);
@@ -175,7 +175,7 @@ const MyOrder = () => {
     return (
       <div className='mx-auto container mt-20'>
         {/* <p>{orderItem.length}</p> */}
-        {orderItem?.length === 0 ? (
+        {/* {orderItem?.length === 0 ? (
           <div className=' bg-white justify-center text-center rounded-lg shadow-xl py-6 font-bold text-2xl'>
             <div>Orderanmu Kosong</div>
           </div>
@@ -221,7 +221,7 @@ const MyOrder = () => {
                         onChange={(e) => setOrderData({ ...orderData, totalProduct: e.target.value })}
                       />
                       <div className='flex flex-wrap gap-5 justify-center'>
-                        {/* <ButtonSecondary type='submit' name={'Bayar Nanti'} onClick={handleAddToOrder} classname={'w-2/5 mt-5 hover:bg-blue-800 hover:text-white font-semibold'} /> */}
+                        <ButtonSecondary type='submit' name={'Bayar Nanti'} onClick={handleAddToOrder} classname={'w-2/5 mt-5 hover:bg-blue-800 hover:text-white font-semibold'} />
                         <ButtonPrimary classname={'p-4 w-2/5 mt-5'} onClick={process} name={"Lanjut Pemabayaran"} type='submit'></ButtonPrimary>
                       </div>
                     </form>
@@ -230,7 +230,7 @@ const MyOrder = () => {
               ))}
             </div>
           </>
-        )}
+        )} */}
   
         {/* <OrderCreate isOpen={isModalOpen} onClose={closeModal}>
           <h2 className="text-xl font-semibold">Order Product</h2>
