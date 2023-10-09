@@ -2,21 +2,44 @@ import React, { useEffect, useState } from 'react'
 import Sidebar from '../../../components/Sidebar';
 import axios from 'axios';
 import { formatRupiah } from '../../../utils';
+import { useNavigate } from 'react-router-dom';
 
 const Order = () => {
   const token = localStorage.getItem('token');
   const [order, setOrder] = useState([]);
-  const [isAdd, setIsAdd] = useState(false);
-  const [ product, setProduct] = useState(null)
-  const [isKirim, setKirim] = useState({})
+  const [selectedProduct, setSelectedProduct] = useState(null);  
+  const navigate = useNavigate()
+  const [send, setSend] = useState({
+    status_kirim : ''
+  })
 
-  const handleClickToAdd = () => {
-    setIsAdd(true);
-  };
-  const handleButtonCancel = () => {
-    setIsAdd(false);
-  };
+  const handleClick = async (id) => {
+    // const test = order.map((data) => {return data})
+    const orderId = order.find((p) => p.id === id)
+    console.log(orderId.totalPrice);
+    setSelectedProduct(orderId);
+    const data = {
+      status_kirim: 'Sudah Dikirim'
+    }
+    const configg = {
+      headers: {
+        'access_token': `Bearer ${token}`,
+      },
+    };
+    try {
+      // Ganti URL endpoint dengan URL yang sesuai dengan data yang ingin Anda ubah statusnya
+      const response = await axios.put(import.meta.env.VITE_BASE_URL +`user/order/${orderId.id}`, data,
+      configg
+      );
 
+      setSend(response.data.data);
+      Navigate('admin/order')
+      // console.log(response);
+      // console.log('Status berhasil diubah');
+    } catch (error) {
+      console.error('Gagal mengubah status:', error);
+    }
+  };
 
   useEffect(() => {
 
@@ -35,26 +58,10 @@ const Order = () => {
       });
   }, []);
 
-  const hadnleUpdate = (id) => {
-    const dataOrder = {
-      status_kirim: 'Sudah Dikirim'
-    }
-    id
-    const headers = {
-      'access_token': `Bearer ${token}`,
-    };
 
-    // Buat permintaan GET ke endpoint keranjang
-    axios.put(import.meta.env.VITE_BASE_URL + `user/order/${id}`, dataOrder,  { headers })
-      .then((response) => {
-        setKirim(response.data.data);
-      })
-      .catch((error) => {
-        console.error('Gagal mengirim orderan', error);
-      });
-  };
+  
 
-  console.log(order);
+  // console.log(order);
   return (
     <>
       <Sidebar />
@@ -65,7 +72,7 @@ const Order = () => {
               <section class="text-gray-600 body-font">
                 <div class="container px-2 py-24 mx-auto">
               
-                  <div class="lg:w-2/3 w-full mx-auto overflow-auto bg-white">
+                  <div class="lg:w-2({})/3 w-full mx-auto overflow-auto bg-white">
                     {order && order.length === 0 ? (
                       <div className='text-center font-bold text-2xl p-20 bg-white border rounded-lg shadow-xl '>
                         <div>Data Produk belum tersedia</div>
@@ -103,14 +110,14 @@ const Order = () => {
                                 )}
                                 {item.status_bayar === 'Belum Bayar' ? (
                                   <>
-                                  <td><button disabled className='px-1 py-1.5 bg-gray-300 text-gray-700 text-xs rounded-md'>Menunggu bayar</button></td>
+                                  <td><button onClick={handleClick} className='px-1 py-1.5 bg-gray-300 text-gray-700 text-xs rounded-md'>Menunggu bayar</button></td>
                                   </>
                                   ):(
                                     <>
                                     {item.status_kirim === 'Belum Dikirim' ? (
-                                      <td><button onClick={hadnleUpdate(item.id)} className='px-2 py-1.5 bg-gray-300 text-gray-700 text-xs rounded-md'>Kirim Order</button></td>
+                                      <td><button onClick={() => handleClick(item.id)} className='px-2 py-1.5 bg-gray-300 text-gray-700 text-xs rounded-md'>Kirim Order</button></td>
                                     ):(
-                                      <td><button className='text-xs bg-green-300 text-green-700 px-2 py-1 rounded-md' disabled>{item.status_kirim}</button></td>
+                                      <td><button disabled className='text-xs bg-green-300 text-green-700 px-2 py-1 rounded-md'>{item.status_kirim}</button></td>
                                     )}
                                     </>
                                   )}
