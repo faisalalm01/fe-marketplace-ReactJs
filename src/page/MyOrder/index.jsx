@@ -200,10 +200,10 @@ const MyOrder = () => {
                           <div className='flex justify-between'>
                           <p className='text-lg font-semibold'>{item?.product?.title}</p>
                           {item.status_bayar === 'Belum Bayar' ? (
-                            <p className='py-1 text-white rounded-md px-2 bg-red-600'>{item.status_bayar}</p>
+                            <p className='py-1 text-red-600 rounded-md px-2 text-sm bg-red-300'>{item.status_bayar}</p>
                             ):(
                               <>
-                              <p className='py-1 text-white rounded-md px-2 bg-green-600'>{item.status_bayar}</p>
+                              <p className='py-1 text-green-600 rounded-md px-2 bg-green-300'>{item.status_bayar}</p>
                               </>
                             )}
                           </div>
@@ -213,8 +213,16 @@ const MyOrder = () => {
                           <p><b>Alamat Pengiriman:</b> {item.alamat_pengiriman} </p>
                         </div>
                       </div>
-                      <ButtonPrimary name={'Bayar Sekarang'} onClick={openModal} classname={'px-3 p-2 rounded-xl'}
+                      {item.status_bayar === 'Sudah Dibayar' ? (
+                        <>
+                        
+                        </>
+                        ) : (
+                          <>
+                        <ButtonPrimary name={'Bayar Sekarang'} onClick={openModal} classname={'px-3 p-2 rounded-xl'}
                       />
+                      </>
+                        )}
                     </div>
                   </div>
                   {/* <OrderCreate isOpen={isModalOpen} onClose={closeModal}>
