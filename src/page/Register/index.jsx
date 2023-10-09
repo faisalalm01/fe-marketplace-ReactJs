@@ -12,9 +12,14 @@ const Register = () => {
     lastname: '',
     email: '',
     password: '',
-    address: ''
+    address: '',
+    provinsi: '',
+    kota: '',
+    kecamatan: '',
+    kode_pos: '',
+    simpulrempahId: ''
   });
-
+  const [simpul, setSimpul] = useState([])
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData({
@@ -42,7 +47,16 @@ const Register = () => {
       console.error('Terjadi kesalahan:', error);
     }
   };
+  useEffect(() => {
 
+    axios.get(import.meta.env.VITE_BASE_URL + 'simpulrempah/list')
+      .then((response) => {
+        setSimpul(response.data.data);
+      })
+      .catch((error) => {
+        console.error('Gagal mengambil data titik simpul:', error);
+      });
+  }, []);
   return (
     <>
       <div className="relative flex flex-col justify-center min-h-screen overflow-hidden">
@@ -110,17 +124,102 @@ const Register = () => {
                 type="password"
                 className="block w-full px-4 py-2 mt-2 text-purple-700 bg-white border rounded-md focus:border-purple-400 focus:ring-purple-300 focus:outline-none focus:ring focus:ring-opacity-40"
               />
+              </div>
+              <div>
+              <label htmlFor="country" className="block text-sm font-medium leading-6 text-gray-900">Pilih simpul rempah terdekat mu :</label>
+                  <div className="mt-2">
+                    <select
+                      name="simpulrempahId"
+                      type="simpulrempahId"
+                      value={formData.simpulrempahId}
+                      onChange={handleInputChange} className="block w-full rounded-md border-0 py-1.5 bg-white px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6">
+                      <option value="" disabled>Pilih Sipul Rempah</option>
+                      {simpul && simpul.map((item) => (
+                        <option key={item.id} value={item.id}>
+                          {item.nama}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                  </div>
+
+              <div className='flex flex-wrap'>
+                <div className="mb-2 w-6/12">
+                  <label
+                    htmlFor="lastname"
+                    className="block text-sm font-semibold text-gray-800"
+                  >
+                    Provinsi
+                  </label>
+                  <input
+                    value={formData.provinsi}
+                    name='provinsi'
+                    onChange={handleInputChange}
+                    type="provinsi"
+                    className="block w-full px-4 py-2 mt-2 text-purple-700 bg-white border rounded-md focus:border-purple-400 focus:ring-purple-300 focus:outline-none focus:ring focus:ring-opacity-40"
+                  />
+                </div>
+                <div className="mb-2 w-6/12">
+                  <label
+                    htmlFor="lastname"
+                    className="block text-sm font-semibold text-gray-800"
+                  >
+                    Kota
+                  </label>
+                  <input
+                    value={formData.kota}
+                    name='kota'
+                    onChange={handleInputChange}
+                    type="kota"
+                    className="block w-full px-4 py-2 mt-2 text-purple-700 bg-white border rounded-md focus:border-purple-400 focus:ring-purple-300 focus:outline-none focus:ring focus:ring-opacity-40"
+                  />
+                </div>
+              </div>
+
+              <div className='flex flex-wrap'>
+                <div className="mb-2 w-6/12">
+                  <label
+                    htmlFor="lastname"
+                    className="block text-sm font-semibold text-gray-800"
+                  >
+                    Kecamatan
+                  </label>
+                  <input
+                    value={formData.kecamatan}
+                    name='kecamatan'
+                    onChange={handleInputChange}
+                    type="kecamatan"
+                    className="block w-full px-4 py-2 mt-2 text-purple-700 bg-white border rounded-md focus:border-purple-400 focus:ring-purple-300 focus:outline-none focus:ring focus:ring-opacity-40"
+                  />
+                </div>
+
+                <div className="mb-2 w-6/12">
+                  <label
+                    htmlFor="lastname"
+                    className="block text-sm font-semibold text-gray-800"
+                  >
+                    Kode Pos
+                  </label>
+                  <input
+                    value={formData.kode_pos}
+                    name='kode_pos'
+                    onChange={handleInputChange}
+                    type="kode_pos"
+                    className="block w-full px-4 py-2 mt-2 text-purple-700 bg-white border rounded-md focus:border-purple-400 focus:ring-purple-300 focus:outline-none focus:ring focus:ring-opacity-40"
+                  />
+                </div>
+                </div>
 
               <div class="col-span-full">
-                <label for="about" class="block text-sm font-medium leading-6 text-gray-900">Alamat</label>
+                <label for="about" class="block text-sm font-medium leading-6 text-gray-900">Alamat Lengkap</label>
                 <div class="mt-2">
                   <textarea
+                    placeholder='Jalan in aja dulu'
                     name="address"
                     value={formData.address}
                     onChange={handleInputChange} rows="5" class=" p-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" required></textarea>
                 </div>
               </div>
-            </div>
 
             <div className="mt-6">
               <button className="w-full px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-purple-700 rounded-md hover:bg-purple-600 focus:outline-none focus:bg-purple-600">

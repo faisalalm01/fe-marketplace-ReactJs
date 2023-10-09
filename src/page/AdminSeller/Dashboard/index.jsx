@@ -72,17 +72,18 @@ const Dashboard = () => {
   const username = user?.firstname;
 
   return (
-    <div className='bg-gray-200'>
+    <div className='bg-gray-200 max-h-0'>
       <div>
         <Sidebar />
-        <main class="p-4 md:ml-64 h-auto pt-20">
+        <main class="p-4 md:ml-64 h-auto pt-10">
+          <div className='bg-orange-700 text-white w-fit px-3 py-1 my-2 rounded-lg'>Penjual</div>
           <div
             class="border-2 rounded-lg bg-white h-96 mb-4"
           >
             <p className='lg:p-9 text-2xl font-semibold sm:text-xl lg:text-3xl font-mono'>Welcome {username}</p>
 
           </div>
-          <div class="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
+          {/* <div class="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
             <div
               class="bg-white border-gray-300 rounded-lg dark:border-gray-600 h-32 md:h-64"
             ></div>
@@ -95,7 +96,7 @@ const Dashboard = () => {
             <div
               class="bg-red-500 rounded-lg border-gray-300 dark:border-gray-600 h-32 md:h-64"
             ></div>
-          </div>
+          </div> */}
           <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-4 mb-4">
             <div
               class="rounded-lg bg-white shadow-md"
@@ -140,7 +141,7 @@ const Dashboard = () => {
               <div className='p-5  rounded-md'>
                 <div className='flex flex-wrap justify-between mb-4'>
                   <p className='text-xl font-bold'>Produk</p>
-                  <button className='px-4 rounded-md bg-gray-200' onClick={() => navigate('/admin/produk')}>View All</button>
+                  <button className='px-4 rounded-md bg-gray-200' onClick={() => navigate('/admin/product')}>View All</button>
                 </div>
                 <hr />
                 <div className='mt-4'>
@@ -150,32 +151,32 @@ const Dashboard = () => {
                     </div>
                   ) : (
                     <>
-                    <div className=' p-2 m-1 rounded-md'>
-                      {product && product.dataProduct.map((item) => (
-                        <div className='flex bg-white rounded-lg p-2 w-full shadow-md my-2' key={item.id}>
-                          <div className='border rounded-lg'>
-                            <img src={item.image} className='w-32 h-full rounded-lg' alt="test" />
-                          </div>
-                          <div className='flex flex-wrap justify-between ml-5 w-full'>
-                            <div className='w-8/12 border-r-2 my-auto'>
-                              <p className='font-semibold text-lg'>{item.title}</p>
-                              <p>{item?.kategori}</p>
-                              <p className='text-red-500 font-mono'>{item.price === null || item.price === 0 ? 'Free' : `${formatRupiah(`${item.price}`)},-`}</p>
-                              <p className='font-serif'><i>stock : {item.stock}</i></p>
+                      <div className=' p-2 m-1 rounded-md'>
+                        {product && product.dataProduct.map((item) => (
+                          <div className='flex bg-white rounded-lg p-2 w-full shadow-md my-2' key={item.id}>
+                            <div className='border rounded-lg'>
+                              <img src={item.image} className='w-32 h-full rounded-lg' alt="test" />
                             </div>
-                            <div className='w-4/12 my-2'>
-                           
+                            <div className='flex flex-wrap justify-between ml-5 w-full'>
+                              <div className='w-8/12 border-r-2 my-auto'>
+                                <p className='font-semibold text-lg'>{item.title}</p>
+                                <p>{item?.kategori}</p>
+                                <p className='text-red-500 font-mono'>{item.price === null || item.price === 0 ? 'Free' : `${formatRupiah(`${item.price}`)},-`}</p>
+                                <p className='font-serif'><i>stock : {item.stock}</i></p>
+                              </div>
+                              <div className='w-4/12 my-2'>
+
+                              </div>
                             </div>
                           </div>
-                        </div>
-                      )).slice(0, 5)}
-                    </div>
-                  </>
+                        )).slice(0, 5)}
+                      </div>
+                    </>
                   )}
                 </div>
               </div>
             </div>
-           
+
           </div>
         </main>
       </div>

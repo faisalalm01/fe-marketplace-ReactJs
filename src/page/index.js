@@ -7,8 +7,9 @@ import Login from "./Login";
 import UserProfile from "./User";
 import CartList from "./CartList";
 // import TesPayment from "./TesPayment"
-import { Dashboard, AddMarket, AddProduct } from "./AdminSeller";
+import { Dashboard, AddMarket, AddProduct, Order } from "./AdminSeller";
 import SimpulDetail from "./SimpulDetail";
+import MyOrder from "./MyOrder";
 
 export {
     Login,
@@ -23,5 +24,7 @@ export {
     AddProduct,
     CartList,
     SimpulDetail,
+    Order,
+    MyOrder
     // TesPayment,
 }

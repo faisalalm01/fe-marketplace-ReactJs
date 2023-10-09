@@ -1,19 +1,8 @@
-import axios from 'axios';
 import React, { useEffect, useState } from 'react'
-import CardProduct from '../../../components/CardProduct/CardProduct';
-import { formatRupiah } from '../../../utils';
 import Sidebar from '../../../components/Sidebar';
+import axios from 'axios';
 
-const AddProduct = () => {
-  const [productData, setProductData] = useState({
-    title: '',
-    description: '',
-    price: '',
-    marketId: '',
-    stock: '',
-    kategori: '',
-    image: null,
-  });
+const Order = () => {
   const token = localStorage.getItem('token');
   const [markets, setMarkets] = useState([]);
   const [isAdd, setIsAdd] = useState(false);
@@ -26,46 +15,6 @@ const AddProduct = () => {
     setIsAdd(false);
   };
 
-
-  const handleInputChange = (e) => {
-    const { name, value, type, files } = e.target;
-    if (type === 'file') {
-      setProductData({ ...productData, [name]: files[0] });
-    } else {
-      setProductData({ ...productData, [name]: value });
-    }
-  };
-
-  console.log(productData);
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      const formData = new FormData();
-      formData.append('title', productData.title);
-      formData.append('description', productData.description);
-      formData.append('price', productData.price);
-      formData.append('stock', productData.stock);
-      formData.append('marketId', productData.marketId);
-      formData.append('kategori', productData.kategori);
-      formData.append('image', productData.image);
-
-      // Kirim data ke server dengan menggunakan axios
-      const response = await axios.post(import.meta.env.VITE_BASE_URL + 'product/create', formData, {
-        headers: {
-          'access_token': `Bearer ${token}`, // Menggunakan token bearer untuk otorisasi
-          'Content-Type': 'multipart/form-data', // Pastikan header sesuai
-        },
-      });
-
-      // Proses respons dari server jika diperlukan
-      console.log('Response:', response.data);
-      window.location.href = window.location.href;
-      setIsAdd(false)
-    } catch (error) {
-      console.error('Error:', error);
-    }
-  };
 
   useEffect(() => {
 
@@ -289,4 +238,4 @@ const AddProduct = () => {
   );
 }
 
-export default AddProduct
+export default Order

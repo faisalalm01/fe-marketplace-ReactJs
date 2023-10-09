@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { FaUser, FaShoppingCart } from 'react-icons/fa';
 import { BiLogOut } from 'react-icons/bi'
+const ImageLogo = '../src/assets/logo.png'
 import axios from 'axios';
 
 const Navbars = () => {
@@ -33,12 +34,12 @@ const Navbars = () => {
     };
 
     // Buat permintaan GET ke endpoint keranjang
-    axios.get(import.meta.env.VITE_BASE_URL + '/user/cart', { headers })
+    axios.get(import.meta.env.VITE_BASE_URL + '/user/order', { headers })
       .then((response) => {
         setCartItems(response.data.data);
       })
       .catch((error) => {
-        console.error('Gagal mengambil data keranjang:', error);
+        console.error('Gagal mengambil data order:', error);
       });
   }, []);
   function Logout() {
@@ -86,7 +87,8 @@ const Navbars = () => {
                 </svg>
               </button>
               <a href="/" className="flex items-center justify-between mr-4">
-                <span className="self-center text-2xl font-semibold whitespace-nowrap text-black">Market Place</span>
+                <img src={ImageLogo} alt="logo" className='w-10 mr-2' />
+                <span className="self-center text-2xl font-semibold whitespace-nowrap text-orange-700">JRM</span>
               </a>
             </div>
             <div className="flex items-center lg:order-2">

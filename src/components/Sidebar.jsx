@@ -1,6 +1,8 @@
 import React from 'react'
+import { Link, useNavigate } from 'react-router-dom'
 
 const Sidebar = () => {
+  const navigate = useNavigate();
   return (
     <div className=''>
       <aside
@@ -8,29 +10,21 @@ const Sidebar = () => {
         aria-label="Sidenav"
         id="drawer-navigation"
       >
-        <div class="overflow-y-auto py-18 px-3 h-full bg-white dark:bg-gray-800 my-auto">
+        <div class="overflow-y-auto py-18 px-3 h-full bg-white dark:bg-gray-800 my-auto pt-16">
 
           <ul class="space-y-2">
             <li>
-              <a
+              <Link to={'/admin/dashboard'}
                 href="#"
                 class="flex items-center p-2 text-base font-medium text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
               >
-                <svg
-                  aria-hidden="true"
-                  class="w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
-                  fill="currentColor"
-                  viewBox="0 0 20 20"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path d="M2 10a8 8 0 018-8v8h8a8 8 0 11-16 0z"></path>
-                  <path d="M12 2.252A8.014 8.014 0 0117.748 8H12V2.252z"></path>
-                </svg>
-                <span class="ml-3">Overview</span>
-              </a>
+
+                <span class="flex-1 ml-3 whitespace-nowrap">Dashboard</span>
+              </Link>
             </li>
             <li>
               <button
+                onClick={() => navigate('/admin/market')}
                 type="button"
                 class="flex items-center p-2 w-full text-base font-medium text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
                 aria-controls="dropdown-pages"
@@ -79,6 +73,8 @@ const Sidebar = () => {
             </li>
             <li>
               <button
+                onClick={() => navigate('/admin/product')}
+
                 type="button"
                 class="flex items-center p-2 w-full text-base font-medium text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
                 aria-controls="dropdown-sales"
@@ -132,7 +128,8 @@ const Sidebar = () => {
               </ul>
             </li>
             <li>
-              <a
+              <button
+              onClick={() => navigate('/admin/order')}
                 href="#"
                 class="flex items-center p-2 text-base font-medium text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
               >
@@ -150,13 +147,9 @@ const Sidebar = () => {
                     d="M3 5a2 2 0 012-2h1a1 1 0 010 2H5v7h2l1 2h4l1-2h2V5h-1a1 1 0 110-2h1a2 2 0 012 2v10a2 2 0 01-2 2H5a2 2 0 01-2-2V5z"
                   ></path>
                 </svg>
-                <span class="flex-1 ml-3 whitespace-nowrap">Notification</span>
-                <span
-                  class="inline-flex justify-center items-center w-5 h-5 text-xs font-semibold rounded-full text-primary-800 bg-primary-100 dark:bg-primary-200 dark:text-primary-800"
-                >
-                  4
-                </span>
-              </a>
+                <span class="flex-1 ml-3 whitespace-nowrap">Orderan</span>
+              
+              </button>
             </li>
             <li>
 
