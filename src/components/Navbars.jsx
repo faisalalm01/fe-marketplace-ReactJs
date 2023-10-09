@@ -113,7 +113,7 @@ const Navbars = () => {
                     </svg>
                   </button>
 
-                  {cartItems && cartItems.length >= 0 ? (
+                  {cartItems && cartItems.length >=  0 ? (
 
                     <Link
                     to={'/user/carts'}

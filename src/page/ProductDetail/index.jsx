@@ -229,7 +229,7 @@ const ProductDetail = () => {
     };
   });
 
-  console.log(orderData);
+  console.log(token);
   return (
     <div>
       <div className="w-full container mx-auto">
@@ -259,9 +259,15 @@ const ProductDetail = () => {
                   </>
                 ) : (
                   <>
+                    {token === 'null' ? (
+                      <>
+                        <p>Login Dahulu sebelum order</p>
+                      </>
+                    ): (
+                      <> 
                     <ButtonSecondary
                       disable={
-                        data.stock === null || data.stock === 0 ? true : false
+                        data.stock === null || data.stock <= 0 ? true : false
                       }
                       name={"Masukkan Keranjang"}
                       classname={
@@ -271,12 +277,14 @@ const ProductDetail = () => {
                     />
                     <ButtonPrimary
                       disabled={
-                        data.stock === null || data.stock === 0 ? true : false
+                        data.stock === null || data.stock <= 0 ? true : false
                       }
                       name={"Buy"}
                       classname={"px-10 py-2 w-full"}
                       onClick={openModal}
-                    />
+                      />
+                      </>
+                    )}
                   </>
                 )}
               </div>
@@ -286,7 +294,15 @@ const ProductDetail = () => {
                 <h1 className="text-4xl font-semibold w-4/5">{data.title}</h1>
                 <p className="w-1/5 mt-3">
                   <i className="font-semibold">Tersisa : </i>
-                  {data.stock}
+                  {data.stock === null || data.stock <= 0 ? (
+                    <>
+                    <p>tidak tersedia</p>
+                    </>
+                  ):(
+                    <>
+                    {data.stock}
+                    </>
+                  )}
                 </p>
               </div>
               <div className="space-y-4 text-lg mt-5">
