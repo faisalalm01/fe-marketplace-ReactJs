@@ -33,7 +33,7 @@ const Order = () => {
       );
 
       setSend(response.data.data);
-      Navigate('admin/order')
+      window.location.href = '/admin/order'
       // console.log(response);
       // console.log('Status berhasil diubah');
     } catch (error) {
