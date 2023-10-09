@@ -200,7 +200,7 @@ const UserProfile = () => {
                           Pilih Simpul Rempah
                         </option>
                         {simpul &&
-                          simpul.map((item) => (
+                          simpul?.map((item) => (
                             <option key={item.id} value={item.id}>
                               {item.nama}
                             </option>

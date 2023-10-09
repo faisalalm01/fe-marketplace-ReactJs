@@ -39,8 +39,7 @@ const Order = () => {
     const dataOrder = {
       status_kirim: 'Sudah Dikirim'
     }
-
-    // Setel header dengan token bearer
+    id
     const headers = {
       'access_token': `Bearer ${token}`,
     };
@@ -108,8 +107,8 @@ const Order = () => {
                                   </>
                                   ):(
                                     <>
-                                    {item.status_kirim === 'belum Dikirm' ? (
-                                      <td><button onClick={hadnleUpdate(item.id)} className='px-2 py-1.5 bg-gray-300 text-gray-700 text-xs rounded-md'>{item.status_kirim}</button></td>
+                                    {item.status_kirim === 'Belum Dikirim' ? (
+                                      <td><button onClick={hadnleUpdate(item.id)} className='px-2 py-1.5 bg-gray-300 text-gray-700 text-xs rounded-md'>Kirim Order</button></td>
                                     ):(
                                       <td><button className='text-xs bg-green-300 text-green-700 px-2 py-1 rounded-md' disabled>{item.status_kirim}</button></td>
                                     )}

@@ -173,8 +173,8 @@ const MyOrder = () => {
     const closeModal = () => {
       setModalOpen(false);
     };
-    console.log(token);
-    console.log(orderItem);
+
+
     return (
       <div className='mx-auto container mt-20'>
         {/* <p>{orderItem.length}</p> */}
