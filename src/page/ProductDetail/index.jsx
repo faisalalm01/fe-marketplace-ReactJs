@@ -229,7 +229,7 @@ const ProductDetail = () => {
     };
   });
 
-  console.log(user);
+  console.log(orderData);
   return (
     <div>
       <div className="w-full container mx-auto">

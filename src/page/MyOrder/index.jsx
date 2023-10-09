@@ -2,6 +2,8 @@ import axios from 'axios';
 import React, { useState } from 'react'
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { formatRupiah } from '../../utils';
+import ButtonPrimary from '../../components/Button/Primary';
 
 const MyOrder = () => {
     const [cartItems, setCartItems] = useState([]);
@@ -128,7 +130,7 @@ const MyOrder = () => {
       };
       axios.get(import.meta.env.VITE_BASE_URL + '/user/order', { headers })
         .then((response) => {
-          setOrderItem(response.data);
+          setOrderItem(response.data.data);
         })
         .catch((error) => {
           console.error('Gagal mengambil data order:', error);
@@ -171,11 +173,12 @@ const MyOrder = () => {
     const closeModal = () => {
       setModalOpen(false);
     };
+    console.log(token);
     console.log(orderItem);
     return (
       <div className='mx-auto container mt-20'>
         {/* <p>{orderItem.length}</p> */}
-        {/* {orderItem?.length === 0 ? (
+        {orderItem?.length === 0 ? (
           <div className=' bg-white justify-center text-center rounded-lg shadow-xl py-6 font-bold text-2xl'>
             <div>Orderanmu Kosong</div>
           </div>
@@ -189,21 +192,32 @@ const MyOrder = () => {
                     className="rounded-lg bg-white shadow-xl p-3"
                   >
                     <div>
-                      <div className='flex flex-wrap mb-2 space-x-3'>
+                      <div className='flex flex-row mb-2 space-x-3'>
                         <div>
-                          <img src={item?.products?.image} alt="" className='w-32 rounded-lg' />
+                          <img src={item?.product?.image} alt="" className='w-52 rounded-lg' />
                         </div>
                         <div className='space-y-1'>
-                          <p className='text-lg font-semibold'>{item?.products?.title}</p>
-                          <p>Harga : <b className='text-red-600'>{item?.products?.price === null || item?.products?.price === 0 ? 'Free' : `${formatRupiah(`${item?.products?.price}`)},-`}</b></p>
+                          <div className='flex justify-between'>
+                          <p className='text-lg font-semibold'>{item?.product?.title}</p>
+                          {item.status_bayar === 'Belum Bayar' ? (
+                            <p className='py-1 text-white rounded-md px-2 bg-red-600'>{item.status_bayar}</p>
+                            ):(
+                              <>
+                              <p className='py-1 text-white rounded-md px-2 bg-green-600'>{item.status_bayar}</p>
+                              </>
+                            )}
+                          </div>
+                          <p>total produk: {item.totalProduct}</p>
+                          <p>Harga : <b className='text-red-600'>{item.totalPrice === null || item.totalPrice === 0 ? 'Free' : `${formatRupiah(`${item.totalPrice}`)},-`}</b></p>
                           <p>{item?.products?.title}</p>
+                          <p><b>Alamat Pengiriman:</b> {item.alamat_pengiriman} </p>
                         </div>
                       </div>
                       <ButtonPrimary name={'Bayar Sekarang'} onClick={openModal} classname={'px-3 p-2 rounded-xl'}
                       />
                     </div>
                   </div>
-                  <OrderCreate isOpen={isModalOpen} onClose={closeModal}>
+                  {/* <OrderCreate isOpen={isModalOpen} onClose={closeModal}>
                     <h2 className="text-xl font-semibold">Order Product</h2>
                     <img src={item?.products?.image} alt="product" />
                     <div>
@@ -225,12 +239,12 @@ const MyOrder = () => {
                         <ButtonPrimary classname={'p-4 w-2/5 mt-5'} onClick={process} name={"Lanjut Pemabayaran"} type='submit'></ButtonPrimary>
                       </div>
                     </form>
-                  </OrderCreate>
+                  </OrderCreate> */}
                 </>
               ))}
             </div>
           </>
-        )} */}
+        )}
   
         {/* <OrderCreate isOpen={isModalOpen} onClose={closeModal}>
           <h2 className="text-xl font-semibold">Order Product</h2>
