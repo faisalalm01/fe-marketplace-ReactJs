@@ -202,9 +202,16 @@ const MyOrder = () => {
                           {item.status_bayar === 'Belum Bayar' ? (
                             <p className='py-1 text-red-600 rounded-md px-2 text-sm bg-red-300'>{item.status_bayar}</p>
                             ):(
-                              <>
+                              <div className='flex flex-row gap-2'>
+                                {item.status_kirim === 'belum Dikirim' ? (
+                                  <p className='py-1 text-red-600 rounded-md px-2 bg-red-300'>{item.status_kirim}</p>
+                                  ): (
+                                    <>
+                                    <p className='py-1 text-green-600 rounded-md px-2 bg-green-300'>{item.status_kirim}</p>           
+                                    </>
+                                  )}
                               <p className='py-1 text-green-600 rounded-md px-2 bg-green-300'>{item.status_bayar}</p>
-                              </>
+                              </div>
                             )}
                           </div>
                           <p>total produk: {item.totalProduct}</p>
