@@ -113,25 +113,31 @@ const Navbars = () => {
                     </svg>
                   </button>
 
-                  {cartItems && cartItems.length >= 0 ? (
                     <Link
                       to={"/user/carts"}
                       type="button"
                       data-dropdown-toggle="notification-dropdown"
                       className="p-2 mr-1 text-gray-400 rounded-lg hover:text-white hover:bg-orange-700 "
-                    >
+                      >
+                      {cartItems && cartItems.length > 0 ? (
+                        <>
                       {cartItems.map((item) => (
                         <div key={item.id}>
                           <div className="font-thin text-center my-auto bg-red-600 w-2.5 h-2.5 text-white absolute rounded-full text-[11px]">
-                            <p className="text-black text-9xl">{item.length}</p>
+                            {/* <p className="text-black text-9xl">{item.length}</p> */}
                           </div>
                         </div>
-                      ))}
+                          ))}
+                          </>
+                          ) : (
+                            <>
+                              <div>
+                                
+                              </div>
+                            </>
+                            )}
                       <FaShoppingCart className="w-6 h-5" />
                     </Link>
-                  ) : (
-                    <></>
-                  )}
                   <Link
                     to={"/user/profile"}
                     // onClick={toggleDropdown}

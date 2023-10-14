@@ -232,10 +232,10 @@ const ProductDetail = () => {
   console.log(token);
   return (
     <div>
-      <div className="w-full container mx-auto">
-        <div className="px-5 py-9 mx-32 bg-white mt-16 rounded-md shadow-xl">
+      <div className="w-full md:container md:mx-auto">
+        <div className="md:px-5 py-9 mx-2 md:mx-32 px-2 bg-white mt-16 rounded-md shadow-xl">
           {data.stock === null || data.stock <= 0 ? (
-            <div className="flex flex-wrap rounded-md w-full bg-red-600 text-white justify-center item-center text-center font-bold text-xl py-3 gap-3">
+            <div className="md:flex md:flex-wrap rounded-md w-full bg-red-600 text-white justify-center item-center text-center font-bold text-xl py-3 gap-3">
               <div className="my-auto">
                 <FiAlertCircle />
               </div>
@@ -244,25 +244,27 @@ const ProductDetail = () => {
           ) : (
             <div></div>
           )}
-          ;
-          <div className="flex flex-wrap gap-10">
-            <div className="w-5/12">
+          
+          <div className="md:flex md:flex-wrap gap-10">
+            <div className="md:w-5/12 ">
               <img
                 className="w-full rounded-md shadow-xl"
                 src={data.image}
                 alt={`gambar-product-${data.title}`}
               />
-              <div className="mt-6 flex gap-2 w-full border">
+              <div className="mt-6 flex gap-2 w-full">
                 {Product.dataDetailProduct.userId === user?.id ? (
                   <>
                     <div></div>
                   </>
                 ) : (
                   <>
-                    {token === 'null' ? (
-                      <>
-                        <p>Login Dahulu sebelum order</p>
-                      </>
+                  
+                  <div className="hidden md:flex w-full">
+                    {token === null ? (
+                      <div>
+                        <p className="font-bold text-xl md:text-2xl text-red-500">Login Dahulu sebelum order</p>
+                      </div>
                     ): (
                       <> 
                     <ButtonSecondary
@@ -285,14 +287,15 @@ const ProductDetail = () => {
                       />
                       </>
                     )}
+                  </div>
                   </>
                 )}
               </div>
             </div>
-            <div className="w-6/12">
+            <div className="md:w-6/12 mx-2">
               <div className="flex w-full">
-                <h1 className="text-4xl font-semibold w-4/5">{data.title}</h1>
-                <p className="w-1/5 mt-3">
+                <h1 className="text-lg w-full md:text-4xl font-semibold md:w-4/5">{data.title}</h1>
+                <p className="w-2/5 text-sm md:text-lg md:w-1/5 mt-1">
                   <i className="font-semibold">Tersisa : </i>
                   {data.stock === null || data.stock <= 0 ? (
                     <>
@@ -306,10 +309,10 @@ const ProductDetail = () => {
                 </p>
               </div>
               <div className="space-y-4 text-lg mt-5">
-                <p>
+                {/* <div>
                   <b>Kategori : </b>
                   {data?.kategoris?.nama}
-                </p>
+                </div> */}
                 <div className="flex font-semibold gap-2">
                   Harga :
                   <p className="text-red-600">
@@ -323,42 +326,79 @@ const ProductDetail = () => {
                   <p>{data.description}</p>
                 </div>
               </div>
+              {Product.dataDetailProduct.userId === user?.id ? (
+                  <>
+                    <div></div>
+                  </>
+                ) : (
+                  <>
+                  
+                  <div className="flex mt-5 md:hidden w-full">
+                    {token === null ? (
+                      <div>
+                        <p className="font-bold text-xl md:text-2xl text-red-500">Login Dahulu sebelum order</p>
+                      </div>
+                    ): (
+                      <> 
+                    <ButtonSecondary
+                      disable={
+                        data.stock === null || data.stock <= 0 ? true : false
+                      }
+                      name={"Masukkan Keranjang"}
+                      classname={
+                        "w-7/12 bg-purple-800 px-10 py-2 text-white font-semibold hover:text-purple-800 hover:bg-white"
+                      }
+                      onClick={handleAddToCart}
+                    />
+                    <ButtonPrimary
+                      disabled={
+                        data.stock === null || data.stock <= 0 ? true : false
+                      }
+                      name={"Buy"}
+                      classname={"px-10 py-2 w-full"}
+                      onClick={openModal}
+                      />
+                      </>
+                    )}
+                  </div>
+                  </>
+                )}
             </div>
           </div>
         </div>
 
-        <div className="mb-28 flex flex-wrap mx-32 h-32 bg-white mt-16 rounded-md shadow-2xl">
-          <div className="w-6/12 my-auto flex">
-            <div className="border-r-2 border-gray-500 flex px-8">
-              <div className="mr-8">
+        <div className="md:mb-28 md:flex md:flex-wrap mx-2 md:mx-32 h-32 bg-white mt-16 rounded-md shadow-2xl">
+          <div className="flex">
+            <div className="border-r-2 border-gray-500 flex md:px-8 px-3 md:my-2">
+              <div className="md:mr-8 mr-4 my-auto">
                 <img
-                  className="border border-gray-300 rounded-full h-24 w-24"
+                  className="border border-gray-300 rounded-full h-20 w-20 object-cover"
                   src={data?.market?.logo}
                   alt=""
                 />
               </div>
-              <div>
-                <p className="text-xl font-semibold my-2">
+              <div className="my-auto">
+                <p className="text-xs md:text-xl font-semibold">
                   {data?.market?.nama}
                 </p>
                 <ButtonSecondary
                   name={"Kunjungi Toko"}
                   classname={
-                    "text-purple-800 px-6 text-sm py-2 hover:text-white hover:bg-purple-800"
+                    "text-purple-800 px-6 text-xs md:text-sm py-2 hover:text-white hover:bg-purple-800"
                   }
                   onClick={() => navigate(`/market/detail/${data?.market?.id}`)}
                 />
               </div>
             </div>
             {/* <div className=''> */}
-            <div className="text-center mx-auto my-auto text-gray-500">
+            <div className="text-center w-2/5 max-sm:text-sm my-auto text-gray-500 md:w-3/12 ">
               <p>Total Product :</p>
-              <p className="text-xl font-serif">{data.totalProduct}</p>
+              <p className="text-lg md:text-xl font-serif">{data.totalProduct}</p>
             </div>
           </div>
-          <div className="w-6/12 h-full ml-auto">
+          <div className="w-5/12 h-full ml-auto ">
             <img
-              className="object-cover h-full w-full"
+              className="object-cover h-full w-full hidden md:block"
               src={data.image}
               alt=""
             />

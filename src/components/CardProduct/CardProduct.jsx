@@ -5,14 +5,14 @@ import ButtonPriamry from '../Button/Primary'
 const CardProduct = ({ id, image, title, description, price, onClick }) => {
     return (
         <>
-            <div className='w-56 max-lg:w-1/4 xl:w-1/5 max-md:w-1/3 max-sm:w-1/3 shadow-xl rounded-md bg-white' key={id}>
-                <div className='p-1.5 h-560'>
-                    <img className='w-full h-52 bg-gray-500 rounded-md' src={image} alt="gambar-product" />
+            <div className='bg-white shadow-lg bg-inherit border-gray-300 rounded-md dark:border-gray-600 lg:flex lg:flex-wrap overflow-hidden hover:shadow-2xl ' key={id}>
+                <div className='h-560 px-2 w-full'>
+                    <img className='w-full lg:h-52 h-40 bg-gray-500 rounded-md object-cover' src={image} alt="gambar-product" />
                 </div>
-                <div className='lg:px-5 sm:px-2'>
-                    <h1 className='text-xl font-semibold'>{title}</h1>
-                    <p className='text-gray-500 font-thin text-sm mt-2 mb-5 h-16'>{description}....</p>
-                    <div className='flex flex-wrap justify-between my-5'>
+                <div className='lg:px-5 px-2'>
+                    <h1 className='lg:text-xl text-sm font-semibold'>{title}</h1>
+                    <p className='text-gray-500 font-thin text-xs md:text-sm mt-2 mb-5 h-16'>{description}....</p>
+                    <div className='flex LG:flex-wrap flex-wrap-reverse justify-between my-5'>
                         <ButtonPriamry onClick={onClick} classname={'max-lg:w-3/5 xl:py-2 px-8 xl:w-3/6'} name={'Detail'} />
                         <p className='my-auto text-sm font-medium text-right w-3/6'>{price}</p>
                     </div>

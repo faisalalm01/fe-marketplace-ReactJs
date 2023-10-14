@@ -31,7 +31,7 @@ const MarketDetail = () => {
                 {/* <img src={data?.product?.[0].image} className='w-full h-52 object-cover' alt="" /> */}
                 <div className='flex flex-wrap py-6'>
                     <div className='w-3/12 border-r-2 border-gray-400 flex ml-10'>
-                        <img className='rounded-full w-20 h-20 border border-gray-600 mr-7' src={data.logo} alt="" />
+                        <img className='rounded-full w-20 h-20 border mr-7 object-cover' src={data.logo} alt="" />
                         <div className='my-auto space-y-1'>
                             <h1 className='text-xl font-semibold'>{data.nama}</h1>
                             <p className='text-lg text-gray-500 font-serif'>Total Produk : {data?.product?.length}</p>

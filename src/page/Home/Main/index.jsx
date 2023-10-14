@@ -36,7 +36,7 @@ const Main = () => {
             <p className='mt-5 md:px-36 sm:px-4 lg:px-56 xl:px-56'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Laborum nemo molestiae, tenetur eaque, quod sequi quisquam quidem perspiciatis enim dolore nisi repellendus vitae amet sapiente recusandae. Blanditiis nisi sint dignissimos?</p>
           </div> */}
       </header>
-      <main className='mx-auto container pt-20'>
+      <main className='md:mx-auto md:container pt-20'>
 
         <div className='mt-20 mb-5'>
           <p className='font-semibold text-2xl text-center'>Tentang JRM (Jejak Rempah Marketplace)</p>
@@ -52,19 +52,19 @@ const Main = () => {
 
         <p className='font-semibold text-2xl'>Titik Simpul Rempah</p>
         <hr className='border-1 rounded-xl my-4' />
-        <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
+        <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-4 mx-2">
           {simpul && simpul.map((item) => (
             <Link 
             key={item.id}
             to={`simpulrempah/detail/${item.id}`}
             // onClick={() => navigate(`/simpulrempah/detail/${item.id}`)}
-             className="bg-white shadow-lg bg-inherit border-gray-300 rounded-md dark:border-gray-600 flex flex-wrap overflow-hidden hover:shadow-2xl">
-              <div className='w-2/5' key={item.id}>
+             className="bg-white shadow-lg bg-inherit border-gray-300 rounded-md dark:border-gray-600 lg:flex lg:flex-wrap overflow-hidden hover:shadow-2xl">
+              <div className='md:w-2/5' key={item.id}>
                 <img src={item.logo} alt="" className='object-cover h-full' />
               </div>
-              <div className='w-3/5 p-3'>
-                <p className='text-sm font-bold mb-2'>{item.nama}</p>
-                <p className='text-sm'>{item.alamat.slice(0, 60)}</p>
+              <div className='md:w-3/5 p-3'>
+                <p className='text-sm md:text-sm font-bold mb-2'>{item.nama}</p>
+                <p className='text-xs md:text-sm'>{item.alamat.slice(0, 60)}</p>
               </div>
             </Link>
           ))}
@@ -77,8 +77,8 @@ const Main = () => {
           <Market />
         </div> */}
         <div className='mt-16'>
-          <p className=' font-semibold text-2xl'>Produk Terbaru</p>
-          <hr className='border-1 mx-44 rounded-xl mt-4' />
+          <p className='font-semibold text-2xl'>Produk Terbaru</p>
+          <hr className='border-1 rounded-xl mt-4' />
           <Product />
         </div>
       </main>
