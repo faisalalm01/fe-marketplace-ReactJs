@@ -30,14 +30,14 @@ const MarketDetail = () => {
             <div className='bg-white mt-16 mx-auto container rounded-lg shadow-xl'>
                 {/* <img src={data?.product?.[0].image} className='w-full h-52 object-cover' alt="" /> */}
                 <div className='flex flex-wrap py-6'>
-                    <div className='w-3/12 border-r-2 border-gray-400 flex ml-10'>
+                    <div className='md:w-3/12 md:border-r-2 border-gray-400 flex ml-10 pr-3'>
                         <img className='rounded-full w-20 h-20 border mr-7 object-cover' src={data.logo} alt="" />
                         <div className='my-auto space-y-1'>
                             <h1 className='text-xl font-semibold'>{data.nama}</h1>
                             <p className='text-lg text-gray-500 font-serif'>Total Produk : {data?.product?.length}</p>
                         </div>
                     </div>
-                    <div className='w-8/12 my-auto mx-auto pr-6'>
+                    <div className='md:w-8/12 md:my-auto mx-4 mt-6 md:mx-auto'>
                         <p>{data.deskripsi}</p>
                     </div>
                 </div>
@@ -47,7 +47,7 @@ const MarketDetail = () => {
                 <h1 className='text-2xl font-semibold'>Semua Product</h1>
             </div>
 
-            <div className='flex mb-32 container mx-auto flex-wrap justify-center gap-5 md:gap-5 max-sm:gap-4'>
+            <div className='md:gap-5 mx-1 md:mx-auto grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-2 mb-4 py-10 md:container'>
                 {data?.product?.map((item, i) => (
                     <CardProduct
                         key={i}

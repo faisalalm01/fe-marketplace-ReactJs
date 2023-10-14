@@ -174,18 +174,18 @@ const MyOrder = () => {
                 <>
                   <div
                     key={item.id}
-                    className="rounded-lg bg-white shadow-xl p-3"
+                    className="rounded-lg bg-white shadow-xl p-3 max-sm:mx-3"
                   >
                     <div>
-                      <div className="flex flex-row mb-2 space-x-3">
+                      <div className="md:flex flex-row mb-2 space-x-3">
                         <div>
                           <img
                             src={item?.product?.image}
                             alt=""
-                            className="w-52 rounded-lg"
+                            className=" md:w-52 rounded-lg"
                           />
                         </div>
-                        <div className="space-y-1">
+                        <div className="max-sm:mt-5 space-y-1">
                           <div className="flex justify-between">
                             <p className="text-lg font-semibold">
                               {item?.product?.title}

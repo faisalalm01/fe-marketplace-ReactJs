@@ -223,7 +223,7 @@ const CartList = () => {
                           <img
                             src={item?.products?.image}
                             alt=""
-                            className="w-32 rounded-lg"
+                            className="w-32 h-32 object-cover rounded-lg"
                           />
                         </div>
                         <div className="space-y-1">
