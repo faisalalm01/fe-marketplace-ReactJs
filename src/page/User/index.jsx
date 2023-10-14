@@ -111,7 +111,7 @@ const UserProfile = () => {
           <div className="col-6"> */}
 
       {user ? (
-        <div className="container px-32 lg:w-full mx-auto">
+        <div className="container px-2 lg:px-32  w-full mx-auto">
           {isEditing ? (
             <>
               <div className=" flex flex-col min-w-0 break-words bg-white text-black w-full mb-6 shadow-xl rounded-lg mt-16 p-9">
@@ -321,7 +321,7 @@ const UserProfile = () => {
                       </label>
                     </div>
                   </div>
-                  <div className="space-x-2">
+                  <div className="flex gap-2">
                     <button
                       onClick={handleSaveClick}
                       type="submit"
@@ -440,7 +440,7 @@ const UserProfile = () => {
                         <div className="font-semibold text-xl">
                           Alamat Pengiriman :
                         </div>
-                        <p className="mb-4 text-xl leading-relaxed text-blueGray-700">
+                        <p className="mb-4 text-sm lg:text-xl leading-relaxed text-blueGray-700">
                           {user.address}, {""}
                           {user.kecamatan}, {""}
                           {user.kota}, {""}
