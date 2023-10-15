@@ -252,8 +252,8 @@ const AddProduct = () => {
                               <th class="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100 rounded-tl rounded-bl">image</th>
                               <th class="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100">Nama Produk</th>
                               <th class="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100">Harga Produk</th>
-                              <th class="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100">Stok</th>
                               <th class="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100">Deskripsi Produk</th>
+                              <th class="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100">Stok</th>
                               <th class="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100">CreatedAt</th>
                               <th class="w-10 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100 rounded-tr rounded-br"></th>
                             </tr>
@@ -265,7 +265,7 @@ const AddProduct = () => {
                               <td><img src={item.image} alt="" className='w-20' /></td>
                               <td>{item.title}</td>
                               <td>{item.price}</td>
-                              <td>{item.description}</td>
+                              <td className='text-sm'>{item.description.slice(0,100)}...</td>
                               <td>{item.stock }</td>
                               <td>{item.createdAt}</td>
                             </tr>

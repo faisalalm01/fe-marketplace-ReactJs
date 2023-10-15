@@ -126,7 +126,7 @@ const Register = () => {
               />
               </div>
               <div>
-              <label htmlFor="country" className="block text-sm font-medium leading-6 text-gray-900">Pilih simpul rempah terdekat mu :</label>
+              <label htmlFor="country" className="block text-sm font-medium leading-6 text-gray-900">Pilih simpul rempah terdekat mu : <b>(Optional)</b></label>
                   <div className="mt-2">
                     <select
                       name="simpulrempahId"

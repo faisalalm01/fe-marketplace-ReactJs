@@ -259,7 +259,7 @@ const AddMarket = () => {
                             {markets && markets.dataMarket.map((item) => (
                             <>
                             <tr>
-                              <td><img src={item.logo} alt="" className='p-5'/></td>
+                              <td><img src={item.logo} alt="" className='p-3 w-40'/></td>
                               <td>{item.nama}</td>
                               <td>{item.deskripsi}</td>
                               <td>{item.createdAt}</td>

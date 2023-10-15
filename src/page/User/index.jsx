@@ -100,7 +100,7 @@ const UserProfile = () => {
     // Misalnya, mengarahkan pengguna kembali ke halaman login atau beranda
     window.location.href = "/";
   }
-  console.log(user);
+  console.log(simpul);
   return (
     <>
       {/* <div className="container">
