@@ -97,6 +97,7 @@ const MyOrder = () => {
   useEffect(() => {
     // production use : 'https://app.midtrans.com/snap/snap.js'
     const midtransUrl = "https://app.sandbox.midtrans.com/snap/snap.js";
+    // const midtransUrl = 'https://app.midtrans.com/snap/snap.js'
     let scriptTag = document.createElement("script");
     scriptTag.src = midtransUrl;
 
@@ -122,34 +123,6 @@ const MyOrder = () => {
         console.error("Gagal mengambil data order:", error);
       });
   }, []);
-
-  // const handleAddToOrder = () => {
-  //   const headers = {
-  //     'access_token': `Bearer ${token}`,
-  //   };
-
-  //   const productData = {
-  //     userId: user.id,
-  //     productId: Product.dataDetailProduct.id,
-  //     totalProduct: orderData.totalProduct
-  //   };
-
-  //   axios.post(import.meta.env.VITE_BASE_URL + 'user/order', productData, { headers })
-  //     .then((response) => {
-  //       if (response.status === 200) {
-  //         setOrderData(response.data.data);
-  //         navigate('/product/detail/' + productId)
-  //         // window.location.href = window.location.href;
-  //       } else if (response.status === 401 || user.id === null) {
-  //         navigate('/login')
-  //       } else {
-  //         window.location.href = window.location.href;
-  //       }
-  //     })
-  //     .catch((error) => {
-  //       console.error('Gagal menambahkan produk ke order:', error);
-  //     });
-  // };
 
   const openModal = () => {
     setModalOpen(true);
@@ -241,58 +214,11 @@ const MyOrder = () => {
                       )}
                     </div>
                   </div>
-                  {/* <OrderCreate isOpen={isModalOpen} onClose={closeModal}>
-                    <h2 className="text-xl font-semibold">Order Product</h2>
-                    <img src={item?.products?.image} alt="product" />
-                    <div>
-                      <div className='flex flex-wrap'>
-                        <p className='w-9/12 text-2xl font-bold py-2'>{item?.products?.title}</p>
-                        <p className='w-3/12 mt-3'><i className='font-semibold'>Tersisa : </i>{item?.products?.stock}</p>
-                      </div>
-                      <p>Harga : <b className='text-red-600'>{item?.products?.price === null || item?.products?.price === 0 ? 'Free' : `${formatRupiah(`${item?.products?.price}`)},-`}</b></p>
-                      <p className='py-2 font-normal'>{item?.products?.description}</p>
-                    </div>
-                    <form onSubmit={handleAddToOrder}>
-                      <label htmlFor="">Jumlah : </label>
-                      <input className='border border-gray-500 rounded-lg px-2 w-1/5 mx-a' type="number"
-                        value={orderData.totalProduct}
-                        onChange={(e) => setOrderData({ ...orderData, totalProduct: e.target.value })}
-                      />
-                      <div className='flex flex-wrap gap-5 justify-center'>
-                        <ButtonSecondary type='submit' name={'Bayar Nanti'} onClick={handleAddToOrder} classname={'w-2/5 mt-5 hover:bg-blue-800 hover:text-white font-semibold'} />
-                        <ButtonPrimary classname={'p-4 w-2/5 mt-5'} onClick={process} name={"Lanjut Pemabayaran"} type='submit'></ButtonPrimary>
-                      </div>
-                    </form>
-                  </OrderCreate> */}
                 </>
               ))}
           </div>
         </>
       )}
-
-      {/* <OrderCreate isOpen={isModalOpen} onClose={closeModal}>
-          <h2 className="text-xl font-semibold">Order Product</h2>
-          <img src={data.image} alt="product" />
-          <div>
-            <div className='flex flex-wrap'>
-              <p className='w-9/12 text-2xl font-bold py-2'>{data.title}</p>
-              <p className='w-3/12 mt-3'><i className='font-semibold'>Tersisa : </i>{data.stock}</p>
-            </div>
-            <p>Harga : <b className='text-red-600'>{data.price === null || data.price === 0 ? 'Free' : `${formatRupiah(`${data.price}`)},-`}</b></p>
-            <p className='py-2 font-normal'>{data.description}</p>
-          </div>
-          <form onSubmit={handleAddToOrder}>
-            <label htmlFor="">Jumlah : </label>
-            <input className='border border-gray-500 rounded-lg px-2 w-1/5 mx-a' type="number"
-              value={orderData.totalProduct}
-              onChange={(e) => setOrderData({ ...orderData, totalProduct: e.target.value })}
-            />
-            <div className='flex flex-wrap gap-5 justify-center'>
-              <ButtonSecondary type='submit' name={'Bayar Nanti'} onClick={handleAddToOrder} classname={'w-2/5 mt-5 hover:bg-blue-800 hover:text-white font-semibold'} />
-              <ButtonPrimary classname={'p-4 w-2/5 mt-5'} onClick={process} name={"Lanjut Pemabayaran"} type='submit'></ButtonPrimary>
-            </div>
-          </form>
-        </OrderCreate> */}
     </div>
   );
 };
