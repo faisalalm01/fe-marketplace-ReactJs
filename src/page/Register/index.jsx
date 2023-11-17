@@ -59,9 +59,9 @@ const Register = () => {
   }, []);
   return (
     <>
-      <div className="relative flex flex-col justify-center min-h-screen overflow-hidden">
+      <div className="relative flex flex-col justify-center min-h-screen overflow-hidden max-lg:py-10 max-lg:px-3">
         <div className="w-full p-6 m-auto bg-white rounded-md shadow-md lg:max-w-xl">
-          <h1 className="text-3xl font-semibold text-center text-purple-700 underline">
+          <h1 className="text-3xl font-semibold text-center text-orange-700 underline">
             Sign up
           </h1>
           <form className="mt-6" onSubmit={handleSubmit}>
@@ -77,7 +77,7 @@ const Register = () => {
                 onChange={handleInputChange}
                 name='firstname'
                 type="firstname"
-                className="block w-full px-4 py-2 mt-2 text-purple-700 bg-white border rounded-md focus:border-purple-400 focus:ring-purple-300 focus:outline-none focus:ring focus:ring-opacity-40"
+                className="block w-full px-4 py-2 mt-2 text-orange-700 bg-white border rounded-md focus:border-orange-400 focus:ring-orange-300 focus:outline-none focus:ring focus:ring-opacity-40"
               />
             </div>
             <div className="mb-2">
@@ -92,7 +92,7 @@ const Register = () => {
                 name='lastname'
                 onChange={handleInputChange}
                 type="lastname"
-                className="block w-full px-4 py-2 mt-2 text-purple-700 bg-white border rounded-md focus:border-purple-400 focus:ring-purple-300 focus:outline-none focus:ring focus:ring-opacity-40"
+                className="block w-full px-4 py-2 mt-2 text-orange-700 bg-white border rounded-md focus:border-orange-400 focus:ring-orange-300 focus:outline-none focus:ring focus:ring-opacity-40"
               />
             </div>
             <div className="mb-2">
@@ -107,7 +107,7 @@ const Register = () => {
                 name='email'
                 onChange={handleInputChange}
                 type="email"
-                className="block w-full px-4 py-2 mt-2 text-purple-700 bg-white border rounded-md focus:border-purple-400 focus:ring-purple-300 focus:outline-none focus:ring focus:ring-opacity-40"
+                className="block w-full px-4 py-2 mt-2 text-orange-700 bg-white border rounded-md focus:border-orange-400 focus:ring-orange-300 focus:outline-none focus:ring focus:ring-opacity-40"
               />
             </div>
             <div className="mb-2">
@@ -122,7 +122,7 @@ const Register = () => {
                 name='password'
                 onChange={handleInputChange}
                 type="password"
-                className="block w-full px-4 py-2 mt-2 text-purple-700 bg-white border rounded-md focus:border-purple-400 focus:ring-purple-300 focus:outline-none focus:ring focus:ring-opacity-40"
+                className="block w-full px-4 py-2 mt-2 text-orange-700 bg-white border rounded-md focus:border-orange-400 focus:ring-orange-300 focus:outline-none focus:ring focus:ring-opacity-40"
               />
               </div>
               <div>
@@ -156,7 +156,7 @@ const Register = () => {
                     name='provinsi'
                     onChange={handleInputChange}
                     type="provinsi"
-                    className="block w-full px-4 py-2 mt-2 text-purple-700 bg-white border rounded-md focus:border-purple-400 focus:ring-purple-300 focus:outline-none focus:ring focus:ring-opacity-40"
+                    className="block w-full px-4 py-2 mt-2 text-orange-700 bg-white border rounded-md focus:border-orange-400 focus:ring-orange-300 focus:outline-none focus:ring focus:ring-opacity-40"
                   />
                 </div>
                 <div className="mb-2 w-6/12">
@@ -171,7 +171,7 @@ const Register = () => {
                     name='kota'
                     onChange={handleInputChange}
                     type="kota"
-                    className="block w-full px-4 py-2 mt-2 text-purple-700 bg-white border rounded-md focus:border-purple-400 focus:ring-purple-300 focus:outline-none focus:ring focus:ring-opacity-40"
+                    className="block w-full px-4 py-2 mt-2 text-orange-700 bg-white border rounded-md focus:border-orange-400 focus:ring-orange-300 focus:outline-none focus:ring focus:ring-opacity-40"
                   />
                 </div>
               </div>
@@ -189,7 +189,7 @@ const Register = () => {
                     name='kecamatan'
                     onChange={handleInputChange}
                     type="kecamatan"
-                    className="block w-full px-4 py-2 mt-2 text-purple-700 bg-white border rounded-md focus:border-purple-400 focus:ring-purple-300 focus:outline-none focus:ring focus:ring-opacity-40"
+                    className="block w-full px-4 py-2 mt-2 text-orange-700 bg-white border rounded-md focus:border-orange-400 focus:ring-orange-300 focus:outline-none focus:ring focus:ring-opacity-40"
                   />
                 </div>
 
@@ -205,7 +205,7 @@ const Register = () => {
                     name='kode_pos'
                     onChange={handleInputChange}
                     type="kode_pos"
-                    className="block w-full px-4 py-2 mt-2 text-purple-700 bg-white border rounded-md focus:border-purple-400 focus:ring-purple-300 focus:outline-none focus:ring focus:ring-opacity-40"
+                    className="block w-full px-4 py-2 mt-2 text-orange-700 bg-white border rounded-md focus:border-orange-400 focus:ring-orange-300 focus:outline-none focus:ring focus:ring-opacity-40"
                   />
                 </div>
                 </div>
@@ -214,7 +214,7 @@ const Register = () => {
                 <label for="about" class="block text-sm font-medium leading-6 text-gray-900">Alamat Lengkap</label>
                 <div class="mt-2">
                   <textarea
-                    placeholder='Jalan in aja dulu'
+                    placeholder='Alamat Lengkap ...'
                     name="address"
                     value={formData.address}
                     onChange={handleInputChange} rows="5" class=" p-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" required></textarea>
@@ -222,7 +222,7 @@ const Register = () => {
               </div>
 
             <div className="mt-6">
-              <button className="w-full px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-purple-700 rounded-md hover:bg-purple-600 focus:outline-none focus:bg-purple-600">
+              <button className="w-full px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-orange-700 rounded-md hover:bg-orange-600 focus:outline-none focus:bg-orange-600">
                 Register
               </button>
             </div>
@@ -234,7 +234,7 @@ const Register = () => {
             <a
               onClick={() => navigate('/login')}
               href="#"
-              className="font-medium text-purple-600 hover:underline"
+              className="font-medium text-orange-600 hover:underline"
             >
               Sign in
             </a>

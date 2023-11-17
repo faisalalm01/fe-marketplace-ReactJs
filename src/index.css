@@ -10,3 +10,37 @@
     font-family: 'Poppins', sans-serif;
   }
 }
+
+/* ButtonDropdown.css */
+.button-dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-button {
+  background-color: #fff;
+  border: none;
+  padding: 8px;
+  cursor: pointer;
+}
+
+.dropdown-content {
+  display: block;
+  position: absolute;
+  background-color: #fff;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+}
+
+.dropdown-content p {
+  /* color: #333; */
+  padding: 8px;
+  margin: 0;
+  text-decoration: none;
+  display: block;
+  cursor: pointer;
+}
+
+/* .dropdown-content p:hover {
+  background-color: #f1f1f1;
+} */

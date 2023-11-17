@@ -406,10 +406,10 @@ const UserProfile = () => {
                           className="px-3 py-2 rounded-lg bg-yellow-500 text-white hover:bg-yellow-700 hover:text-white my-2"
                           onClick={() => navigate("/admin/dashboard")}
                         >
-                          Sebagai Penjual
+                          Masuk Ke Dashboard
                         </button>
                       </>
-                    ) : (
+                    ) : ( 
                       <>
                         {user.simpulrempahId === null ? (
                           <div className="text-center">
@@ -427,7 +427,7 @@ const UserProfile = () => {
                               className="px-3 py-2 rounded-lg bg-yellow-500 text-white hover:bg-yellow-700 hover:text-white my-2"
                               onClick={() => navigate("/admin/dashboard")}
                             >
-                              Sebagai Penjual
+                              Dashboad Penjual
                             </button>
                           </>
                         )}

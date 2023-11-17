@@ -25,7 +25,6 @@ const Main = () => {
   }, []);
 
   const navigate = useNavigate();
-  console.log(simpul);
   return (
     <>
     <div className='mx-auto mt-16'>
